@@ -1,13 +1,18 @@
-import { Container, Overlay, Content } from "@/components/Hero/styles"
+'use client';
 
-export default function Hero() {
+import * as S from './styles';
+
+const Hero = () => {
   return (
-    <Container>
-      <Overlay />
-      <Content>
-        <h2>Móveis planejados com excelência</h2>
-        <p>Transformamos seus ambientes em espaços únicos e sofisticados.</p>
-      </Content>
-    </Container>
+    <S.HeroWrapper>
+      {/* Adicione uma imagem de fundo via styled-components ou <img> se preferir */}
+      <S.HeroContent>
+        <S.Title>Móveis Planejados com Primor e Qualidade</S.Title>
+        <S.Subtitle>Transformamos seus sonhos em ambientes únicos e funcionais.</S.Subtitle>
+        <S.CtaButton href="/contato">Solicite um Orçamento</S.CtaButton>
+      </S.HeroContent>
+    </S.HeroWrapper>
   );
-}
+};
+
+export default Hero;

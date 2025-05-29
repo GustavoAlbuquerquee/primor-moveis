@@ -1,33 +1,28 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+// src/app/layout.tsx
 import StyledComponentsRegistry from '@/lib/registry';
-import Providers from './providers';
+import  Providers  from './providers';
+import Header from '@/components/Header'; // Importe o Header
+import Footer from '@/components/Footer'; // Importe o Footer
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
-
-export const metadata: Metadata = {
-  title: 'Primor Móveis Planejados',
-  description: 'Marcenaria especializada em móveis planejados sob medida.',
+export const metadata = {
+  title: 'Primor Móveis - Marcenaria de Excelência',
+  description: 'Móveis planejados com design e qualidade.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="pt-BR">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <StyledComponentsRegistry>
-          <Providers>{children}</Providers>
+          <Providers>
+            <Header /> {/* Header aqui */}
+            {children}
+            <Footer /> {/* Footer aqui */}
+          </Providers>
         </StyledComponentsRegistry>
       </body>
     </html>

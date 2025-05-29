@@ -1,15 +1,23 @@
-import { Container } from '@/components/Header/styles';
+'use client';
 
-export default function Header() {
+import Link from 'next/link';
+import * as S from './styles';
+
+const Header = () => {
   return (
-    <Container>
-      <h1>Primor Móveis</h1>
-      <nav>
-        <a href="#about">Sobre</a>
-        <a href="#projects">Projetos</a>
-        <a href="#testimonials">Avaliações</a>
-        <a href="#contact">Contato</a>
-      </nav>
-    </Container>
+    <S.HeaderWrapper>
+      <S.LogoContainer href="/">
+        {/* Você pode usar uma tag <img> aqui para seu logo */}
+        Primor Móveis
+      </S.LogoContainer>
+      <S.Nav>
+        <S.NavLink href="/">Início</S.NavLink>
+        <S.NavLink href="/sobre">Sobre Nós</S.NavLink>
+        <S.NavLink href="/projetos">Projetos</S.NavLink>
+        <S.NavLink href="/contato">Contato</S.NavLink>
+      </S.Nav>
+    </S.HeaderWrapper>
   );
-}
+};
+
+export default Header;
