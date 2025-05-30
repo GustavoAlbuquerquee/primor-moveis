@@ -1,30 +1,27 @@
 'use client';
-
-import { useEffect } from 'react';
+// (Mantenha os imports e o componente como estava, apenas envolva com NavContainer)
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import * as S from './styles';
+// import { usePathname } from 'next/navigation'; // Para links ativos
 
 const Header = () => {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    // Ensure consistent hydration by logging the current path
-    console.log('Current path:', pathname);
-  }, [pathname]);
+  // const pathname = usePathname(); // Para links ativos
 
   return (
     <S.HeaderWrapper>
-      <S.LogoContainer href="/">
-        {/* Static content for logo */}
-        Primor Móveis
-      </S.LogoContainer>
-      <S.Nav>
-        <S.NavLink href="/">Início</S.NavLink>
-        <S.NavLink href="/sobre">Sobre Nós</S.NavLink>
-        <S.NavLink href="/projetos">Projetos</S.NavLink>
-        <S.NavLink href="/contato">Contato</S.NavLink>
-      </S.Nav>
+      <S.NavContainer> {/* Adicionado este container */}
+        <S.LogoContainer href="/">
+          Primor Móveis
+        </S.LogoContainer>
+        <S.Nav>
+          {/* Adicione className={pathname === '/' ? 'active' : ''} para links ativos */}
+          <S.NavLink href="/">Início</S.NavLink>
+          <S.NavLink href="/sobre">Sobre Nós</S.NavLink>
+          <S.NavLink href="/projetos">Projetos</S.NavLink>
+          <S.NavLink href="/contato">Contato</S.NavLink>
+        </S.Nav>
+        {/* <S.MobileMenuButton>☰</S.MobileMenuButton> */} {/* Se for implementar menu mobile */}
+      </S.NavContainer>
     </S.HeaderWrapper>
   );
 };
