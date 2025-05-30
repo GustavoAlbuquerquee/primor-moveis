@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import StyledComponentsRegistry from '@/lib/registry';
-import  Providers  from './providers';
+import { Providers } from './providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
