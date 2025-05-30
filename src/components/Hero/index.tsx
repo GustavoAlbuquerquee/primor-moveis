@@ -5,7 +5,7 @@ import * as S from './styles';
 const Hero = () => {
   return (
     <S.HeroWrapper>
-      {/* Adicione uma imagem de fundo via styled-components ou <img> se preferir */}
+      {/* A imagem agora é o fundo do HeroWrapper, então não precisa da tag img aqui */}
       <S.HeroContent>
         <S.Title>Móveis Planejados com Primor e Qualidade</S.Title>
         <S.Subtitle>Transformamos seus sonhos em ambientes únicos e funcionais.</S.Subtitle>
