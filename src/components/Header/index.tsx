@@ -1,13 +1,22 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import * as S from './styles';
 
 const Header = () => {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Ensure consistent hydration by logging the current path
+    console.log('Current path:', pathname);
+  }, [pathname]);
+
   return (
     <S.HeaderWrapper>
       <S.LogoContainer href="/">
-        {/* Você pode usar uma tag <img> aqui para seu logo */}
+        {/* Static content for logo */}
         Primor Móveis
       </S.LogoContainer>
       <S.Nav>

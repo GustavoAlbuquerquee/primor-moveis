@@ -1,8 +1,8 @@
 // src/app/layout.tsx
 import StyledComponentsRegistry from '@/lib/registry';
 import  Providers  from './providers';
-import Header from '@/components/Header'; // Importe o Header
-import Footer from '@/components/Footer'; // Importe o Footer
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export const metadata = {
   title: 'Primor Móveis - Marcenaria de Excelência',
@@ -19,9 +19,10 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <Providers>
-            <Header /> {/* Header aqui */}
+            {/* NENHUMA TAG <l> AQUI */}
+            <Header />
             {children}
-            <Footer /> {/* Footer aqui */}
+            <Footer />
           </Providers>
         </StyledComponentsRegistry>
       </body>
