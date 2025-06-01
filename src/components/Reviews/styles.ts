@@ -1,44 +1,45 @@
+// src/components/Reviews/styles.ts
 import styled from 'styled-components';
 
 export const ReviewsWrapper = styled.section`
-  padding: 4rem 2rem; /* Aumentei o padding vertical */
-  background-color: #f8f9fa; /* Um fundo levemente acinzentado para destacar os cards */
+  padding: 4rem 2rem;
+  background-color: ${({ theme }) => theme.colors.lightBackground}; // Off-white/Bege sutil
   text-align: center;
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: 2.4rem; /* Um pouco maior */
-  color: ${(props) => props.theme.colors?.primary || '#DAA520'};
-  margin-bottom: 3rem; /* Mais espaço abaixo do título */
+  font-size: 2.4rem;
+  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
+  margin-bottom: 3rem;
   position: relative;
   display: inline-block;
 
   &::after {
     content: '';
     display: block;
-    width: 70px; /* Barra um pouco maior */
-    height: 4px; /* Barra um pouco mais espessa */
-    background-color: ${(props) => props.theme.colors?.secondary || '#B8860B'};
+    width: 70px;
+    height: 4px;
+    background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
     margin: 0.75rem auto 0;
   }
 `;
 
 export const ReviewsContainer = styled.div`
-  display: grid; /* Usando grid para melhor controle */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsivo */
-  gap: 2rem; /* Espaço entre os cards */
-  max-width: 1200px; /* Aumentei a largura máxima */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
 export const ReviewCard = styled.div`
-  background-color: #fff;
-  border: 1px solid #e9ecef;
-  border-top: 5px solid ${(props) => props.theme.colors?.primary || '#DAA520'}; /* Borda superior colorida */
-  padding: 2rem; /* Mais padding interno */
-  border-radius: 12px; /* Bordas mais arredondadas */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra mais suave e moderna */
-  text-align: left; /* Alinhar texto à esquerda dentro do card */
+  background-color: ${({ theme }) => theme.colors.background}; // Branco
+  border: 1px solid ${({ theme }) => theme.colors.mediumGray};
+  border-top: 5px solid ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
+  padding: 2rem;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  text-align: left;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -59,8 +60,8 @@ export const AvatarPlaceholder = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: ${(props) => props.theme.colors?.secondary || '#B8860B'};
-  color: white;
+  background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
+  color: ${({ theme }) => theme.colors.textOnDark}; // Branco
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,39 +73,28 @@ export const AvatarPlaceholder = styled.div`
 export const ReviewAuthorName = styled.p`
   font-size: 1.1rem;
   font-weight: bold;
-  color: #343a40;
+  color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
   margin: 0;
 `;
 
 export const ReviewStars = styled.div`
-  color: #ffc107; /* Cor amarela para estrelas */
-  font-size: 1.1rem; /* Tamanho das estrelas */
+  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
+  font-size: 1.1rem;
   margin-top: 0.25rem;
 `;
 
 export const QuoteIcon = styled.div`
   font-size: 3rem;
-  color: ${(props) => props.theme.colors?.primary || '#DAA520'};
+  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
   line-height: 1;
   margin-bottom: 0.5rem;
-  /* Para um ícone de aspas mais estilizado, você pode usar um SVG ou uma fonte de ícones */
-  /* Exemplo simples com caractere: */
-  /* content: '“'; // Se usar como ::before em ReviewText, por exemplo */
 `;
 
 export const ReviewText = styled.p`
   font-size: 1rem;
-  font-style: normal; /* Removi o itálico padrão, pode ser opcional */
-  color: #495057; /* Cor de texto um pouco mais suave */
-  line-height: 1.7; /* Melhor espaçamento entre linhas */
-  margin-bottom: 0; /* Removido margin-bottom pois o card já tem padding */
-  flex-grow: 1; /* Para o texto ocupar o espaço e alinhar autores caso os textos tenham tamanhos diferentes */
+  font-style: normal;
+  color: ${({ theme }) => theme.colors.textOnLight}; // Marrom Escuro
+  line-height: 1.7;
+  margin-bottom: 0;
+  flex-grow: 1;
 `;
-
-// O antigo ReviewAuthor foi substituído por ReviewAuthorName dentro do CardHeader
-// export const ReviewAuthor = styled.p`
-//   font-size: 1rem;
-//   font-weight: bold;
-//   color: #333;
-//   text-align: right;
-// `;

@@ -1,9 +1,10 @@
+// src/components/Projects/styles.ts
 import styled from 'styled-components';
 import Link from 'next/link';
 
 export const ProjectsWrapper = styled.section`
   padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
-  background-color: ${({ theme }) => theme.colors.lightGray}; // Fundo alternativo
+  background-color: ${({ theme }) => theme.colors.lightBackground}; // Off-white/Bege sutil
   text-align: center;
 
   @media (min-width: 768px) {
@@ -13,7 +14,7 @@ export const ProjectsWrapper = styled.section`
 
 export const SectionTitle = styled.h2`
   font-size: 2.4rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
   margin-bottom: ${({ theme }) => theme.spacings.medium};
   position: relative;
   display: inline-block;
@@ -23,7 +24,7 @@ export const SectionTitle = styled.h2`
     display: block;
     width: 70px;
     height: 4px;
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
     margin: 0.75rem auto ${({ theme }) => theme.spacings.xlarge} auto;
   }
 
@@ -41,7 +42,7 @@ export const ProjectsGrid = styled.div`
 `;
 
 export const ProjectCard = styled.div`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background}; // Branco
   border-radius: ${({ theme }) => theme.borderRadius};
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -57,7 +58,7 @@ export const ProjectCard = styled.div`
 
 export const ProjectImage = styled.img`
   width: 100%;
-  height: 220px; // Altura ajustada
+  height: 220px;
   object-fit: cover;
 `;
 
@@ -71,14 +72,14 @@ export const ProjectInfo = styled.div`
 
 export const ProjectName = styled.h3`
   font-size: 1.4rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
   margin-bottom: ${({ theme }) => theme.spacings.small};
   font-family: ${({ theme }) => theme.fonts.headings};
 `;
 
 export const ProjectDescription = styled.p`
   font-size: 1rem;
-  color: ${({ theme }) => theme.colors.darkGray};
+  color: ${({ theme }) => theme.colors.textOnLight}; // Marrom Escuro
   line-height: 1.6;
   flex-grow: 1;
   margin-bottom: ${({ theme }) => theme.spacings.medium};
@@ -87,19 +88,19 @@ export const ProjectDescription = styled.p`
 export const ViewMoreButton = styled(Link)`
   display: inline-block;
   background-color: transparent;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
   padding: ${({ theme }) => theme.spacings.small} ${({ theme }) => theme.spacings.large};
   font-size: 1rem;
   font-weight: bold;
   text-decoration: none;
-  border: 2px solid ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
   border-radius: ${({ theme }) => theme.borderRadius};
   transition: background-color 0.3s ease, color 0.3s ease;
-  align-self: flex-start; // Alinha o botão à esquerda dentro do ProjectInfo
+  align-self: flex-start;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.textLight};
+    background-color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
+    color: ${({ theme }) => theme.colors.secondary}; // Texto Marrom Escuro
     text-decoration: none;
   }
 `;

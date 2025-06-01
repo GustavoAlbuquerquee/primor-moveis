@@ -1,5 +1,5 @@
 // src/styles/global.ts
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -11,13 +11,13 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-size: 100%; /* Garante que 1rem = 16px por padrão, mas permite zoom do usuário */
+    font-size: 100%;
   }
 
   body {
     font-family: ${({ theme }) => theme.fonts.main};
-    color: ${({ theme }) => theme.colors?.text ?? '#000'};
-    background-color: ${({ theme }) => theme.colors?.background ?? '#fff'};
+    color: ${({ theme }) => theme.colors.textOnLight}; /* Marrom Escuro */
+    background-color: ${({ theme }) => theme.colors.background}; /* Branco */
     line-height: 1.6;
   }
 
@@ -25,17 +25,17 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${({ theme }) => theme.fonts.headings};
     font-weight: 700;
     margin-bottom: ${({ theme }) => theme.spacings.medium};
-    color: ${({ theme }) => theme.colors.text}; /* ou uma cor específica para títulos */
+    color: ${({ theme }) => theme.colors.secondary}; /* Marrom Escuro para títulos */
   }
 
   a {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary}; /* Laranja Amarelado */
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.secondary};
-      text-decoration: underline;
+      color: ${({ theme }) => theme.colors.secondary}; /* Marrom Escuro no hover */
+      text-decoration: none;
     }
   }
 
@@ -55,10 +55,8 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
-  // Helper para seções padrão
   .section-padding {
     padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
-
     @media (min-width: 768px) {
       padding: ${({ theme }) => `calc(${theme.spacings.xxlarge} * 1.5)`} ${({ theme }) => theme.spacings.large};
     }

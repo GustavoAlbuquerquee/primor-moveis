@@ -1,34 +1,9 @@
-import styled, { css } from 'styled-components';
-import { DefaultTheme } from 'styled-components';
-
-// Adicionei a tipagem explícita para o tema na declaração existente
-const InputStyles = css<{ theme: DefaultTheme }>`
-  width: 100%;
-  padding: ${({ theme }) => theme.spacings.medium};
-  margin-bottom: ${({ theme }) => theme.spacings.medium};
-  border: 1px solid ${({ theme }) => theme.colors.mediumGray};
-  border-radius: ${({ theme }) => `calc(${theme.borderRadius} / 2)`}; // Bordas mais sutis para inputs
-  font-size: 1rem;
-  font-family: ${({ theme }) => theme.fonts.main};
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 0 3px ${({ theme }) => `${theme.colors.primary}33`}; // Sombra de foco suave
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.darkGray};
-    opacity: 0.7;
-  }
-`;
+// src/components/Contact/styles.ts
+import styled, { css } from 'styled-components'; // Adicione css se não estiver lá
 
 export const ContactWrapper = styled.section`
   padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background}; // Branco
 
   @media (min-width: 768px) {
     padding: ${({ theme }) => `calc(${theme.spacings.xxlarge} * 1.5)`} ${({ theme }) => theme.spacings.large};
@@ -37,7 +12,7 @@ export const ContactWrapper = styled.section`
 
 export const SectionTitle = styled.h2`
   font-size: 2.4rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
   margin-bottom: ${({ theme }) => theme.spacings.medium};
   text-align: center;
   position: relative;
@@ -48,7 +23,7 @@ export const SectionTitle = styled.h2`
     display: block;
     width: 70px;
     height: 4px;
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
     margin: 0.75rem auto ${({ theme }) => theme.spacings.xlarge} auto;
   }
 
@@ -65,75 +40,96 @@ export const ContactContainer = styled.div`
   margin: 0 auto;
 
   @media (min-width: 992px) {
-    grid-template-columns: 1fr 1.5fr; // Lado a lado, formulário um pouco maior
+    grid-template-columns: 1fr 1.5fr;
     gap: ${({ theme }) => theme.spacings.xxlarge};
   }
 `;
 
 export const ContactInfo = styled.div`
-  background-color: ${({ theme }) => theme.colors.lightGray};
+  background-color: ${({ theme }) => theme.colors.lightBackground}; // Off-white/Bege sutil
   padding: ${({ theme }) => theme.spacings.large};
   border-radius: ${({ theme }) => theme.borderRadius};
-  // box-shadow: 0 4px 15px rgba(0,0,0,0.05); // Sombra sutil se o fundo da seção for branco
 
   h3 {
     font-size: 1.6rem;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
     margin-bottom: ${({ theme }) => theme.spacings.medium};
     font-family: ${({ theme }) => theme.fonts.headings};
   }
 
   p {
     font-size: 1rem;
-    color: ${({ theme }) => theme.colors.darkGray};
+    color: ${({ theme }) => theme.colors.textOnLight}; // Marrom Escuro
     line-height: 1.7;
     margin-bottom: ${({ theme }) => theme.spacings.medium};
   }
 
   strong {
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro (mais forte)
   }
-
-  // Adicionar estilos para ícones aqui se usar
 `;
 
 export const ContactForm = styled.form`
-  background-color: ${({ theme }) => theme.colors.lightGray}; // Ou background para contraste
+  background-color: ${({ theme }) => theme.colors.lightBackground}; // Off-white/Bege sutil
   padding: ${({ theme }) => theme.spacings.large};
   border-radius: ${({ theme }) => theme.borderRadius};
-  // box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 
   h3 {
     font-size: 1.6rem;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
     margin-bottom: ${({ theme }) => theme.spacings.large};
     font-family: ${({ theme }) => theme.fonts.headings};
   }
 `;
 
-export const Input = styled.input<{ theme: DefaultTheme }>`
+const InputStyles = css`
+  width: 100%;
+  padding: ${({ theme }) => theme.spacings.medium};
+  margin-bottom: ${({ theme }) => theme.spacings.medium};
+  border: 1px solid ${({ theme }) => theme.colors.mediumGray};
+  border-radius: ${({ theme }) => `calc(${theme.borderRadius} / 2)`};
+  font-size: 1rem;
+  font-family: ${({ theme }) => theme.fonts.main};
+  background-color: ${({ theme }) => theme.colors.background}; // Fundo branco para inputs
+  color: ${({ theme }) => theme.colors.textOnLight}; // Texto marrom
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
+    box-shadow: 0 0 0 3px ${({ theme }) => `${theme.colors.primary}4D`}; // Laranja com opacidade
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.darkGray};
+    opacity: 0.7;
+  }
+`;
+
+export const Input = styled.input`
   ${InputStyles}
 `;
 
-export const Textarea = styled.textarea<{ theme: DefaultTheme }>`
+export const Textarea = styled.textarea`
   ${InputStyles}
   min-height: 120px;
   resize: vertical;
 `;
 
 export const SubmitButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.textLight};
+  background-color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
+  color: ${({ theme }) => theme.colors.secondary}; // Texto Marrom Escuro
   padding: ${({ theme }) => theme.spacings.medium} ${({ theme }) => theme.spacings.xlarge};
   font-size: 1.1rem;
   font-weight: bold;
   text-decoration: none;
   border-radius: ${({ theme }) => theme.borderRadius};
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro no hover
+    color: ${({ theme }) => theme.colors.textOnDark}; // Texto Branco
     transform: translateY(-2px);
   }
 `;

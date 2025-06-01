@@ -1,8 +1,9 @@
+// src/components/About/styles.ts
 import styled from 'styled-components';
 
 export const AboutWrapper = styled.section`
   padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
-  background-color: ${({ theme }) => theme.colors.background}; // Ou theme.colors.lightGray para alternar
+  background-color: ${({ theme }) => theme.colors.background}; // Branco
   text-align: center;
 
   @media (min-width: 768px) {
@@ -10,10 +11,9 @@ export const AboutWrapper = styled.section`
   }
 `;
 
-// Estilo de título de seção padrão (pode ser reutilizado ou vir de um componente global de título)
 export const SectionTitle = styled.h2`
   font-size: 2.4rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado
   margin-bottom: ${({ theme }) => theme.spacings.medium};
   position: relative;
   display: inline-block;
@@ -23,8 +23,8 @@ export const SectionTitle = styled.h2`
     display: block;
     width: 70px;
     height: 4px;
-    background-color: ${({ theme }) => theme.colors.secondary};
-    margin: 0.75rem auto ${({ theme }) => theme.spacings.xlarge} auto; // Aumentado espaço abaixo da barra
+    background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
+    margin: 0.75rem auto ${({ theme }) => theme.spacings.xlarge} auto;
   }
 
   @media (min-width: 768px) {
@@ -36,17 +36,13 @@ export const Content = styled.div`
   max-width: 900px;
   margin: 0 auto;
   line-height: 1.8;
-  color: ${({ theme }) => theme.colors.text}; // Usando cor de texto do tema
+  color: ${({ theme }) => theme.colors.textOnLight}; // Marrom Escuro
 `;
 
 export const Text = styled.p`
   font-size: 1.1rem;
   margin-bottom: ${({ theme }) => theme.spacings.medium};
-  text-align: justify; // Justificado pode parecer mais formal
-
-  @media (min-width: 768px) {
-    // Em telas maiores, pode manter justificado ou alinhar à esquerda
-  }
+  text-align: justify;
 `;
 
 export const AboutImage = styled.img`

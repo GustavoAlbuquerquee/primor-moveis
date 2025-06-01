@@ -1,18 +1,21 @@
 // src/styles/theme.ts
-export const theme = { // 'theme' é exportado aqui
-  colors: { // 'colors' não é opcional
-    primary: '#b79438', // 'primary' não é opcional
-    secondary: '#4a3b28', // 'secondary' não é opcional
-    text: '#333333',
-    textLight: '#FFFFFF',
-    background: '#FFFFFF',
-    lightGray: '#f8f9fa',
-    mediumGray: '#e9ecef',
-    darkGray: '#495057',
+export const theme = {
+  colors: {
+    primary: '#F0A02D',      // Laranja Amarelado (seu destaque principal)
+    secondary: '#603829',    // Marrom Escuro (para textos principais, fundos escuros, acentos secundários)
+
+    textOnLight: '#603829',  // Marrom Escuro para texto em fundos claros
+    textOnDark: '#FFFFFF',   // Branco para texto em fundos escuros (como o Marrom ou Laranja)
+
+    background: '#FFFFFF',   // Fundo principal do site (Branco)
+    lightBackground: '#fbf7f4', // Um off-white/bege muito sutil para seções alternadas
+
+    mediumGray: '#e0e0e0',     // Para bordas sutis
+    darkGray: '#5a5a5a',       // Para textos secundários menos importantes
   },
   fonts: {
     main: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-    headings: "'Georgia', serif",
+    headings: "'Georgia', serif", // Considere uma fonte mais moderna se 'Georgia' não se encaixar no "clean"
   },
   spacings: {
     small: '8px',

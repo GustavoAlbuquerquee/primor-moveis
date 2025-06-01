@@ -1,9 +1,10 @@
+// src/components/Footer/styles.ts
 import styled from 'styled-components';
 import Link from 'next/link';
 
 export const FooterWrapper = styled.footer`
-  background-color: ${({ theme }) => theme.colors.secondary}; // Usando o marrom escuro do tema
-  color: ${({ theme }) => theme.colors.textLight}BF; // Texto claro com um pouco de transparência (BF = ~75%)
+  background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro
+  color: ${({ theme }) => `${theme.colors.textOnDark}BF`}; // Branco com ~75% opacidade
   padding: ${({ theme }) => theme.spacings.xlarge} ${({ theme }) => theme.spacings.medium};
   text-align: center;
 
@@ -43,13 +44,13 @@ export const FooterLinks = styled.div`
 `;
 
 export const FooterLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.textLight}BF;
+  color: ${({ theme }) => `${theme.colors.textOnDark}BF`}; // Branco com opacidade
   text-decoration: none;
   font-size: 0.9rem;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.textLight};
-    text-decoration: underline;
+    color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado no hover
+    text-decoration: none;
   }
 `;
 
@@ -58,12 +59,12 @@ export const SocialMediaIcons = styled.div`
   gap: ${({ theme }) => theme.spacings.medium};
 
   a {
-    color: ${({ theme }) => theme.colors.textLight}BF;
-    font-size: 1.4rem; // Para ícones
+    color: ${({ theme }) => `${theme.colors.textOnDark}BF`}; // Branco com opacidade
+    font-size: 1.4rem;
     text-decoration: none;
     transition: color 0.2s ease-in-out;
     &:hover {
-      color: ${({ theme }) => theme.colors.primary}; // Dourado no hover para ícones sociais
+      color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado no hover
     }
   }
 `;

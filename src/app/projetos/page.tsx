@@ -1,24 +1,25 @@
 "use client";
-import Projects from '@/components/Projects'; // Reutilizando o componente Projects
-import styled from 'styled-components';
+import Projects from "@/components/Projects"; // Reutilizando o componente Projects
+import styled from "styled-components";
 
 const ProjetosPageWrapper = styled.div`
   padding-top: 2rem; // Adiciona um pouco de espaço no topo
+  background-color: #fbf7f4;
 `;
 
 const PageTitle = styled.h1`
   font-size: 2.5rem;
-  color: ${(props) => props.theme.colors?.primary || '#DAA520'};
+  color: ${(props) => props.theme.colors?.primary || "#DAA520"};
   text-align: center;
   margin-bottom: 2rem;
   margin-top: 2rem; /* Adicionado para dar espaço após o header */
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     width: 80px;
     height: 3px;
-    background-color: ${(props) => props.theme.colors?.secondary || '#B8860B'};
+    background-color: ${(props) => props.theme.colors?.secondary || "#B8860B"};
     margin: 0.5rem auto 0;
   }
 `;
