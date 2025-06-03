@@ -27,15 +27,35 @@ export const NavContainer = styled.div`
 `;
 
 export const LogoContainer = styled(Link)`
-  font-size: 1.8rem;
+  display: flex;
+  align-items: center; // Alinha verticalmente a imagem e o texto
+  text-decoration: none;
+  gap: ${({ theme }) => theme.spacings.small}; /* Espaçamento entre a imagem e o texto. Ajuste 'small' (8px) ou 'medium' (16px) conforme o gosto */
+`;
+
+export const Logo = styled.img`
+  height: 40px; /* Altura da imagem da logo. Ajuste entre 35px a 50px para um header típico. */
+  width: auto;   /* Mantém a proporção da imagem */
+  display: block;
+  transition: opacity 0.3s ease;
+
+  ${LogoContainer}:hover & {
+    opacity: 0.8;
+  }
+
+`;
+
+
+export const LogoText = styled.span`
+  font-family: ${({ theme }) => theme.fonts.headings};
+  font-size: 1.75rem; /* Tamanho do texto. Ajuste para equilibrar com a altura da imagem (40px). */
   font-weight: bold;
   color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro (para texto "primor")
-  text-decoration: none;
-  font-family: ${({ theme }) => theme.fonts.headings};
+  line-height: 1; /* Ajuda no alinhamento vertical preciso com a imagem */
+  transition: color 0.3s ease;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado no hover
-    text-decoration: none;
+  ${LogoContainer}:hover & {
+    color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado no hover do link
   }
 `;
 

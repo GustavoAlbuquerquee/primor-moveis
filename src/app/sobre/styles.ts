@@ -6,8 +6,8 @@ const SobrePageWrapper = styled.div`
 `;
 
 const SobreHeroSection = styled.section`
-  background-color: ${({ theme }) => theme.colors.secondary}; // Fundo marrom escuro
-  color: ${({ theme }) => theme.colors.textLight};
+  background-color: ${({ theme }) => theme.colors.lightBackground}; // Fundo marrom escuro
+  color: ${({ theme }) => theme.colors.textOnLight};
   padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
   text-align: center;
   display: flex;
@@ -22,7 +22,7 @@ const SobreHeroSection = styled.section`
 
   h1 {
     font-size: 2.8rem;
-    color: ${({ theme }) => theme.colors.textLight}; // Título claro
+    color: ${({ theme }) => theme.colors.primary}; // Título claro
     margin-bottom: ${({ theme }) => theme.spacings.small};
     font-family: ${({ theme }) => theme.fonts.headings};
   }
@@ -107,7 +107,7 @@ const MainContentSection = styled.section`
 
 const ValuesSection = styled.section`
   padding: ${({ theme }) => theme.spacings.xxlarge} 0;
-  background-color: ${({ theme }) => theme.colors.lightGray}; // Fundo alternativo
+  background-color: ${({ theme }) => theme.colors.lightBackground}; // Fundo alternativo
   text-align: center;
 
   .container {
