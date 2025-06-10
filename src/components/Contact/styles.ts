@@ -133,3 +133,40 @@ export const SubmitButton = styled.button`
     transform: translateY(-2px);
   }
 `;
+
+export const FileInputWrapper = styled.div`
+  margin-bottom: ${({ theme }) => theme.spacings.medium};
+  
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: ${({ theme }) => theme.spacings.small};
+    color: ${({ theme }) => theme.colors.darkGray};
+  }
+
+  input[type="file"] {
+    width: 100%;
+    font-size: 0.9rem;
+
+    &::file-selector-button {
+      background-color: transparent;
+      color: ${({ theme }) => theme.colors.primary};
+      border: 1px solid ${({ theme }) => theme.colors.primary};
+      padding: ${({ theme }) => theme.spacings.small} ${({ theme }) => theme.spacings.medium};
+      border-radius: ${({ theme }) => `calc(${theme.borderRadius} / 2)`};
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: bold;
+      margin-right: ${({ theme }) => theme.spacings.medium};
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.primary};
+        color: ${({ theme }) => theme.colors.secondary};
+      }
+    }
+  }
+`;
+
+function calc($: any, arg1: number): import("styled-components").Interpolation<import("styled-components").FastOmit<import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLDivElement>, HTMLDivElement>, never>> {
+  throw new Error('Function not implemented.');
+}

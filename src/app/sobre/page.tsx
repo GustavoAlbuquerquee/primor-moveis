@@ -1,110 +1,79 @@
 "use client";
+import Image from 'next/image';
+import styled from 'styled-components';
+// Supondo que você use react-icons
+import { FaTrophy, FaHandshake, FaBullseye } from 'react-icons/fa';
+import * as S from './styles';
 
-import Image from "next/image"; // Para imagens otimizadas
-import {
-  SobrePageWrapper,
-  SobreHeroSection,
-  MainContentSection,
-  ValuesSection,
-  ValueCard,
-} from "./styles";
-import { FaBullseye, FaEye, FaHeart } from "react-icons/fa"; // Ícones de exemplo
 
+
+
+// --- Componente da Página com texto gerado ---
 export default function SobrePage() {
   return (
     <main>
-      <SobrePageWrapper>
-        <SobreHeroSection>
-          <div>
-            {" "}
-            {/* Wrapper para conteúdo do Hero */}
-            <h1>Conheça a Essência da Primor Móveis</h1>
-            <p>
-              Tradição, qualidade e inovação na arte da marcenaria,
-              transformando seus ambientes com móveis planejados sob medida.
-            </p>
-          </div>
-        </SobreHeroSection>
+      <S.SobrePageWrapper>
+        <S.SobreHeroSection>
+          <h1>Mais de 25 Anos Construindo Sonhos</h1>
+          <p>Com sede em Belo Horizonte, somos especialistas em transformar ambientes com móveis planejados de alto padrão.</p>
+        </S.SobreHeroSection>
 
-        <MainContentSection>
+        <S.ContentSection>
           <div className="container">
             <div className="content-grid">
               <div className="text-content">
-                <h2>Nossa Paixão pela Marcenaria</h2>
+                <h2>Nossa História</h2>
                 <p>
-                  Na Primor Móveis, cada peça é mais do que um móvel; é a
-                  materialização de um sonho, construída com a precisão de
-                  artesãos experientes e a paixão por transformar madeira em
-                  arte funcional. Desde [Ano de Fundação], dedicamo-nos a
-                  entender as necessidades individuais de cada cliente, criando
-                  soluções personalizadas que aliam estética, ergonomia e
-                  durabilidade.
-                </p>
-                <p>
-                  Utilizamos apenas materiais de primeira linha, selecionados
-                  com rigor, e investimos constantemente em tecnologia e
-                  aperfeiçoamento de técnicas para garantir que cada projeto
-                  entregue exceda as expectativas. Nosso compromisso vai além da
-                  entrega: buscamos construir relacionamentos de confiança,
-                  pautados pela transparência e pelo respeito aos prazos.
+                  Fundada há mais de duas décadas em Belo Horizonte, a Primor Móveis nasceu da paixão pela marcenaria de precisão. Com mais de <strong>1500 projetos realizados</strong>, consolidamos uma trajetória de compromisso com a qualidade, design inovador e, acima de tudo, a satisfação total de nossos clientes. Atendemos em toda BH e região metropolitana, levando soluções inteligentes para lares e empresas.
                 </p>
               </div>
               <div className="image-content">
-                {/* Coloque uma imagem representativa aqui. Ex: oficina, detalhe de móvel, equipe */}
-                <Image
-                  src="/Coisas de carpintaria na mesa de madeira _ Foto Grátis.jpeg" // SUBSTITUA PELA SUA IMAGEM
-                  alt="Ambiente da marcenaria Primor Móveis"
-                  width={600}
-                  height={450}
-                  className="next-image" // Para aplicar estilos se necessário
-                />
+                <Image src="https://via.placeholder.com/600x450/603829/FFFFFF?text=Primor+Móveis+BH" alt="Detalhe de móvel Primor Móveis" width={600} height={450} objectFit="cover" />
               </div>
             </div>
           </div>
-        </MainContentSection>
+        </S.ContentSection>
 
-        <ValuesSection>
+        <S.CategorySection>
           <div className="container">
-            <h2>Nossos Pilares</h2>
-            <div className="values-grid">
-              <ValueCard>
-                <div className="icon">
-                  <FaBullseye />
-                </div>
-                <h3>Missão</h3>
+            <div className="content-grid">
+               <div className="image-content">
+                <Image src="https://via.placeholder.com/600x450/F0A02D/FFFFFF?text=Projetos+Residenciais" alt="Ambiente residencial com móveis planejados" width={600} height={450} objectFit="cover" />
+              </div>
+              <div className="text-content">
+                <h2>Atendimento Residencial e Corporativo</h2>
                 <p>
-                  Criar móveis planejados de alta qualidade que inspirem e
-                  melhorem a vida das pessoas, combinando design inovador com
-                  funcionalidade e atendimento personalizado.
+                  Entendemos que cada espaço tem sua própria identidade. Por isso, desenvolvemos projetos tanto para o conforto e aconchego do seu <strong>lar (residencial)</strong>, quanto para a funcionalidade e sofisticação do seu <strong>ambiente de trabalho (corporativo)</strong>. Nossa equipe está preparada para criar cozinhas, quartos, salas, home offices, escritórios, lojas e consultórios que refletem a personalidade e atendem às necessidades de cada cliente.
                 </p>
-              </ValueCard>
-              <ValueCard>
-                <div className="icon">
-                  <FaEye />
-                </div>
-                <h3>Visão</h3>
-                <p>
-                  Ser referência em marcenaria sob medida, reconhecida pela
-                  excelência, inovação e pela capacidade de transformar os
-                  sonhos dos nossos clientes em realidade.
-                </p>
-              </ValueCard>
-              <ValueCard>
-                <div className="icon">
-                  <FaHeart />
-                </div>
-                <h3>Valores</h3>
-                <p>
-                  Qualidade, Compromisso, Inovação, Transparência, Paixão pelo
-                  que fazemos e Respeito ao cliente e ao meio ambiente.
-                </p>
-              </ValueCard>
+              </div>
             </div>
           </div>
-        </ValuesSection>
+        </S.CategorySection>
 
-        {/* Você pode adicionar mais seções aqui, como "Nossa História" ou "Nossa Equipe" */}
-      </SobrePageWrapper>
+         <S.ContentSection>
+          <div className="container">
+            <div className="content-grid">
+              <div className="text-content">
+                <h2>Projetos Especiais e Acabamentos</h2>
+                <p>
+                  Nossa expertise vai além do convencional. Somos especialistas em <strong>projetos especiais</strong> que exigem um alto nível de detalhamento técnico e estético. Dominamos uma vasta gama de acabamentos e materiais, incluindo:
+                </p>
+                <ul>
+                  <li>✓ Laqueamento de alta precisão</li>
+                  <li>✓ Estruturas em Metalon</li>
+                  <li>✓ Cabeceiras estofadas sob medida</li>
+                  <li>✓ Aplicação de vidros, espelhos e tecidos</li>
+                  <li>✓ Pinturas e acabamentos personalizados</li>
+                </ul>
+              </div>
+              <div className="image-content">
+                <Image src="https://via.placeholder.com/600x450/4a3b28/FFFFFF?text=Detalhe+Acabamento" alt="Detalhe de acabamento com metalon e laqueamento" width={600} height={450} objectFit="cover" />
+              </div>
+            </div>
+          </div>
+        </S.ContentSection>
+
+      </S.SobrePageWrapper>
     </main>
   );
 }

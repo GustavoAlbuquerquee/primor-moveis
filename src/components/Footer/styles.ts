@@ -68,3 +68,14 @@ export const SocialMediaIcons = styled.div`
     }
   }
 `;
+
+export const ContactInfo = styled.div`
+  text-align: left;
+  font-size: 0.9rem;
+  p { margin: 0; line-height: 1.5; }
+  strong { color: #fff; }
+  @media (max-width: 767px) {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+`;

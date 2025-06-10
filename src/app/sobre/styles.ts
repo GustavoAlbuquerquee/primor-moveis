@@ -166,3 +166,15 @@ const ValueCard = styled.div`
   }
 `;
 
+export const ContentSection = styled.section`
+  padding: 4rem 2rem;
+  .container { max-width: 1100px; margin: 0 auto; }
+  .content-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; @media (min-width: 992px) { grid-template-columns: 1.2fr 1fr; } }
+  .text-content h2 { font-size: 2.2rem; color: ${({ theme }) => theme.colors.primary}; }
+  .text-content p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: ${({ theme }) => theme.colors.darkGray}; }
+  .image-content { border-radius: 8px; overflow: hidden; }
+`;
+export const CategorySection = styled(ContentSection)`
+  background-color: ${({ theme }) => theme.colors.lightBackground};
+  .content-grid { @media (min-width: 992px) { grid-template-columns: 1fr 1.2fr; } } // Inverte a ordem
+`;

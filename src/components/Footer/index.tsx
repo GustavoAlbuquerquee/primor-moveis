@@ -9,6 +9,12 @@ const Footer = () => {
   return (
     <S.FooterWrapper>
       <S.FooterContent>
+        {/* Adicione um container para informações de contato */}
+        <S.ContactInfo>
+          <strong>Primor Móveis - Belo Horizonte/MG</strong>
+          <p>Rua Teodomira Diniz Lara, 48 - Sagrada Família</p>
+          <p>Atendemos em BH e Região</p>
+        </S.ContactInfo>
         <S.CopyrightText>
           &copy; {currentYear} Primor Móveis. Todos os direitos reservados.
         </S.CopyrightText>
@@ -31,5 +37,4 @@ const Footer = () => {
     </S.FooterWrapper>
   );
 };
-
 export default Footer;
