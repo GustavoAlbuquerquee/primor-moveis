@@ -14,7 +14,7 @@ const SobreHeroSection = styled.section`
   align-items: center;
   justify-content: center;
   min-height: 40vh; // Altura ajustável
-
+flex-direction: column;
   // Você pode adicionar uma imagem de fundo sutil aqui também, se desejar
   // background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/caminho/para/imagem-sobre-hero.jpg');
   // background-size: cover;
