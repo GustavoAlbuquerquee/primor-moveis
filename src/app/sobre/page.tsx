@@ -32,15 +32,17 @@ export default function SobrePage() {
                   Atendemos em toda BH e região metropolitana, levando soluções
                   inteligentes para lares e empresas.
                 </p>
-              </div>
+              </div>{" "}
               <div className="image-content">
-                <Image
-                  src="/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg"
-                  alt="Detalhe de móvel Primor Móveis"
-                  width={600}
-                  height={450}
-                  objectFit="cover"
-                />
+                <S.ImageContainer>
+                  {" "}
+                  <Image
+                    src="/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg"
+                    alt="Detalhe de móvel Primor Móveis"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </S.ImageContainer>
               </div>
             </div>
           </div>
@@ -49,14 +51,17 @@ export default function SobrePage() {
         <S.CategorySection>
           <div className="container">
             <div className="content-grid">
+              {" "}
               <div className="image-content">
-                <Image
-                  src="/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg"
-                  alt="Ambiente residencial com móveis planejados"
-                  width={600}
-                  height={450}
-                  objectFit="cover"
-                />
+                <S.ImageContainer>
+                  {" "}
+                  <Image
+                    src="/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg"
+                    alt="Ambiente residencial com móveis planejados"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </S.ImageContainer>
               </div>
               <div className="text-content">
                 <h2>Atendimento Residencial e Corporativo</h2>
@@ -93,15 +98,17 @@ export default function SobrePage() {
                   <li>✓ Aplicação de vidros, espelhos e tecidos</li>
                   <li>✓ Pinturas e acabamentos personalizados</li>
                 </ul>
-              </div>
+              </div>{" "}
               <div className="image-content">
-                <Image
-                  src="/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg"
-                  alt="Detalhe de acabamento com metalon e laqueamento"
-                  width={600}
-                  height={450}
-                  objectFit="cover"
-                />
+                <S.ImageContainer>
+                  {" "}
+                  <Image
+                    src="/297159615_1232909324178406_8282355693598399566_n.jpg"
+                    alt="Detalhe de acabamento com metalon e laqueamento"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </S.ImageContainer>
               </div>
             </div>
           </div>

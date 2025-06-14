@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-export { SobrePageWrapper, SobreHeroSection, MainContentSection, ValuesSection, ValueCard };
 // Você pode adicionar estilos específicos para esta página se necessário
 const SobrePageWrapper = styled.div`
   // Sem padding aqui, as seções internas controlarão seu próprio padding
@@ -166,15 +165,38 @@ const ValueCard = styled.div`
   }
 `;
 
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 400px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  
+  img {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+`;
+
 export const ContentSection = styled.section`
   padding: 4rem 2rem;
   .container { max-width: 1100px; margin: 0 auto; }
   .content-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; @media (min-width: 992px) { grid-template-columns: 1.2fr 1fr; } }
   .text-content h2 { font-size: 2.2rem; color: ${({ theme }) => theme.colors.primary}; }
   .text-content p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: ${({ theme }) => theme.colors.darkGray}; }
-  .image-content { border-radius: 8px; overflow: hidden; }
+  .text-content ul { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: ${({ theme }) => theme.colors.darkGray}; }
+  .image-content { 
+    border-radius: 8px; 
+    overflow: hidden; 
+    width: 100%;
+  }
 `;
+
 export const CategorySection = styled(ContentSection)`
   background-color: ${({ theme }) => theme.colors.lightBackground};
   .content-grid { @media (min-width: 992px) { grid-template-columns: 1fr 1.2fr; } } // Inverte a ordem
 `;
+
+export { SobrePageWrapper, SobreHeroSection, MainContentSection, ValuesSection, ValueCard };
