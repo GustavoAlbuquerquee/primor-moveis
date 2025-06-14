@@ -12,38 +12,35 @@ import "swiper/css/pagination";
 
 import * as S from "./styles";
 
-// --- DADOS DOS SLIDES ---
-// **IMPORTANTE**: Substitua os 'imageSrc' pelos links das suas imagens REAIS.
-// Eu usei placeholders pois não consigo acessar os links do Instagram diretamente.
 const slidesData = [
   {
     id: 1,
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg", // **SUBSTITUA** pelo seu link do instagram
+    imageSrc: "/448879247_18110376001391916_7126232848381205299_n.jpg",
     keyword: "Sofisticação",
     caption:
       "Estética refinada, materiais nobres e um olhar apurado para o detalhe.",
   },
   {
     id: 2,
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg", // **SUBSTITUA** pelo seu link do instagram
+    imageSrc: "/271276842_281033080729086_6437836219440912397_n.jpg",
     keyword: "Design",
     caption: "Funcionalidade aliada à beleza.",
   },
   {
     id: 3,
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg", // **SUBSTITUA** pelo seu link do instagram
+    imageSrc: "/247186102_1040634840003920_3498541855514689556_n (1).jpg",
     keyword: "Acabamento",
     caption: "A diferença está nos detalhes.",
   },
   {
     id: 4,
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg", // **SUBSTITUA** pelo seu link do instagram
+    imageSrc: "/481143838_18135045238391916_6356660076397256996_n.jpg",
     keyword: "Compromisso",
     caption: "Pontualidade, transparência e respeito ao seu sonho.",
   },
   {
     id: 5,
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg", // **SUBSTITUA** pelo seu link do instagram
+    imageSrc: "/347520947_1303913997207829_2658888024251339406_n.jpg",
     keyword: "Excelência",
     caption:
       "Buscamos o mais alto nível em cada projeto. Da concepção à instalação, a excelência é o nosso padrão.",
