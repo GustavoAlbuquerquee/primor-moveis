@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SliderWrapper = styled.div`
   width: 100%;
-  height: 90vh; // Altura do slider, ajuste se necessário
+  height: 90vh;
   position: relative;
   
   .swiper {
@@ -15,10 +15,11 @@ export const SliderWrapper = styled.div`
     width: 12px;
     height: 12px;
     opacity: 1;
+    transition: background-color 0.3s ease;
   }
 
   .swiper-pagination-bullet-active {
-    background: ${({ theme }) => theme.colors.primary}; // Laranja
+    background: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -31,14 +32,34 @@ export const SlideContent = styled.div`
   justify-content: center;
 `;
 
+// --- MODIFICAÇÃO PRINCIPAL AQUI ---
 export const SlideOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 60%);
   z-index: 1;
+
+  /* Opção A (Recomendada): Escurecimento Uniforme
+    Aplica uma camada escura por igual sobre toda a imagem.
+    Ajuste a opacidade (o último número, de 0.0 a 1.0) conforme seu gosto. 
+    0.4 = 40% escuro.
+  */
+  background-color: rgba(0, 0, 0, 0.4);
+
+
+  /* Opção B (Alternativa): Gradiente Mais Forte
+    Se quiser que o escurecimento seja mais forte na parte de baixo e mais suave em cima.
+    Descomente o código abaixo e comente o 'background-color' de cima para testar.
+  */
+  /*
+  background: linear-gradient(
+    to top, 
+    rgba(0, 0, 0, 0.8) 10%,  // Começa 80% escuro na base
+    transparent 70%         // Fica transparente a partir de 70% da altura
+  );
+  */
 `;
 
 export const SlideTextContainer = styled.div`
