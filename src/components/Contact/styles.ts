@@ -113,7 +113,7 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
   ${InputStyles}
   min-height: 120px;
-  resize: vertical;
+  resize: none;
 `;
 
 export const SubmitButton = styled.button`
