@@ -40,7 +40,7 @@ const slidesData = [
   },
   {
     id: 5,
-    imageSrc: "/347520947_1303913997207829_2658888024251339406_n.jpg",
+    imageSrc: "/106906366_2699743146931892_839206458578922905_n.jpg",
     keyword: "Excelência",
     caption:
       "Buscamos o mais alto nível em cada projeto. Da concepção à instalação, a excelência é o nosso padrão.",

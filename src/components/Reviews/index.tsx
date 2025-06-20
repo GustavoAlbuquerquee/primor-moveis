@@ -15,10 +15,10 @@ import "swiper/css/pagination";
 const sampleReviews = [
   {
     id: 1,
-    name: "João Pedro",
+    name: "João Paulo",
     text: "Serviço muito bem executado. São bem transparentes em todo o processo. Uma empresa bem séria! Indico com segurança!!!!",
     stars: 5,
-    avatarUrl: "/jp.png", // Exemplo de caminho local para a foto
+    avatarUrl: "/jp.png",
   },
   {
     id: 2,
