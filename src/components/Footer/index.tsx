@@ -67,7 +67,7 @@ const Footer = () => {
               </S.ContactInfo>
               <S.SocialLinks>
                 <a
-                  href="https://instagram.com/primormoveis"
+                  href="https://instagram.com/primormoveisbh"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"

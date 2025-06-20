@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Modal from "@/components/Modal";
 import * as S from "./styles"; // Importa TODOS os estilos do nosso novo arquivo styles.ts
+import { FaInstagram } from "react-icons/fa"; // Importando o ícone do Instagram
 
 type ProjectType = {
   id: string;
@@ -100,8 +101,6 @@ const categories = [
 
 export default function ProjetosPage() {
   const [activeCategory, setActiveCategory] = useState("Todos");
-
-  // 1. MUDANÇA NO ESTADO: Agora guardamos o objeto inteiro do projeto, não apenas a URL da imagem
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
     null
   );
@@ -151,10 +150,19 @@ export default function ProjetosPage() {
               </S.ProjectCard>
             ))}
           </S.ProjectsGrid>
+          <S.InstagramButtonWrapper>
+            <S.InstagramButton
+              href="https://instagram.com/primormoveisbh"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram />
+              Ver mais projetos em nosso Instagram
+            </S.InstagramButton>
+          </S.InstagramButtonWrapper>
         </S.GalleryWrapper>
       </main>
 
-      {/* 3. MUDANÇA NA RENDERIZAÇÃO DO MODAL: Passamos as novas propriedades */}
       {selectedProject && (
         <Modal
           imageUrl={selectedProject.imageSrc}

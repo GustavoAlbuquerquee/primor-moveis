@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const GalleryWrapper = styled.div`
   padding: ${({ theme }) => theme.spacings.xlarge} 0;
@@ -14,7 +14,7 @@ export const PageTitle = styled.h1`
   margin-bottom: ${({ theme }) => theme.spacings.medium};
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     width: 70px;
     height: 4px;
@@ -33,10 +33,12 @@ export const FilterContainer = styled.div`
 `;
 
 export const FilterButton = styled.button<{ $isActive: boolean }>`
-  background-color: ${({ $isActive, theme }) => $isActive ? theme.colors.primary : 'transparent'};
-  color: ${({ $isActive, theme }) => $isActive ? theme.colors.secondary : theme.colors.textOnLight};
+  background-color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.primary : "transparent"};
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.secondary : theme.colors.textOnLight};
   border: 2px solid ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => theme.spacings.small} ${({ theme }) => theme.spacings.large};
+  padding: ${({ theme }) => theme.spacings.small};
   border-radius: 50px;
   font-weight: bold;
   cursor: pointer;
@@ -61,7 +63,7 @@ export const ProjectCard = styled.div`
   background-color: #fff;
   border-radius: ${({ theme }) => theme.borderRadius};
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition:
     transform 0.2s ease-in-out,
     box-shadow 0.2s ease-in-out;
@@ -69,7 +71,7 @@ export const ProjectCard = styled.div`
 
   &:hover {
     transform: scale(1.03);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 
   .image-container {
@@ -91,5 +93,38 @@ export const ProjectCard = styled.div`
   p {
     color: ${({ theme }) => theme.colors.darkGray};
     font-size: 0.9rem;
+  }
+`;
+
+export const InstagramButtonWrapper = styled.div`
+  text-align: center;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+`;
+
+export const InstagramButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
+  padding: ${({ theme }) => theme.spacings.medium};
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  svg {
+    font-size: 1.4rem;
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.textOnDark};
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
   }
 `;
