@@ -81,6 +81,13 @@ const Reviews = () => {
           </S.ReviewCardLink>
         ))}
       </S.ReviewsContainer>
+      <S.ViewMoreButton
+        href={googleReviewsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Clique aqui para ver mais avaliações de nossos clientes
+      </S.ViewMoreButton>
     </S.ReviewsWrapper>
   );
 };

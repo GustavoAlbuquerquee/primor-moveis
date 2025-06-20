@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import Link from 'next/link';
-import Image from 'next/image';
+import styled from "styled-components";
+import Link from "next/link";
+import Image from "next/image";
 
 export const ReviewsWrapper = styled.section`
   padding: 4rem 2rem;
@@ -16,7 +16,7 @@ export const SectionTitle = styled.h2`
   display: inline-block;
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     width: 70px;
     height: 4px;
@@ -44,7 +44,9 @@ export const ReviewCardLink = styled(Link)`
   text-align: left;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   text-decoration: none; // Remove o sublinhado do link
 
   &:hover {
@@ -100,13 +102,38 @@ export const ReviewText = styled.p`
   margin-bottom: 0;
   flex-grow: 1;
 
-  &::before { // Usando aspas de citação estilizadas
-    content: '“';
+  &::before {
+    // Usando aspas de citação estilizadas
+    content: "“";
     font-size: 3rem;
     color: ${({ theme }) => theme.colors.primary};
     line-height: 0;
     margin-right: 0.5rem;
     vertical-align: -0.6em;
     font-style: normal;
+  }
+`;
+
+export const ViewMoreButton = styled(Link)`
+  display: inline-block;
+  margin-top: 2.5rem; // Espaço entre o carrossel e o botão
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.primary}; // Cor do texto (Laranja)
+  border: 2px solid ${({ theme }) => theme.colors.primary}; // Borda Laranja
+  padding: ${({ theme }) => `${theme.spacings.small} ${theme.spacings.large}`};
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }) =>
+      theme.colors.primary}; // Fundo Laranja no hover
+    color: ${({ theme }) =>
+      theme.colors.secondary}; // Texto Marrom Escuro no hover
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 `;

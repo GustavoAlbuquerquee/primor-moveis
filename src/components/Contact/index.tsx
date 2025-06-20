@@ -66,7 +66,7 @@ const Contact = () => {
         </S.ContactInfo>
 
         <S.ContactForm onSubmit={handleSubmit}>
-          <h3>Envie os Detalhes do Seu Projeto</h3>
+          <h3>Envie os detalhes do seu projeto</h3>
           <S.Input
             type="text"
             name="Nome"
@@ -90,7 +90,7 @@ const Contact = () => {
           <S.Textarea
             name="Mensagem"
             rows={6}
-            placeholder="Descreva qual móvel deseja fazer ou vários móveis com o máximo de informação possível."
+            placeholder="Descreva quais móveis deseja fazer com o máximo de informação possível."
             required
             disabled={status === "Enviando..."}
           />

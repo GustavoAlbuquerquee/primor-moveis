@@ -42,12 +42,17 @@ const slidesData = [
     id: 5,
     imageSrc: "/106906366_2699743146931892_839206458578922905_n.jpg",
     keyword: "Excelência",
-    caption:
-      "Buscamos o mais alto nível em cada projeto. Da concepção à instalação, a excelência é o nosso padrão.",
+    // 1. Legenda transformada em um array para a quebra de linha
+    caption: [
+      "Buscamos o mais alto nível em cada projeto.",
+      "Da concepção à instalação, a excelência é o nosso padrão.",
+    ],
   },
 ];
 
 const HeroSlider = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <S.SliderWrapper>
       <Swiper
@@ -57,7 +62,7 @@ const HeroSlider = () => {
         effect="fade"
         loop={true}
         autoplay={{
-          delay: 5000, // Troca a cada 5 segundos
+          delay: 5000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -72,13 +77,27 @@ const HeroSlider = () => {
                 alt={slide.keyword}
                 layout="fill"
                 objectFit="cover"
-                priority={slide.id === 1} // Prioriza o carregamento da primeira imagem
+                objectPosition={slide.id === 1 ? "center 70%" : "center"}
+                priority={slide.id === 1}
               />
               <S.SlideOverlay />
               <S.SlideTextContainer>
                 <S.Keyword>{slide.keyword}</S.Keyword>
-                <S.Caption>{slide.caption}</S.Caption>
+                <S.Caption>
+                  {/* 2. Lógica para renderizar a legenda com quebra de linha se for um array */}
+                  {Array.isArray(slide.caption)
+                    ? slide.caption.map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          {index < slide.caption.length - 1 && <br />}
+                        </React.Fragment>
+                      ))
+                    : slide.caption}
+                </S.Caption>
               </S.SlideTextContainer>
+
+              {/* 3. Adição da marca d'água */}
+              <S.Watermark>Foto: Primor Móveis © {currentYear}</S.Watermark>
             </S.SlideContent>
           </SwiperSlide>
         ))}
