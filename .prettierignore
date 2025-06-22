@@ -1,0 +1,8 @@
+# Ignorar arquivo específico de estilos do ConfirmationModal
+src/components/ConfirmationModal/styles.ts
+src/components/contact/styles.ts
+# Adicione outros arquivos ou padrões que deseja ignorar abaixo
+# exemplo:
+# *.md
+# build/
+# dist/

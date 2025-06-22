@@ -21,7 +21,7 @@ const Footer = () => {
               <S.FooterTitle>Primor Móveis</S.FooterTitle>
               {/* O logo em imagem foi removido daqui */}
               <S.Description>
-                Móveis planejados em Belo Horizonte com mais de 14 anos de
+                Móveis planejados em Belo Horizonte com mais de 25 anos de
                 experiência, unindo design, qualidade e responsabilidade.
               </S.Description>
             </S.FooterColumn>

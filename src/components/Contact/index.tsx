@@ -1,125 +1,238 @@
 "use client";
 
 import React, { useState } from "react";
+import ConfirmationModal from "@/components/ConfirmationModal";
+import { FaTimes } from "react-icons/fa"; // Ícone para o botão de remover
 import * as S from "./styles";
 
-const Contact = () => {
-  // Estados para controlar o status do envio do formulário
-  const [status, setStatus] = useState("");
+// Criando um tipo para nosso objeto de arquivo, para melhor organização
+type UploadedFileType = {
+  name: string;
+  url: string;
+};
 
+const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState("");
+
+  // O estado agora guarda uma lista de objetos {nome, url}
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFileType[]>([]);
+
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    isError: false,
+    message: "",
+  });
+
+  // Função para lidar com o upload de múltiplos arquivos
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadStatus(`Enviando ${files.length} anexo(s)...`);
+
+    // Usamos Promise.all para fazer todos os uploads em paralelo
+    try {
+      const uploadPromises = Array.from(files).map((file) => {
+        return fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+          method: "POST",
+          body: file,
+        }).then(async (response) => {
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(
+              errorData.error || `Falha no upload de ${file.name}.`
+            );
+          }
+          const newBlob = await response.json();
+          // Retorna o nome e a URL
+          return { name: file.name, url: newBlob.url };
+        });
+      });
+
+      const newFiles = await Promise.all(uploadPromises);
+
+      // Adiciona os novos arquivos à lista existente, em vez de substituir
+      setUploadedFiles((currentFiles) => [...currentFiles, ...newFiles]);
+      setUploadStatus(`${files.length} anexo(s) enviado(s) com sucesso!`);
+    } catch (error: any) {
+      console.error("Erro no upload:", error);
+      setUploadStatus(`Erro no upload: ${error.message}`);
+    }
+  };
+
+  // Nova função para remover um arquivo da lista
+  const handleRemoveFile = (fileUrlToRemove: string) => {
+    setUploadedFiles((currentFiles) =>
+      currentFiles.filter((file) => file.url !== fileUrlToRemove)
+    );
+  };
+
+  // Função principal de envio do formulário
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Previne o recarregamento da página
-    setStatus("Enviando...");
+    event.preventDefault();
+    setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    // AVISO: A abordagem FormData simples não lida bem com arquivos para envio via JSON.
-    // A lógica de upload de arquivos precisaria ser tratada separadamente e é mais complexa.
-    // Esta implementação focará no envio dos campos de texto.
+    // Extrai apenas as URLs para enviar para a API
+    const fileUrls = uploadedFiles.map((file) => file.url);
+    const finalData = { ...data, fileUrls };
 
     try {
       const response = await fetch("/api/send-email", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(finalData),
       });
 
       if (response.ok) {
-        setStatus("Mensagem enviada com sucesso!");
-        (event.target as HTMLFormElement).reset(); // Limpa o formulário
+        setModalState({
+          isOpen: true,
+          isError: false,
+          message:
+            "Obrigado pela mensagem enviada, nosso prazo médio para respostas é de no máximo dois dias.",
+        });
+        (event.target as HTMLFormElement).reset();
+        setUploadStatus("");
+        setUploadedFiles([]); // Limpa a lista de arquivos
       } else {
-        throw new Error("Falha ao enviar a mensagem.");
+        const result = await response.json();
+        throw new Error(result.error || "Falha ao enviar o formulário.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      setStatus("Erro ao enviar. Por favor, tente novamente mais tarde.");
+      setModalState({ isOpen: true, isError: true, message: error.message });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  const closeModal = () => {
+    setModalState({ isOpen: false, isError: false, message: "" });
+  };
+
   return (
-    <S.ContactWrapper id="contato">
-      <S.SectionTitle>Peça seu Orçamento</S.SectionTitle>
-      <S.ContactContainer>
-        <S.ContactInfo>
-          <h3>Fale Conosco</h3>
-          <p>Tem alguma dúvida ou quer solicitar um orçamento?</p>
-          <p>
-            <strong>Telefone/WhatsApp:</strong>
-            <a
-              href="https://wa.me/5531999884688"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              (31) 99988-4688
-            </a>
-          </p>
-          <p>
-            <strong>Email:</strong> faleconosco@primormoveis.com.br
-          </p>
-          <p>
-            <strong>Endereço:</strong> Rua Teodomira Diniz Lara, 48 - Sagrada
-            Família, Belo Horizonte - MG
-          </p>
-        </S.ContactInfo>
+    <>
+      <S.ContactWrapper id="contato">
+        <S.SectionTitle>Peça seu Orçamento</S.SectionTitle>
+        <S.ContactContainer>
+          <S.ContactInfo>
+            <h3>Fale Conosco</h3>
+            <p>Tem alguma dúvida ou quer solicitar um orçamento?</p>
+            <p>
+              <strong>Telefone/WhatsApp:</strong>
+              <a
+                href="https://wa.me/5531999884688"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                (31) 99988-4688
+              </a>
+            </p>
+            <p>
+              <strong>Email:</strong> faleconosco@primormoveis.com.br
+            </p>
+            <p>
+              <strong>Endereço:</strong> Rua Teodomira Diniz Lara, 48 - Sagrada
+              Família, Belo Horizonte - MG
+            </p>
+          </S.ContactInfo>
 
-        <S.ContactForm onSubmit={handleSubmit}>
-          <h3>Envie os detalhes do seu projeto</h3>
-          <S.Input
-            type="text"
-            name="Nome"
-            placeholder="Seu nome completo"
-            required
-            disabled={status === "Enviando..."}
-          />
-          <S.Input
-            type="email"
-            name="Email"
-            placeholder="Seu melhor e-mail"
-            required
-            disabled={status === "Enviando..."}
-          />
-          <S.Input
-            type="tel"
-            name="Telefone"
-            placeholder="Seu telefone (WhatsApp)"
-            disabled={status === "Enviando..."}
-          />
-          <S.Textarea
-            name="Mensagem"
-            rows={6}
-            placeholder="Descreva quais móveis deseja fazer com o máximo de informação possível."
-            required
-            disabled={status === "Enviando..."}
-          />
-          <S.FileInputWrapper>
-            <label htmlFor="file-upload">
-              Anexar fotos ou projeto (funcionalidade em desenvolvimento)
-            </label>
+          <S.ContactForm onSubmit={handleSubmit}>
+            <h3>Envie os Detalhes do Seu Projeto</h3>
             <S.Input
-              as="input"
-              id="file-upload"
-              type="file"
-              name="anexo"
-              multiple
-              disabled={true}
+              type="text"
+              name="Nome"
+              placeholder="Seu nome completo"
+              required
+              disabled={isSubmitting}
             />
-            {/* O input de anexo está desabilitado por enquanto */}
-          </S.FileInputWrapper>
+            <S.Input
+              type="email"
+              name="Email"
+              placeholder="Seu melhor e-mail"
+              required
+              disabled={isSubmitting}
+            />
+            <S.Input
+              type="tel"
+              name="Telefone"
+              placeholder="Seu telefone (WhatsApp)"
+              disabled={isSubmitting}
+            />
+            <S.Textarea
+              name="Mensagem"
+              rows={6}
+              placeholder="Descreva qual móvel deseja fazer..."
+              required
+              disabled={isSubmitting}
+            />
 
-          <S.SubmitButton type="submit" disabled={status === "Enviando..."}>
-            {status === "Enviando..." ? "Enviando..." : "Enviar Solicitação"}
-          </S.SubmitButton>
+            <S.FileInputWrapper>
+              <label htmlFor="file-upload">
+                Anexar fotos ou projeto (pode selecionar vários)
+              </label>
+              <S.Input
+                as="input"
+                id="file-upload"
+                type="file"
+                name="anexo"
+                onChange={handleFileChange}
+                multiple
+                disabled={isSubmitting}
+              />
+              {uploadStatus && (
+                <p
+                  style={{
+                    fontSize: "0.8rem",
+                    marginTop: "0.5rem",
+                    opacity: 0.8,
+                  }}
+                >
+                  {uploadStatus}
+                </p>
+              )}
+            </S.FileInputWrapper>
 
-          {/* Exibe a mensagem de status para o usuário */}
-          {status && (
-            <p style={{ marginTop: "1rem", textAlign: "center" }}>{status}</p>
-          )}
-        </S.ContactForm>
-      </S.ContactContainer>
-    </S.ContactWrapper>
+            {/* Nova seção para listar os arquivos enviados */}
+            {uploadedFiles.length > 0 && (
+              <S.UploadedFilesList>
+                <p>Anexos:</p>
+                {uploadedFiles.map((file) => (
+                  <S.UploadedFileItem key={file.url}>
+                    <span>{file.name}</span>
+                    <S.RemoveFileButton
+                      type="button"
+                      onClick={() => handleRemoveFile(file.url)}
+                      aria-label={`Remover ${file.name}`}
+                    >
+                      <FaTimes />
+                    </S.RemoveFileButton>
+                  </S.UploadedFileItem>
+                ))}
+              </S.UploadedFilesList>
+            )}
+
+            <S.SubmitButton type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Enviando..." : "Enviar Solicitação"}
+            </S.SubmitButton>
+          </S.ContactForm>
+        </S.ContactContainer>
+      </S.ContactWrapper>
+
+      <ConfirmationModal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        message={modalState.message}
+        isError={modalState.isError}
+        title={modalState.isError ? "Ops!" : "Enviado com Sucesso!"}
+      />
+    </>
   );
 };
 

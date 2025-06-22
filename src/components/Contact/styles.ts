@@ -1,5 +1,5 @@
 // src/components/Contact/styles.ts
-import styled, { css } from 'styled-components'; // Adicione css se não estiver lá
+import styled, { css } from "styled-components"; // Adicione css se não estiver lá
 
 export const ContactWrapper = styled.section`
   padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
@@ -19,7 +19,7 @@ export const SectionTitle = styled.h2`
   display: block;
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     width: 70px;
     height: 4px;
@@ -27,7 +27,7 @@ export const SectionTitle = styled.h2`
     margin: 0.75rem auto ${({ theme }) => theme.spacings.xlarge} auto;
   }
 
-   @media (min-width: 768px) {
+  @media (min-width: 768px) {
     font-size: 2.8rem;
   }
 `;
@@ -46,7 +46,8 @@ export const ContactContainer = styled.div`
 `;
 
 export const ContactInfo = styled.div`
-  background-color: ${({ theme }) => theme.colors.lightBackground}; // Off-white/Bege sutil
+  background-color: ${({ theme }) =>
+    theme.colors.lightBackground}; // Off-white/Bege sutil
   padding: ${({ theme }) => theme.spacings.large};
   border-radius: ${({ theme }) => theme.borderRadius};
 
@@ -65,12 +66,14 @@ export const ContactInfo = styled.div`
   }
 
   strong {
-    color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro (mais forte)
+    color: ${({ theme }) =>
+      theme.colors.secondary}; // Marrom Escuro (mais forte)
   }
 `;
 
 export const ContactForm = styled.form`
-  background-color: ${({ theme }) => theme.colors.lightBackground}; // Off-white/Bege sutil
+  background-color: ${({ theme }) =>
+    theme.colors.lightBackground}; // Off-white/Bege sutil
   padding: ${({ theme }) => theme.spacings.large};
   border-radius: ${({ theme }) => theme.borderRadius};
 
@@ -90,9 +93,12 @@ const InputStyles = css`
   border-radius: ${({ theme }) => `calc(${theme.borderRadius} / 2)`};
   font-size: 1rem;
   font-family: ${({ theme }) => theme.fonts.main};
-  background-color: ${({ theme }) => theme.colors.background}; // Fundo branco para inputs
+  background-color: ${({ theme }) =>
+    theme.colors.background}; // Fundo branco para inputs
   color: ${({ theme }) => theme.colors.textOnLight}; // Texto marrom
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:focus {
     outline: none;
@@ -124,11 +130,15 @@ export const SubmitButton = styled.button`
   font-weight: bold;
   text-decoration: none;
   border-radius: ${({ theme }) => theme.borderRadius};
-  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease,
+    color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary}; // Marrom Escuro no hover
+    background-color: ${({ theme }) =>
+      theme.colors.secondary}; // Marrom Escuro no hover
     color: ${({ theme }) => theme.colors.textOnDark}; // Texto Branco
     transform: translateY(-2px);
   }
@@ -136,7 +146,7 @@ export const SubmitButton = styled.button`
 
 export const FileInputWrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.spacings.medium};
-  
+
   label {
     display: block;
     font-weight: 500;
@@ -167,6 +177,71 @@ export const FileInputWrapper = styled.div`
   }
 `;
 
-function calc($: any, arg1: number): import("styled-components").Interpolation<import("styled-components").FastOmit<import("react").DetailedHTMLProps<import("react").HTMLAttributes<HTMLDivElement>, HTMLDivElement>, never>> {
-  throw new Error('Function not implemented.');
+function calc(
+  $: any,
+  arg1: number
+): import("styled-components").Interpolation<
+  import("styled-components").FastOmit<
+    import("react").DetailedHTMLProps<
+      import("react").HTMLAttributes<HTMLDivElement>,
+      HTMLDivElement
+    >,
+    never
+  >
+> {
+  throw new Error("Function not implemented.");
 }
+
+export const UploadedFilesList = styled.div`
+  margin-top: ${({ theme }) => theme.spacings.medium};
+  margin-bottom: ${({ theme }) => theme.spacings.medium};
+  padding: ${({ theme }) => theme.spacings.small};
+  border: 1px solid ${({ theme }) => theme.colors.mediumGray};
+  border-radius: ${({ theme }) => theme.borderRadius};
+
+  p {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: ${({ theme }) => theme.spacings.small};
+    color: ${({ theme }) => theme.colors.darkGray};
+  }
+`;
+
+export const UploadedFileItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${({ theme }) => theme.spacings.small};
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  margin-bottom: ${({ theme }) => theme.spacings.small};
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: #333;
+    // Impede que nomes de arquivo muito grandes quebrem o layout
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 1rem;
+  }
+`;
+
+export const RemoveFileButton = styled.button`
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: #dc3545; // Cor vermelha para indicar remoção
+  }
+`;
