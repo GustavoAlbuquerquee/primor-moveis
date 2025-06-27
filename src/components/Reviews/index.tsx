@@ -12,6 +12,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useInView } from "react-intersection-observer";
 const sampleReviews = [
   {
     id: 1,
@@ -49,9 +50,16 @@ const Reviews = () => {
   // Link para a sua página de avaliações no Google
   const googleReviewsUrl =
     "https://www.google.com/search?q=primor+moveis+bh+reviews&rlz=1C1GCEA_enBR1147BR1147&oq=primor+moveis&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzINCAEQLhivARjHARiABDIJCAIQRRg5GIAEMgYIAxBFGEAyBwgEEAAYgAQyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQg0NzcyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0xa69701b98f6acd:0x977586db7596b7a0,1,,,,"; // **SUBSTITUA PELA URL REAL**
-
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
   return (
-    <S.ReviewsWrapper id="depoimentos">
+    <S.ReviewsWrapper
+      id="depoimentos"
+      ref={ref}
+      className={inView ? "in-view" : ""}
+    >
       <S.SectionTitle>O que Nossos Clientes Dizem</S.SectionTitle>
       <S.ReviewsContainer>
         {sampleReviews.map((review) => (

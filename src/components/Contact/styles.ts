@@ -1,9 +1,11 @@
 // src/components/Contact/styles.ts
+import { fadeInAnimation } from "@/styles/global";
 import styled, { css } from "styled-components"; // Adicione css se não estiver lá
 
 export const ContactWrapper = styled.section`
   padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
   background-color: ${({ theme }) => theme.colors.background}; // Branco
+  ${fadeInAnimation} // 2. Aplique a animação aqui
 
   @media (min-width: 768px) {
     padding: ${({ theme }) => `calc(${theme.spacings.xxlarge} * 1.5)`} ${({ theme }) => theme.spacings.large};
@@ -130,17 +132,14 @@ export const SubmitButton = styled.button`
   font-weight: bold;
   text-decoration: none;
   border-radius: ${({ theme }) => theme.borderRadius};
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease,
-    color 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease; // Usar 'all' para uma transição completa
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 
   &:hover {
-    background-color: ${({ theme }) =>
-      theme.colors.secondary}; // Marrom Escuro no hover
-    color: ${({ theme }) => theme.colors.textOnDark}; // Texto Branco
-    transform: translateY(-2px);
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.textOnDark};
+    transform: translateY(-3px); // Efeito de "levantar"
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15); // Sombra mais pronunciada
   }
 `;
 

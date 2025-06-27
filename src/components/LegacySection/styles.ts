@@ -1,10 +1,22 @@
-import styled from 'styled-components';
+import styled, { keyframes } from "styled-components";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 export const SectionWrapper = styled.section`
-  background-color: ${({ theme }) => theme.colors.secondary}; // Fundo Marrom Escuro
-  color: ${({ theme }) => theme.colors.textOnDark}; // Texto Branco
-  padding: 4rem 2rem; // Aumentamos o padding
+  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.textOnDark};
+  padding: 4rem 2rem;
   text-align: center;
+  animation: ${fadeIn} 0.8s ease-out forwards;
 `;
 
 export const Title = styled.h2`
@@ -20,12 +32,13 @@ export const Title = styled.h2`
 
 export const StatsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr); // Três colunas
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin: 0 auto;
+  max-width: 1000px;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr; // Uma coluna em telas menores
+    grid-template-columns: 1fr;
     gap: 3rem;
   }
 `;
@@ -39,7 +52,7 @@ export const StatItem = styled.div`
 
 export const StatIcon = styled.div`
   font-size: 3rem;
-  color: ${({ theme }) => theme.colors.primary}; // Laranja Amarelado para destaque
+  color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 1rem;
 `;
 
@@ -49,9 +62,11 @@ export const StatNumber = styled.p`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.textOnDark};
   line-height: 1;
+  height: 48px; // Altura fixa para evitar "pulos" de layout enquanto os números contam
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
+    height: 40px;
   }
 `;
 

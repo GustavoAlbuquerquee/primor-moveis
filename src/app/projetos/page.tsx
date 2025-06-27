@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Modal from "@/components/Modal";
-import * as S from "./styles"; // Importa TODOS os estilos do nosso novo arquivo styles.ts
-import { FaInstagram } from "react-icons/fa"; // Importando o ícone do Instagram
+import * as S from "./styles";
+import { FaInstagram, FaPlus } from "react-icons/fa"; // Importando o ícone de 'Mais'
 
 type ProjectType = {
   id: string;
@@ -362,7 +362,6 @@ export default function ProjetosPage() {
           </S.FilterContainer>
           <S.ProjectsGrid>
             {filteredProjects.map((project) => (
-              // 2. MUDANÇA NO ONCLICK: Passamos o objeto 'project' inteiro
               <S.ProjectCard
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
@@ -374,6 +373,7 @@ export default function ProjetosPage() {
                     fill
                     style={{ objectFit: "cover" }}
                   />
+                  <S.CardOverlay></S.CardOverlay>
                 </div>
                 <div className="info-container">
                   <h3>{project.name}</h3>
@@ -384,7 +384,7 @@ export default function ProjetosPage() {
           </S.ProjectsGrid>
           <S.InstagramButtonWrapper>
             <S.InstagramButton
-              href="https://instagram.com/primormoveisbh"
+              href="https://instagram.com/primormoveisbh" // Corrigi para o seu insta
               target="_blank"
               rel="noopener noreferrer"
             >

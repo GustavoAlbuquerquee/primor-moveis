@@ -1,4 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+// 1. DEFINIÇÃO DA ANIMAÇÃO DE ZOOM LENTO
+const kenburns = keyframes`
+  0% {
+    transform: scale(1.0) translateY(0);
+  }
+  100% {
+    transform: scale(1.1) translateY(-10px); // Aumenta o zoom e move um pouco para cima
+  }
+`;
 
 export const SliderWrapper = styled.div`
   width: 100%;
@@ -23,6 +33,7 @@ export const SliderWrapper = styled.div`
   }
 `;
 
+// 2. MUDANÇA PRINCIPAL NO SlideContent
 export const SlideContent = styled.div`
   width: 100%;
   height: 100%;
@@ -30,9 +41,16 @@ export const SlideContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden; // Essencial para "cortar" a imagem enquanto ela cresce
+
+  /* O seletor '> img' aplica a animação diretamente no componente <Image> do Next.js
+    que está dentro do SlideContent.
+  */
+  > img {
+    animation: ${kenburns} 30s ease-out infinite alternate; // Aplica a animação
+  }
 `;
 
-// --- MODIFICAÇÃO PRINCIPAL AQUI ---
 export const SlideOverlay = styled.div`
   position: absolute;
   top: 0;
@@ -40,25 +58,7 @@ export const SlideOverlay = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
-
-  /* Opção A (Recomendada): Escurecimento Uniforme
-    Aplica uma camada escura por igual sobre toda a imagem.
-    Ajuste a opacidade (o último número, de 0.0 a 1.0) conforme seu gosto. 
-    0.4 = 40% escuro.
-  */
   background-color: rgba(0, 0, 0, 0.4);
-
-  /* Opção B (Alternativa): Gradiente Mais Forte
-    Se quiser que o escurecimento seja mais forte na parte de baixo e mais suave em cima.
-    Descomente o código abaixo e comente o 'background-color' de cima para testar.
-  */
-  /*
-  background: linear-gradient(
-    to top, 
-    rgba(0, 0, 0, 0.8) 10%,  // Começa 80% escuro na base
-    transparent 70%         // Fica transparente a partir de 70% da altura
-  );
-  */
 `;
 
 export const SlideTextContainer = styled.div`
@@ -86,7 +86,7 @@ export const Caption = styled.p`
   font-size: 1.2rem;
   line-height: 1.6;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
-  white-space: pre-line; // <-- ADICIONE ESTA LINHA
+  white-space: pre-line;
 
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -97,12 +97,11 @@ export const Watermark = styled.div`
   position: absolute;
   bottom: 20px;
   right: 20px;
-  z-index: 3; // Para ficar acima do overlay, mas abaixo de possíveis controles
-
-  color: rgba(255, 255, 255, 0.6); // Cor branca com 60% de opacidade
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 0.8rem;
   font-weight: 500;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); // Sombra para legibilidade
-  pointer-events: none; // Impede que o texto seja clicável ou interfira no slider
-  user-select: none; // Impede que o texto seja facilmente selecionado
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  user-select: none;
 `;

@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
+import { fadeInAnimation } from "@/styles/global";
 
 export const ReviewsWrapper = styled.section`
   padding: 4rem 2rem;
   background-color: ${({ theme }) => theme.colors.lightBackground};
   text-align: center;
+  ${fadeInAnimation}// 2. Aplique a animação aqui
 `;
 
 export const SectionTitle = styled.h2`
@@ -125,15 +127,13 @@ export const ViewMoreButton = styled(Link)`
   font-weight: bold;
   text-decoration: none;
   border-radius: ${({ theme }) => theme.borderRadius};
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; // Usar 'all' para uma transição completa
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: ${({ theme }) =>
-      theme.colors.primary}; // Fundo Laranja no hover
-    color: ${({ theme }) =>
-      theme.colors.secondary}; // Texto Marrom Escuro no hover
-    text-decoration: none;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.textOnDark};
+    transform: translateY(-3px); // Efeito de "levantar"
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); // Sombra mais pronunciada
   }
 `;

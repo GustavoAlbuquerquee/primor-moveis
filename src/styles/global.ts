@@ -1,5 +1,6 @@
 // src/styles/global.ts
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
+import { css } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -71,4 +72,16 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+export const fadeInAnimation = css`
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+
+  &.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 export default GlobalStyles;

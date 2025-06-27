@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import { FaTimes } from "react-icons/fa"; // Ícone para o botão de remover
 import * as S from "./styles";
-
+import { useInView } from "react-intersection-observer";
 // Criando um tipo para nosso objeto de arquivo, para melhor organização
 type UploadedFileType = {
   name: string;
@@ -14,7 +14,10 @@ type UploadedFileType = {
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadStatus, setUploadStatus] = useState("");
-
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
   // O estado agora guarda uma lista de objetos {nome, url}
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFileType[]>([]);
 
@@ -118,7 +121,11 @@ const Contact = () => {
 
   return (
     <>
-      <S.ContactWrapper id="contato">
+      <S.ContactWrapper
+        id="contato"
+        ref={ref}
+        className={inView ? "in-view" : ""}
+      >
         <S.SectionTitle>Peça seu Orçamento</S.SectionTitle>
         <S.ContactContainer>
           <S.ContactInfo>

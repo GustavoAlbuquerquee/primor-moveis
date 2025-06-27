@@ -200,3 +200,47 @@ export const CategorySection = styled(ContentSection)`
 `;
 
 export { SobrePageWrapper, SobreHeroSection, MainContentSection, ValuesSection, ValueCard };
+
+export const RevealWrapper = styled.div`
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+
+  /* A "cortina" colorida que revela a imagem */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.primary};
+    
+    /* MUDANÇA 1: A cortina agora começa cobrindo a imagem */
+    transform: translateX(0);
+    
+    /* A transição agora é um pouco mais lenta e suave */
+    transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 1; // Para ficar sobre a imagem
+  }
+
+  /* A imagem em si */
+  .reveal-image {
+    /* MUDANÇA 2: A imagem agora começa visível (opacity: 1), mas atrás da cortina */
+    opacity: 1;
+    transform: scale(1.1); // Começa com um leve zoom para dar mais dinamismo
+    transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* Quando o componente está visível na tela */
+  &.in-view {
+    &::after {
+      /* MUDANÇA 3: A "cortina" desliza para a direita, saindo de vista e revelando a imagem */
+      transform: translateX(101%);
+    }
+    .reveal-image {
+      /* A imagem volta ao tamanho normal, criando um efeito de zoom reverso */
+      transform: scale(1);
+    }
+  }
+`;
