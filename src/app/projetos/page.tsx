@@ -19,7 +19,7 @@ const allProjects = [
   {
     id: "q1",
     category: "Quartos",
-    name: "Quarto Casal Aconchegante",
+    name: "Suite completa com painel e roupeiro para TV com gaveteiro.",
     description: "Móveis planejados com design moderno e funcional para casal",
     imageSrc: "/projects/Quarto_1.jpg",
   },

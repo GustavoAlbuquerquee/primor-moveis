@@ -118,12 +118,6 @@ export const CardOverlay = styled.div.attrs({ className: "overlay" })`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    96,
-    56,
-    41,
-    0.5
-  ); // Usa seu Marrom Escuro com opacidade
   display: flex;
   align-items: center;
   justify-content: center;

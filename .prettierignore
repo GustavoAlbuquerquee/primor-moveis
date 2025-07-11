@@ -2,6 +2,7 @@
 src/components/ConfirmationModal/styles.ts
 src/components/contact/styles.ts
 src/app/sobre/styles.ts
+src/components/Hero/styles.ts
 # Adicione outros arquivos ou padrões que deseja ignorar abaixo
 # exemplo:
 # *.md
