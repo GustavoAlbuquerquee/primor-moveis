@@ -38,15 +38,24 @@ export const FilterButton = styled.button<{ $isActive: boolean }>`
   color: ${({ $isActive, theme }) =>
     $isActive ? theme.colors.secondary : theme.colors.textOnLight};
   border: 2px solid ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => theme.spacings.small} 1.5rem; // Ajustei o padding
+  padding: ${({ theme }) => theme.spacings.small} 1.5rem;
   border-radius: 50px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, background-color, color;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.secondary};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -57,16 +66,24 @@ export const ProjectsGrid = styled.div`
   padding: 0 ${({ theme }) => theme.spacings.medium};
   max-width: 1300px;
   margin: 0 auto;
+  position: relative;
+
+  /* Otimizações para performance */
+  & > * {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
 `;
 
-// --- MUDANÇA PRINCIPAL NO HOVER DO CARD ---
 export const ProjectCard = styled.div`
   background-color: #fff;
   border-radius: ${({ theme }) => theme.borderRadius};
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  position: relative; // Necessário para o posicionamento do overlay
+  position: relative;
+  will-change: transform, box-shadow;
 
   .image-container {
     width: 100%;
@@ -78,6 +95,7 @@ export const ProjectCard = styled.div`
 
     img {
       transition: transform 0.4s ease-in-out;
+      will-change: transform;
     }
   }
 
@@ -111,7 +129,6 @@ export const ProjectCard = styled.div`
   }
 `;
 
-// --- NOVO ESTILO PARA O OVERLAY ---
 export const CardOverlay = styled.div.attrs({ className: "overlay" })`
   position: absolute;
   top: 0;
@@ -123,11 +140,12 @@ export const CardOverlay = styled.div.attrs({ className: "overlay" })`
   justify-content: center;
   color: #fff;
   font-size: 2.5rem;
-  opacity: 0; // Começa invisível
+  opacity: 0;
   transition: opacity 0.4s ease;
-  pointer-events: none; // Permite que o clique passe para o card abaixo
+  pointer-events: none;
   border-radius: ${({ theme }) => theme.borderRadius}
     ${({ theme }) => theme.borderRadius} 0 0;
+  will-change: opacity;
 `;
 
 export const InstagramButtonWrapper = styled.div`
@@ -136,20 +154,20 @@ export const InstagramButtonWrapper = styled.div`
   padding-bottom: 2rem;
 `;
 
-// --- BOTÃO DO INSTAGRAM CORRIGIDO ---
 export const InstagramButton = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.secondary};
-  padding: ${({ theme }) => theme.spacings.medium} 1.5rem; // Ajustei o padding
+  padding: ${({ theme }) => theme.spacings.medium} 1.5rem;
   font-size: 1.1rem;
   font-weight: bold;
   text-decoration: none;
   border-radius: ${({ theme }) => theme.borderRadius};
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  will-change: transform, background-color, color, box-shadow;
 
   svg {
     font-size: 1.4rem;

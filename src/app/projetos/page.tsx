@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Modal from "@/components/Modal";
 import * as S from "./styles";
 import { FaInstagram, FaPlus } from "react-icons/fa"; // Importando o ícone de 'Mais'
+import { motion } from "framer-motion";
 
 type ProjectType = {
   id: string;
@@ -14,97 +15,116 @@ type ProjectType = {
   imageSrc: string;
 };
 
-const allProjects = [
-  // Quartos - 6 projetos
+// Função para embaralhar array
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+const allProjectsBase = [
+  // Quartos - 5 projetos preenchidos
   {
     id: "q1",
     category: "Quartos",
-    name: "Suite completa com painel e roupeiro para TV com gaveteiro.",
-    description: "Móveis planejados com design moderno e funcional para casal",
+    name: "Suíte Master Elegante com Painel Ripado",
+    description:
+      "Um refúgio de sofisticação e conforto. Implementada por um imponente painel ripado com iluminação indireta, criando uma atmosfera de aconchego.",
     imageSrc: "/projects/Quarto_1.jpg",
   },
   {
     id: "q2",
     category: "Quartos",
-    name: "Quarto Solteiro Moderno",
+    name: "Quarto Jovem com Marcenaria Integrada",
     description:
-      "Ambiente otimizado com soluções inteligentes de armazenamento",
+      "Solução completa que integra cama, estante com nicho decorativo e um banco-baú na janela, otimizando o espaço com funcionalidade.",
     imageSrc: "/projects/Quarto_2.jpg",
   },
   {
     id: "q3",
     category: "Quartos",
-    name: "Quarto Infantil Criativo",
-    description: "Design lúdico e seguro para o desenvolvimento das crianças",
+    name: "Quarto com Bancada e Painel Iluminado",
+    description:
+      "Projeto que combina diferentes texturas, com cabeceira estofada e painel de madeira com iluminação embutida e armário espelhado.",
     imageSrc: "/projects/Quarto_3.jpg",
   },
   {
     id: "q4",
     category: "Quartos",
-    name: "Suíte Master Elegante",
+    name: "Armário de madeira Planejado do Piso ao Teto",
     description:
-      "Ambiente sofisticado com closet integrado e acabamentos premium",
+      "Aproveitamento máximo do espaço com armário do piso ao teto. O nicho em tom azul cria um ponto de cor e personalidade no projeto.",
     imageSrc: "/projects/Quarto_4.jpg",
   },
   {
     id: "q5",
     category: "Quartos",
-    name: "Quarto Jovem Contemporâneo",
-    description: "Espaço moderno para adolescentes com área de estudos",
+    name: "Bancada Iluminada e Multifuncional para Quarto",
+    description:
+      "Espaço de estudos e beleza com bancada que inclui penteadeira com espelho iluminado, nichos organizadores e baú de apoio.",
     imageSrc: "/projects/Quarto_5.jpg",
   },
-  {
-    id: "q6",
-    category: "Quartos",
-    name: "Quarto Compacto Funcional",
-    description: "Aproveitamento máximo do espaço com móveis multifuncionais",
-    imageSrc: "/projects/Quarto_6.jpg",
-  },
 
-  // Sala - 6 projetos
+  // Sala - 7 projetos
   {
     id: "s1",
     category: "Sala",
-    name: "Painel de TV Ripado",
-    description: "Design moderno com textura em madeira e iluminação LED",
+    name: "Home Theater com Iluminação",
+    description:
+      "Painel para TV com fundo em porcelanato e iluminação embutida, combinado com estante lateral decorativa para um design leve e sofisticado.",
     imageSrc: "/projects/Sala_1.jpg",
   },
   {
     id: "s2",
     category: "Sala",
-    name: "Estante para Livros",
-    description: "Biblioteca planejada com nichos decorativos e funcionais",
+    name: "Divisória de Ambientes em Painel",
+    description:
+      "Painel ripado que funciona como uma elegante divisória de ambientes, com rack suspenso e iluminação de destaque. Uma solução moderna e versátil.",
     imageSrc: "/projects/Sala_2.jpg",
   },
   {
     id: "s3",
     category: "Sala",
-    name: "Sala de Estar Integrada",
-    description: "Ambiente amplo e aconchegante para convívio familiar",
+    name: "Estante Vazada em Madeira",
+    description:
+      "Estante com estrutura leve em metalon dourado e prateleiras em madeira, integrada ao painel ripado. Design que valoriza a decoração.",
     imageSrc: "/projects/Sala_3.jpg",
   },
   {
     id: "s4",
     category: "Sala",
-    name: "Home Theater Sofisticado",
-    description: "Espaço dedicado ao entretenimento com acústica planejada",
+    name: "Home Theater em Tons de Cinza",
+    description:
+      "Painel para TV combinando diferentes tons de cinza e textura ripada. O móvel baixo suspenso cria um visual moderno e organizado.",
     imageSrc: "/projects/Sala_4.jpg",
   },
   {
     id: "s5",
     category: "Sala",
-    name: "Sala de Jantar Elegante",
-    description: "Mesa e buffet planejados para receber convidados",
+    name: "Home Theater Minimalista 'All Black'",
+    description:
+      "Design minimalista e imponente com painel e rack flutuante em acabamento preto. O nicho superior com iluminação cria um ponto de destaque.",
     imageSrc: "/projects/Sala_5.jpg",
   },
   {
     id: "s6",
     category: "Sala",
-    name: "Living Minimalista",
-    description: "Design clean com linhas retas e cores neutras",
+    name: "Buffet para Sala de Jantar",
+    description:
+      "Aparador planejado em laca colorida com nicho iluminado e armários superiores com portas em espelho, que ampliam e sofisticam o ambiente.",
     imageSrc: "/projects/Sala_6.jpg",
   },
-
+  {
+    id: "s7",
+    category: "Sala",
+    name: "Rack Baixo com Painel Decorativo",
+    description:
+      "Rack baixo e suspenso de design minimalista, com detalhe ripado para ventilação. O painel lateral em tom escuro delimita o espaço da TV.",
+    imageSrc: "/projects/Sala_7.jpg",
+  },
   // Cozinha - 6 projetos
   {
     id: "c1",
@@ -134,201 +154,179 @@ const allProjects = [
     description: "Otimização de espaço sem perder funcionalidade",
     imageSrc: "/projects/Cozinha_4.jpg",
   },
-  {
-    id: "c5",
-    category: "Cozinha",
-    name: "Cozinha Industrial Residencial",
-    description: "Estilo industrial com praticidade e durabilidade",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
-  },
-  {
-    id: "c6",
-    category: "Cozinha",
-    name: "Cozinha Clássica Atemporal",
-    description: "Design tradicional com toques contemporâneos",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
-  },
 
-  // Corporativos - 6 projetos
+  // Corporativos - 5 projetos
   {
     id: "corp1",
     category: "Corporativos",
-    name: "Recepção de Empresa",
-    description: "Primeira impressão profissional com design corporativo",
+    name: "Entrada com Porta Pivotante",
+    description:
+      "Porta pivotante em madeira que cria uma entrada imponente e sofisticada, integrando-se perfeitamente à arquitetura do ambiente.",
     imageSrc: "/projects/Corporativo_1.jpg",
   },
   {
     id: "corp2",
     category: "Corporativos",
-    name: "Sala de Reuniões Executiva",
-    description: "Ambiente profissional para reuniões e apresentações",
+    name: "Cabines Acústicas para Escritório",
+    description:
+      "Cabines com estofado sob medida, criando espaços privativos para reuniões rápidas ou momentos de descompressão e foco.",
     imageSrc: "/projects/Corporativo_2.jpg",
   },
   {
     id: "corp3",
     category: "Corporativos",
-    name: "Escritório Diretoria",
-    description: "Móveis executivos com design imponente e funcional",
+    name: "Auditório com Painel e Palco",
+    description:
+      "Estrutura completa em marcenaria para auditório, incluindo painel para vídeo wall e palco curvo com acabamento premium.",
     imageSrc: "/projects/Corporativo_3.jpg",
   },
   {
     id: "corp4",
     category: "Corporativos",
-    name: "Open Office Moderno",
-    description: "Estações de trabalho integradas e colaborativas",
+    name: "Escritório Executivo com Painel ",
+    description:
+      "Painel ripado em tom escuro que confere sobriedade e elegância ao ambiente, complementando a mesa de design moderno.",
     imageSrc: "/projects/Corporativo_4.jpg",
   },
   {
     id: "corp5",
     category: "Corporativos",
-    name: "Sala de Treinamento",
-    description: "Ambiente versátil para capacitações e workshops",
+    name: "Lounge com Iluminação Integrada",
+    description:
+      "Painéis de madeira com iluminação de LED embutida, criando um ambiente acolhedor para recepções e áreas de convivência.",
     imageSrc: "/projects/Corporativo_5.jpg",
   },
-  {
-    id: "corp6",
-    category: "Corporativos",
-    name: "Lounge Corporativo",
-    description: "Área de descanso e networking para funcionários",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
-  },
 
-  // Banheiros - 6 projetos
+  // Banheiros - 5 projetos
   {
     id: "b1",
     category: "Banheiros",
-    name: "Gabinete de Banheiro",
-    description: "Móvel sob medida com acabamento resistente à umidade",
+    name: "Banheiro com Gabinete Ripado",
+    description:
+      "Aconchego e textura da madeira ripada em um design moderno, com bancada e cuba esculpidas.",
     imageSrc: "/projects/Banheiro_1.jpg",
   },
   {
     id: "b2",
     category: "Banheiros",
-    name: "Banheiro Suite Master",
-    description: "Design luxuoso com banheira e acabamentos premium",
+    name: "Lavabo Sofisticado e Compacto",
+    description:
+      "Elegância e funcionalidade para espaços compactos com bancada em quartzo preto.",
     imageSrc: "/projects/Banheiro_2.jpg",
   },
   {
     id: "b3",
     category: "Banheiros",
-    name: "Lavabo Elegante",
-    description: "Pequeno espaço com grande impacto visual",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
+    name: "Design Moderno e Iluminado",
+    description:
+      "Gabinete suspenso em alto brilho, com nicho decorativo e iluminação de LED para um ambiente sofisticado.",
+    imageSrc: "/projects/Banheiro_3.jpg",
   },
   {
     id: "b4",
     category: "Banheiros",
-    name: "Banheiro Social Moderno",
-    description: "Design contemporâneo com praticidade no dia a dia",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
+    name: "Armário Clean em Mármore",
+    description:
+      "Design clean com gabinete em laca branca e espelheira ampla, perfeitamente integrados ao mármore.",
+    imageSrc: "/projects/Banheiro_4.jpg",
   },
   {
     id: "b5",
     category: "Banheiros",
-    name: "Banheiro Infantil Lúdico",
-    description: "Móveis coloridos e seguros para crianças",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
-  },
-  {
-    id: "b6",
-    category: "Banheiros",
-    name: "Banheiro Minimalista",
-    description: "Linhas clean com foco na funcionalidade",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
+    name: "Gabinete Minimalista ",
+    description:
+      "Gabinete em grafite fosco com puxadores fresados e o destaque da imponente cuba esculpida em pedra.",
+    imageSrc: "/projects/Banheiro_5.jpg",
   },
 
-  // Home Office - 6 projetos
+  // Home Office - 4 projetos
   {
     id: "ho1",
     category: "Home Office",
-    name: "Escritório Planejado",
-    description: "Ambiente produtivo com organização e conforto",
+    name: " Bancada Suspensa",
+    description:
+      "Ambiente clean e organizado, com bancada suspensa e armários em tons neutros. A iluminação de LED e os detalhes em dourado trazem sofisticação.",
     imageSrc: "/projects/Home_office_1.jpg",
   },
   {
     id: "ho2",
     category: "Home Office",
-    name: "Home Office Executivo",
-    description: "Móveis sofisticados para profissionais liberais",
+    name: "Estação de Trabalho Completa",
+    description:
+      "Estação de trabalho completa com ampla bancada, armários superiores e prateleira com detalhes em metalon, criando um visual executivo e moderno.",
     imageSrc: "/projects/Home_office_2.jpg",
   },
   {
     id: "ho3",
     category: "Home Office",
-    name: "Estúdio Criativo",
-    description: "Espaço inspirador para artistas e designers",
+    name: "Bancada de Estudos Iluminada",
+    description:
+      "Ampla bancada de trabalho que aproveita todo o espaço, com gaveteiro de apoio. As prateleiras superiores contam com iluminação embutida.",
     imageSrc: "/projects/Home_office_3.jpg",
   },
   {
     id: "ho4",
     category: "Home Office",
-    name: "Cantinho de Estudos",
-    description: "Área compacta e funcional para estudos",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
-  },
-  {
-    id: "ho5",
-    category: "Home Office",
-    name: "Biblioteca com Escritório",
-    description: "Combinação perfeita de trabalho e conhecimento",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
-  },
-  {
-    id: "ho6",
-    category: "Home Office",
-    name: "Escritório Compartilhado",
-    description: "Espaço para casais que trabalham em casa",
-    imageSrc: "/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg",
+    name: "Solução Compacta para Escritório",
+    description:
+      "Solução inteligente que integra um cantinho de estudos ao quarto. A marcenaria otimiza o espaço com cama, gaveteiros e bancada de trabalho.",
+    imageSrc: "/projects/Home_office_4.jpg",
   },
 
   // Projetos Especiais - 6 projetos
   {
     id: "pe1",
     category: "Projetos Especiais",
-    name: "Painel com Metalon e Laqueado",
-    description: "Combinação única de materiais para um visual exclusivo",
+    name: "Móvel em Laca com ",
+    description:
+      "Acabamento primoroso em laca de alto brilho. O design geométrico com bordas chanfradas cria uma peça moderna e escultural.",
     imageSrc: "/projects/Especiais_1.jpg",
   },
   {
     id: "pe2",
     category: "Projetos Especiais",
-    name: "Cabeceira Estofada",
-    description: "Conforto e elegância para o quarto principal",
+    name: "Cabeceira Estofada com Iluminação",
+    description:
+      "Conforto e sofisticação com cabeceira estofada sob medida, integrada a um painel de madeira e com iluminação de LED embutida.",
     imageSrc: "/projects/Especiais_2.jpg",
   },
   {
     id: "pe3",
     category: "Projetos Especiais",
-    name: "Bar Residencial",
-    description: "Espaço para entretenimento com adega integrada",
-    imageSrc: "/projects/Especiais_3.jpg",
+    name: "Closet com Portas de Vidro Reflecta",
+    description:
+      "Closet sofisticado com portas de correr em vidro reflecta bronze. A iluminação interna em LED valoriza a organização das peças.",
+    imageSrc: "/projects/Especiais_7.jpg", // Note que usei a imagem Especiais_7.jpg aqui
   },
   {
     id: "pe4",
     category: "Projetos Especiais",
-    name: "Closet de Luxo",
-    description: "Guarda-roupa dos sonhos com iluminação especial",
+    name: "Estante Expositora com Iluminação",
+    description:
+      "Projeto especial de estante com prateleiras flutuantes e iluminação de LED embutida para valorizar e exibir coleções e troféus.",
     imageSrc: "/projects/Especiais_4.jpg",
   },
   {
     id: "pe5",
     category: "Projetos Especiais",
-    name: "Sala de Música",
-    description: "Acústica planejada para instrumentos musicais",
+    name: "Marcenaria para Domo Geodésico",
+    description:
+      "Execução de marcenaria complexa para a estrutura interna e assoalho de um domo geodésico, criando um espaço único e acolhedor.",
     imageSrc: "/projects/Especiais_5.jpg",
   },
   {
     id: "pe6",
     category: "Projetos Especiais",
-    name: "Móvel de Apoio Curvilíneo",
-    description: "Design orgânico com formas exclusivas",
+    name: "Armário Mimetizado em Painel",
+    description:
+      "Armário planejado do piso ao teto com portas de abertura por toque, criando um painel de madeira uniforme e minimalista.",
     imageSrc: "/projects/Especiais_6.jpg",
   },
 ];
 
 const categories = [
   "Todos",
-  ...Array.from(new Set(allProjects.map((p) => p.category))),
+  ...Array.from(new Set(allProjectsBase.map((p) => p.category))),
 ];
 
 export default function ProjetosPage() {
@@ -336,61 +334,130 @@ export default function ProjetosPage() {
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
     null
   );
+  const [shuffledProjects, setShuffledProjects] = useState<ProjectType[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Embaralhar projetos apenas no cliente para evitar erro de hidratação
+  useEffect(() => {
+    setShuffledProjects(shuffleArray(allProjectsBase));
+    setIsMounted(true);
+  }, []);
 
   const filteredProjects = useMemo(() => {
+    if (!isMounted) return allProjectsBase; // Mostrar projetos originais durante SSR
+
     if (activeCategory === "Todos") {
-      return allProjects;
+      return shuffledProjects;
     }
-    return allProjects.filter((p) => p.category === activeCategory);
-  }, [activeCategory]);
+    return shuffledProjects.filter((p) => p.category === activeCategory);
+  }, [activeCategory, shuffledProjects, isMounted]);
+
+  // Estado para controlar a animação
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Função otimizada para mudar categoria
+  const handleCategoryChange = (category: string) => {
+    if (category === activeCategory) return;
+
+    setIsTransitioning(true);
+    setActiveCategory(category);
+
+    // Reset da transição após um pequeno delay
+    setTimeout(() => setIsTransitioning(false), 100);
+  };
 
   return (
     <>
       <main>
         <S.GalleryWrapper>
-          <S.PageTitle>Nossos Projetos</S.PageTitle>
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <S.PageTitle>Nossos Projetos</S.PageTitle>
+          </motion.div>
           <S.FilterContainer>
-            {categories.map((category) => (
-              <S.FilterButton
+            {categories.map((category, index) => (
+              <motion.div
                 key={category}
-                $isActive={activeCategory === category}
-                onClick={() => setActiveCategory(category)}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.1,
+                  ease: "easeOut",
+                }}
               >
-                {category}
-              </S.FilterButton>
+                <S.FilterButton
+                  $isActive={activeCategory === category}
+                  onClick={() => handleCategoryChange(category)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  as={motion.button}
+                >
+                  {category}
+                </S.FilterButton>
+              </motion.div>
             ))}
           </S.FilterContainer>
           <S.ProjectsGrid>
-            {filteredProjects.map((project) => (
-              <S.ProjectCard
+            {filteredProjects.map((project, index) => (
+              <motion.div
                 key={project.id}
-                onClick={() => setSelectedProject(project)}
+                initial={false}
+                animate={{
+                  opacity: isTransitioning ? 0.3 : 1,
+                  scale: isTransitioning ? 0.95 : 1,
+                }}
+                transition={{
+                  duration: 0.2,
+                  ease: "easeOut",
+                }}
+                layout
+                layoutId={project.id}
               >
-                <div className="image-container">
-                  <Image
-                    src={project.imageSrc}
-                    alt={project.name}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                  <S.CardOverlay></S.CardOverlay>
-                </div>
-                <div className="info-container">
-                  <h3>{project.name}</h3>
-                  <p>{project.description}</p>
-                </div>
-              </S.ProjectCard>
+                <S.ProjectCard onClick={() => setSelectedProject(project)}>
+                  <div className="image-container">
+                    <Image
+                      src={project.imageSrc}
+                      alt={project.name}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      priority={index < 6} // Prioridade para as primeiras 6 imagens
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
+                    />
+                    <S.CardOverlay></S.CardOverlay>
+                  </div>
+                  <div className="info-container">
+                    <h3>{project.name}</h3>
+                    <p>{project.description}</p>
+                  </div>
+                </S.ProjectCard>
+              </motion.div>
             ))}
           </S.ProjectsGrid>
           <S.InstagramButtonWrapper>
-            <S.InstagramButton
-              href="https://instagram.com/primormoveisbh" // Corrigi para o seu insta
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <FaInstagram />
-              Ver mais projetos em nosso Instagram
-            </S.InstagramButton>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <S.InstagramButton
+                  href="https://instagram.com/primormoveisbh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaInstagram />
+                  Ver mais projetos em nosso Instagram
+                </S.InstagramButton>
+              </motion.div>
+            </motion.div>
           </S.InstagramButtonWrapper>
         </S.GalleryWrapper>
       </main>
