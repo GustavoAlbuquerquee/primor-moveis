@@ -25,6 +25,42 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
+// Componente otimizado para imagens
+const OptimizedImage = ({ 
+  src, 
+  alt, 
+  priority = false, 
+  index = 0 
+}: { 
+  src: string; 
+  alt: string; 
+  priority?: boolean; 
+  index?: number; 
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      style={{ 
+        objectFit: "cover",
+        opacity: isLoaded ? 1 : 0,
+        transition: "opacity 0.3s ease-in-out"
+      }}
+      priority={priority}
+      placeholder="blur"
+      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZjNmNGY2O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNlNWU3ZWI7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxMjUiIHI9IjIwIiBmaWxsPSIjZGRkZGRkIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+"
+      quality={85}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      loading={priority ? "eager" : "lazy"}
+      onLoad={() => setIsLoaded(true)}
+      onError={() => setIsLoaded(true)} // Mostra mesmo se houver erro
+    />
+  );
+};
+
 const allProjectsBase = [
   // Quartos - 5 projetos preenchidos
   {
@@ -336,12 +372,37 @@ export default function ProjetosPage() {
   );
   const [shuffledProjects, setShuffledProjects] = useState<ProjectType[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Embaralhar projetos apenas no cliente para evitar erro de hidratação
   useEffect(() => {
     setShuffledProjects(shuffleArray(allProjectsBase));
     setIsMounted(true);
   }, []);
+
+  // Preload das primeiras imagens
+  useEffect(() => {
+    if (isMounted && shuffledProjects.length > 0) {
+      const imagesToPreload = shuffledProjects.slice(0, 6);
+      imagesToPreload.forEach((project) => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = project.imageSrc;
+        link.as = 'image';
+        document.head.appendChild(link);
+      });
+    }
+  }, [shuffledProjects, isMounted]);
+
+  const handleCategoryChange = (category: string) => {
+    setIsTransitioning(true);
+    setActiveCategory(category);
+    
+    // Pequeno delay para efeito visual
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 150);
+  };
 
   const filteredProjects = useMemo(() => {
     if (!isMounted) return allProjectsBase; // Mostrar projetos originais durante SSR
@@ -351,20 +412,6 @@ export default function ProjetosPage() {
     }
     return shuffledProjects.filter((p) => p.category === activeCategory);
   }, [activeCategory, shuffledProjects, isMounted]);
-
-  // Estado para controlar a animação
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  // Função otimizada para mudar categoria
-  const handleCategoryChange = (category: string) => {
-    if (category === activeCategory) return;
-
-    setIsTransitioning(true);
-    setActiveCategory(category);
-
-    // Reset da transição após um pequeno delay
-    setTimeout(() => setIsTransitioning(false), 100);
-  };
 
   return (
     <>
@@ -419,14 +466,11 @@ export default function ProjetosPage() {
               >
                 <S.ProjectCard onClick={() => setSelectedProject(project)}>
                   <div className="image-container">
-                    <Image
+                    <OptimizedImage
                       src={project.imageSrc}
                       alt={project.name}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      priority={index < 6} // Prioridade para as primeiras 6 imagens
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R"
+                      priority={index < 6}
+                      index={index}
                     />
                     <S.CardOverlay></S.CardOverlay>
                   </div>

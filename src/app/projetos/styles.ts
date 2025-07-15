@@ -92,10 +92,16 @@ export const ProjectCard = styled.div`
     overflow: hidden;
     border-radius: ${({ theme }) => theme.borderRadius}
       ${({ theme }) => theme.borderRadius} 0 0;
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
 
     img {
-      transition: transform 0.4s ease-in-out;
+      transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
       will-change: transform;
+      opacity: 0;
+      
+      &[data-loaded="true"] {
+        opacity: 1;
+      }
     }
   }
 
