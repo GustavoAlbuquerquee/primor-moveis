@@ -25,42 +25,6 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-// Componente otimizado para imagens
-const OptimizedImage = ({ 
-  src, 
-  alt, 
-  priority = false, 
-  index = 0 
-}: { 
-  src: string; 
-  alt: string; 
-  priority?: boolean; 
-  index?: number; 
-}) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      style={{ 
-        objectFit: "cover",
-        opacity: isLoaded ? 1 : 0,
-        transition: "opacity 0.3s ease-in-out"
-      }}
-      priority={priority}
-      placeholder="blur"
-      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZjNmNGY2O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNlNWU3ZWI7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxMjUiIHI9IjIwIiBmaWxsPSIjZGRkZGRkIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+"
-      quality={85}
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      loading={priority ? "eager" : "lazy"}
-      onLoad={() => setIsLoaded(true)}
-      onError={() => setIsLoaded(true)} // Mostra mesmo se houver erro
-    />
-  );
-};
-
 const allProjectsBase = [
   // Quartos - 5 projetos preenchidos
   {
@@ -466,11 +430,17 @@ export default function ProjetosPage() {
               >
                 <S.ProjectCard onClick={() => setSelectedProject(project)}>
                   <div className="image-container">
-                    <OptimizedImage
+                    <Image
                       src={project.imageSrc}
                       alt={project.name}
-                      priority={index < 6}
-                      index={index}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      priority={index < 6} // Prioridade para as primeiras 6 imagens
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZjNmNGY2O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNlNWU3ZWI7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxMjUiIHI9IjIwIiBmaWxsPSIjZGRkZGRkIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+"
+                      quality={85}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      loading={index < 6 ? "eager" : "lazy"}
                     />
                     <S.CardOverlay></S.CardOverlay>
                   </div>
