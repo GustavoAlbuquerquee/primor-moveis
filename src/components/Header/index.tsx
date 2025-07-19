@@ -26,7 +26,7 @@ const Header = () => {
           <S.Logo src="/cropped-logo-primor.png" alt="Logo Primor Móveis" />
           <S.LogoText>Primor Móveis</S.LogoText>
         </S.LogoContainer>
-        
+
         <S.Nav>
           <S.NavLink href="/" className={pathname === "/" ? "active" : ""}>
             Início
@@ -52,38 +52,47 @@ const Header = () => {
         </S.Nav>
 
         <S.MobileMenuButton onClick={toggleMobileMenu}>
-          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          {isMobileMenuOpen ? null : <FaBars />}
         </S.MobileMenuButton>
 
         <S.MobileMenu $isOpen={isMobileMenuOpen}>
-          <S.MobileNavLink 
-            href="/" 
-            className={pathname === "/" ? "active" : ""}
-            onClick={closeMobileMenu}
-          >
-            Início
-          </S.MobileNavLink>
-          <S.MobileNavLink
-            href="/sobre"
-            className={pathname === "/sobre" ? "active" : ""}
-            onClick={closeMobileMenu}
-          >
-            Sobre Nós
-          </S.MobileNavLink>
-          <S.MobileNavLink
-            href="/projetos"
-            className={pathname === "/projetos" ? "active" : ""}
-            onClick={closeMobileMenu}
-          >
-            Projetos
-          </S.MobileNavLink>
-          <S.MobileNavLink
-            href="/contato"
-            className={pathname === "/contato" ? "active" : ""}
-            onClick={closeMobileMenu}
-          >
-            Contato
-          </S.MobileNavLink>
+          <S.MobileMenuHeader>
+            <S.MobileMenuTitle>Menu</S.MobileMenuTitle>
+            <S.MobileCloseButton onClick={closeMobileMenu}>
+              <FaTimes />
+            </S.MobileCloseButton>
+          </S.MobileMenuHeader>
+
+          <S.MobileNavLinks>
+            <S.MobileNavLink
+              href="/"
+              className={pathname === "/" ? "active" : ""}
+              onClick={closeMobileMenu}
+            >
+              Início
+            </S.MobileNavLink>
+            <S.MobileNavLink
+              href="/sobre"
+              className={pathname === "/sobre" ? "active" : ""}
+              onClick={closeMobileMenu}
+            >
+              Sobre Nós
+            </S.MobileNavLink>
+            <S.MobileNavLink
+              href="/projetos"
+              className={pathname === "/projetos" ? "active" : ""}
+              onClick={closeMobileMenu}
+            >
+              Projetos
+            </S.MobileNavLink>
+            <S.MobileNavLink
+              href="/contato"
+              className={pathname === "/contato" ? "active" : ""}
+              onClick={closeMobileMenu}
+            >
+              Contato
+            </S.MobileNavLink>
+          </S.MobileNavLinks>
         </S.MobileMenu>
       </S.NavContainer>
     </S.HeaderWrapper>
