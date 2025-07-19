@@ -41,7 +41,7 @@ const slidesData = [
   },
   {
     id: 5,
-    imageSrc: "/inicial_5.jpg",
+    imageSrc: "/Inicial_5.jpg",
     keyword: "Excelência",
     // 1. Legenda transformada em um array para a quebra de linha
     caption: [
@@ -76,16 +76,17 @@ const HeroSlider = () => {
               <Image
                 src={slide.imageSrc}
                 alt={slide.keyword}
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: "cover" }}
                 objectPosition={
                   slide.id === 1
                     ? "center 70%"
                     : slide.id === 5
-                      ? " top"
+                      ? "top"
                       : "center"
                 }
                 priority={slide.id === 1}
+                sizes="100vw"
               />
               <S.SlideOverlay />
               <S.SlideTextContainer>

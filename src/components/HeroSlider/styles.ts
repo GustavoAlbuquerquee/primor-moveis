@@ -14,6 +14,7 @@ export const SliderWrapper = styled.div`
   width: 100%;
   height: 70vh;
   position: relative;
+  overflow: hidden;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     height: 75vh;
@@ -30,6 +31,23 @@ export const SliderWrapper = styled.div`
   .swiper {
     width: 100%;
     height: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .swiper-slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swiper-pagination {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
   }
 
   .swiper-pagination-bullet {
@@ -38,6 +56,7 @@ export const SliderWrapper = styled.div`
     height: 8px;
     opacity: 1;
     transition: background-color 0.3s ease;
+    margin: 0 4px;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
       width: 10px;
@@ -55,7 +74,6 @@ export const SliderWrapper = styled.div`
   }
 `;
 
-// 2. MUDANÇA PRINCIPAL NO SlideContent
 export const SlideContent = styled.div`
   width: 100%;
   height: 100%;
@@ -63,13 +81,38 @@ export const SlideContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; // Essencial para "cortar" a imagem enquanto ela cresce
+  overflow: hidden;
 
-  /* O seletor '> img' aplica a animação diretamente no componente <Image> do Next.js
-    que está dentro do SlideContent.
-  */
+  /* Garante que a imagem do Next.js seja renderizada corretamente */
   > img {
-    animation: ${kenburns} 30s ease-out infinite alternate; // Aplica a animação
+    animation: ${kenburns} 30s ease-out infinite alternate;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    z-index: 0;
+  }
+
+  /* Suporte para o componente Image do Next.js */
+  & > span {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 0;
+
+    & > img {
+      animation: ${kenburns} 30s ease-out infinite alternate;
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
   }
 `;
 
@@ -81,6 +124,7 @@ export const SlideOverlay = styled.div`
   height: 100%;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
 `;
 
 export const SlideTextContainer = styled.div`
@@ -90,6 +134,11 @@ export const SlideTextContainer = styled.div`
   text-align: center;
   padding: 1rem;
   max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 1.5rem;
