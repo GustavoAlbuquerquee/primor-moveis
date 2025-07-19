@@ -3,23 +3,53 @@
 import styled from "styled-components";
 
 export const GalleryWrapper = styled.div`
-  padding: ${({ theme }) => theme.spacings.xlarge} 0;
+  padding: ${({ theme }) => theme.spacings.medium} 0;
   min-height: 80vh;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: ${({ theme }) => theme.spacings.large} 0;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: ${({ theme }) => theme.spacings.xlarge} 0;
+  }
 `;
 
 export const PageTitle = styled.h1`
   text-align: center;
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 2.8rem;
+  font-size: 1.8rem;
   margin-bottom: ${({ theme }) => theme.spacings.medium};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 2.2rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 2.5rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    font-size: 2.8rem;
+  }
 
   &::after {
     content: "";
     display: block;
-    width: 70px;
-    height: 4px;
+    width: 50px;
+    height: 3px;
     background-color: ${({ theme }) => theme.colors.secondary};
-    margin: 0.75rem auto;
+    margin: 0.5rem auto;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      width: 60px;
+      height: 4px;
+      margin: 0.75rem auto;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      width: 70px;
+    }
   }
 `;
 
@@ -28,8 +58,13 @@ export const FilterContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacings.small};
-  margin-bottom: ${({ theme }) => theme.spacings.xlarge};
-  padding: 0 ${({ theme }) => theme.spacings.medium};
+  margin-bottom: ${({ theme }) => theme.spacings.large};
+  padding: 0 ${({ theme }) => theme.spacings.small};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0 ${({ theme }) => theme.spacings.medium};
+    margin-bottom: ${({ theme }) => theme.spacings.xlarge};
+  }
 `;
 
 export const FilterButton = styled.button<{ $isActive: boolean }>`
@@ -38,7 +73,7 @@ export const FilterButton = styled.button<{ $isActive: boolean }>`
   color: ${({ $isActive, theme }) =>
     $isActive ? theme.colors.secondary : theme.colors.textOnLight};
   border: 2px solid ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => theme.spacings.small} 1.5rem;
+  padding: ${({ theme }) => theme.spacings.small} 1rem;
   border-radius: 50px;
   font-weight: bold;
   cursor: pointer;
@@ -46,6 +81,17 @@ export const FilterButton = styled.button<{ $isActive: boolean }>`
   position: relative;
   overflow: hidden;
   will-change: transform, background-color, color;
+  font-size: 0.8rem;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: ${({ theme }) => theme.spacings.small} 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: ${({ theme }) => theme.spacings.small} 1.5rem;
+    font-size: 1rem;
+  }
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
@@ -61,12 +107,22 @@ export const FilterButton = styled.button<{ $isActive: boolean }>`
 
 export const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: ${({ theme }) => theme.spacings.large};
-  padding: 0 ${({ theme }) => theme.spacings.medium};
+  grid-template-columns: 1fr;
+  gap: ${({ theme }) => theme.spacings.medium};
+  padding: 0 ${({ theme }) => theme.spacings.small};
   max-width: 1300px;
   margin: 0 auto;
   position: relative;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: ${({ theme }) => theme.spacings.large};
+    padding: 0 ${({ theme }) => theme.spacings.medium};
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
 
   /* Otimizações para performance */
   & > * {
@@ -116,18 +172,38 @@ export const ProjectCard = styled.div`
   }
 
   .info-container {
-    padding: ${({ theme }) => theme.spacings.medium};
+    padding: ${({ theme }) => theme.spacings.small};
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      padding: ${({ theme }) => theme.spacings.medium};
+    }
   }
 
   h3 {
     color: ${({ theme }) => theme.colors.secondary};
     margin-bottom: ${({ theme }) => theme.spacings.small};
-    font-size: 1.2rem;
+    font-size: 1rem;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      font-size: 1.1rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      font-size: 1.2rem;
+    }
   }
 
   p {
     color: ${({ theme }) => theme.colors.darkGray};
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      font-size: 0.85rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -159,11 +235,11 @@ export const InstagramButtonWrapper = styled.div`
 export const InstagramButton = styled.a`
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.secondary};
-  padding: ${({ theme }) => theme.spacings.medium} 1.5rem;
-  font-size: 1.1rem;
+  padding: ${({ theme }) => theme.spacings.small} 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   text-decoration: none;
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -171,8 +247,23 @@ export const InstagramButton = styled.a`
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   will-change: transform, background-color, color, box-shadow;
 
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 0.75rem;
+    padding: ${({ theme }) => theme.spacings.medium} 1.3rem;
+    font-size: 1rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: ${({ theme }) => theme.spacings.medium} 1.5rem;
+    font-size: 1.1rem;
+  }
+
   svg {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      font-size: 1.4rem;
+    }
   }
 
   &:hover {

@@ -57,8 +57,17 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .section-padding {
-    padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
-    @media (min-width: 768px) {
+    padding: ${({ theme }) => theme.spacings.large} ${({ theme }) => theme.spacings.small};
+    
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      padding: ${({ theme }) => theme.spacings.xlarge} ${({ theme }) => theme.spacings.medium};
+    }
+    
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
+    }
+    
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
       padding: ${({ theme }) => `calc(${theme.spacings.xxlarge} * 1.5)`} ${({ theme }) => theme.spacings.large};
     }
   }
@@ -67,8 +76,13 @@ const GlobalStyles = createGlobalStyle`
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: ${({ theme }) => theme.spacings.medium};
-    padding-right: ${({ theme }) => theme.spacings.medium};
+    padding-left: ${({ theme }) => theme.spacings.small};
+    padding-right: ${({ theme }) => theme.spacings.small};
+    
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      padding-left: ${({ theme }) => theme.spacings.medium};
+      padding-right: ${({ theme }) => theme.spacings.medium};
+    }
   }
 `;
 

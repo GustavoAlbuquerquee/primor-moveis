@@ -19,9 +19,13 @@ export const NavContainer = styled.div`
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 ${({ theme }) => theme.spacings.medium};
+  padding: 0 ${({ theme }) => theme.spacings.small};
 
-  @media (min-width: 768px) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0 ${({ theme }) => theme.spacings.medium};
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 0 ${({ theme }) => theme.spacings.large};
   }
 `;
@@ -36,10 +40,18 @@ export const LogoContainer = styled(Link)`
 `;
 
 export const Logo = styled.img`
-  height: 40px; /* Altura da imagem da logo. Ajuste entre 35px a 50px para um header típico. */
-  width: auto; /* Mantém a proporção da imagem */
+  height: 30px; /* Altura menor para mobile */
+  width: auto;
   display: block;
   transition: opacity 0.3s ease;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    height: 35px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 40px;
+  }
 
   ${LogoContainer}:hover & {
     opacity: 0.8;
@@ -48,12 +60,20 @@ export const Logo = styled.img`
 
 export const LogoText = styled.span`
   font-family: ${({ theme }) => theme.fonts.headings};
-  font-size: 1.75rem; /* Tamanho do texto. Ajuste para equilibrar com a altura da imagem (40px). */
+  font-size: 1.2rem; /* Tamanho menor para mobile */
   font-weight: bold;
   color: ${({ theme }) =>
     theme.colors.secondary}; // Marrom Escuro (para texto "primor")
-  line-height: 1; /* Ajuda no alinhamento vertical preciso com a imagem */
+  line-height: 1;
   transition: color 0.3s ease;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.4rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 1.75rem;
+  }
 
   ${LogoContainer}:hover & {
     color: ${({ theme }) =>
@@ -64,7 +84,15 @@ export const LogoText = styled.span`
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacings.large};
+  gap: ${({ theme }) => theme.spacings.small};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    gap: ${({ theme }) => theme.spacings.large};
+  }
 `;
 
 export const NavLink = styled(Link)`
@@ -111,14 +139,50 @@ export const NavLink = styled(Link)`
 `;
 
 export const MobileMenuButton = styled.button`
-  display: none;
+  display: block;
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.colors.textOnLight};
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
+  padding: ${({ theme }) => theme.spacings.small};
 
-  @media (max-width: 768px) {
-    display: block;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
+export const MobileMenu = styled.div<{ $isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background};
+  transform: translateX(${({ $isOpen }) => ($isOpen ? "0" : "-100%")});
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacings.large};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
+export const MobileNavLink = styled(Link)`
+  color: ${({ theme }) => theme.colors.textOnLight};
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: ${({ theme }) => theme.spacings.medium};
+  transition: color 0.3s ease;
+
+  &:hover,
+  &.active {
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;

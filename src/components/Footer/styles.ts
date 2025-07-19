@@ -9,19 +9,48 @@ export const FooterWrapper = styled.footer`
 `;
 
 export const MainFooter = styled.div`
-  padding: 3rem 0;
+  padding: 2rem 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 2.5rem 0;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 3rem 0;
+  }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      padding: 0 1.2rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      padding: 0 1.5rem;
+    }
   }
 `;
 
 export const FooterGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 2rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 `;
 
 export const FooterColumn = styled.div`
@@ -41,10 +70,19 @@ export const Description = styled.p`
 `;
 
 export const FooterTitle = styled.h4`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: ${({ theme }) => theme.colors.textOnDark};
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   font-family: ${({ theme }) => theme.fonts.headings};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const FooterNav = styled.ul`
@@ -106,21 +144,43 @@ export const SocialLinks = styled.div`
   }
 `;
 
-// --- SEÇÃO CORRIGIDA ---
 export const SubFooter = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
-  padding: 1.5rem 0; // Aumentei um pouco o padding para dar mais respiro
-  font-size: 0.8rem;
+  padding: 1rem 0;
+  font-size: 0.7rem;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 1.2rem 0;
+    font-size: 0.75rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 1.5rem 0;
+    font-size: 0.8rem;
+  }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     display: flex;
-    justify-content: space-between; // Essencial para separar os itens
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap; // Permite que os itens quebrem para a linha de baixo em telas pequenas
-    gap: 1rem; // Espaçamento entre os itens quando quebram a linha
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      padding: 0 1.2rem;
+      gap: 1rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      padding: 0 1.5rem;
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
   }
 `;
 
@@ -132,13 +192,22 @@ export const CopyrightText = styled.p`
 
 export const FooterLinks = styled.div`
   display: flex;
-  justify-content: center; // Centraliza os links caso a linha quebre
-  gap: 2rem; // Aumenta o espaço entre os links
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 1.5rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    gap: 2rem;
+  }
 
   a {
     color: ${({ theme }) => `${theme.colors.textOnDark}BF`};
     text-decoration: none;
-    white-space: nowrap; // Evita que "Política de Privacidade" quebre em duas linhas
+    white-space: nowrap;
 
     &:hover {
       color: ${({ theme }) => theme.colors.textOnDark};

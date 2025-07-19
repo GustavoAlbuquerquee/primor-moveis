@@ -24,5 +24,11 @@ export const theme = {
     xlarge: "32px",
     xxlarge: "48px",
   },
+  breakpoints: {
+    mobile: "400px",
+    tablet: "768px",
+    desktop: "1024px",
+    wide: "1200px",
+  },
   borderRadius: "8px",
 };

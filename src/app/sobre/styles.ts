@@ -5,55 +5,91 @@ const SobrePageWrapper = styled.div`
 `;
 
 const SobreHeroSection = styled.section`
-  background-color: ${({ theme }) => theme.colors.lightBackground}; // Fundo marrom escuro
+  background-color: ${({ theme }) => theme.colors.lightBackground};
   color: ${({ theme }) => theme.colors.textOnLight};
-  padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
+  padding: ${({ theme }) => theme.spacings.large} ${({ theme }) => theme.spacings.small};
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 40vh; // Altura ajustável
-flex-direction: column;
-  // Você pode adicionar uma imagem de fundo sutil aqui também, se desejar
-  // background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/caminho/para/imagem-sobre-hero.jpg');
-  // background-size: cover;
-  // background-position: center;
+  min-height: 30vh;
+  flex-direction: column;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: ${({ theme }) => theme.spacings.xlarge} ${({ theme }) => theme.spacings.medium};
+    min-height: 35vh;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: ${({ theme }) => theme.spacings.xxlarge} ${({ theme }) => theme.spacings.medium};
+    min-height: 40vh;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    min-height: 50vh;
+  }
 
   h1 {
-    font-size: 2.8rem;
-    color: ${({ theme }) => theme.colors.primary}; // Título claro
+    font-size: 2rem;
+    color: ${({ theme }) => theme.colors.primary};
     margin-bottom: ${({ theme }) => theme.spacings.small};
     font-family: ${({ theme }) => theme.fonts.headings};
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      font-size: 2.4rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      font-size: 2.8rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+      font-size: 3.5rem;
+    }
   }
 
   p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     max-width: 700px;
     margin: 0 auto;
     opacity: 0.9;
-  }
 
-  @media (min-width: 768px) {
-    min-height: 50vh;
-    h1 {
-      font-size: 3.5rem;
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      font-size: 1.1rem;
     }
-    p {
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      font-size: 1.2rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
       font-size: 1.4rem;
     }
   }
 `;
 
 const MainContentSection = styled.section`
-  padding: ${({ theme }) => theme.spacings.xxlarge} 0; // Espaçamento vertical
+  padding: ${({ theme }) => theme.spacings.large} 0;
   background-color: ${({ theme }) => theme.colors.background};
 
-  .container { // Reutilizando a classe container dos GlobalStyles
+  @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: ${({ theme }) => theme.spacings.xlarge} 0;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: ${({ theme }) => theme.spacings.xxlarge} 0;
+  }
+
+  .container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 ${({ theme }) => theme.spacings.medium};
+    padding: 0 ${({ theme }) => theme.spacings.small};
 
-    @media (min-width: 768px) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      padding: 0 ${({ theme }) => theme.spacings.medium};
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       padding: 0 ${({ theme }) => theme.spacings.large};
     }
   }
@@ -61,33 +97,68 @@ const MainContentSection = styled.section`
   .content-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: ${({ theme }) => theme.spacings.xlarge};
+    gap: ${({ theme }) => theme.spacings.large};
     align-items: center;
 
-    @media (min-width: 992px) {
-      grid-template-columns: 1fr 1fr; // Duas colunas em telas maiores
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      gap: ${({ theme }) => theme.spacings.xlarge};
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+      grid-template-columns: 1fr 1fr;
     }
   }
 
   .text-content {
     h2 {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
       color: ${({ theme }) => theme.colors.primary};
       margin-bottom: ${({ theme }) => theme.spacings.medium};
-      &::after { /* Detalhe de subtítulo */
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: 1.8rem;
+      }
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        font-size: 2rem;
+      }
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+        font-size: 2.2rem;
+      }
+
+      &::after {
         content: '';
         display: block;
-        width: 60px;
+        width: 50px;
         height: 3px;
         background-color: ${({ theme }) => theme.colors.secondary};
         margin-top: ${({ theme }) => theme.spacings.small};
+
+        @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+          width: 60px;
+        }
       }
     }
     p {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 0.95rem;
+      line-height: 1.7;
       margin-bottom: ${({ theme }) => theme.spacings.medium};
       color: ${({ theme }) => theme.colors.darkGray};
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: 1rem;
+        line-height: 1.75;
+      }
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        font-size: 1.05rem;
+        line-height: 1.8;
+      }
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
+        font-size: 1.1rem;
+      }
     }
   }
 
@@ -95,8 +166,17 @@ const MainContentSection = styled.section`
     border-radius: ${({ theme }) => theme.borderRadius};
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    max-height: 450px; // Limita altura da imagem
-    img, .next-image { // Para <Image> do Next.js ou <img>
+    max-height: 350px;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      max-height: 400px;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      max-height: 450px;
+    }
+
+    img, .next-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
