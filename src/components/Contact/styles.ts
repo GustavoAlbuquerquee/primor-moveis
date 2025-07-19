@@ -129,6 +129,8 @@ export const ContactForm = styled.form`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacings.large};
+  display: flex;
+    flex-direction: column;
   }
 
   h3 {
@@ -139,11 +141,16 @@ export const ContactForm = styled.form`
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
       font-size: 1.5rem;
+        display: flex;
+    flex-direction: column;
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       font-size: 1.6rem;
+        display: flex;
+    flex-direction: column;
     }
+
   }
 `;
 

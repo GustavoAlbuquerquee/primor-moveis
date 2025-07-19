@@ -14,6 +14,7 @@ type UploadedFileType = {
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadStatus, setUploadStatus] = useState("");
+  const [phoneValue, setPhoneValue] = useState("");
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -26,6 +27,31 @@ const Contact = () => {
     isError: false,
     message: "",
   });
+
+  // Função para formatar o telefone brasileiro
+  const formatPhoneNumber = (value: string) => {
+    // Remove tudo que não é número
+    const phoneNumber = value.replace(/\D/g, "");
+    
+    // Aplica a máscara baseada no tamanho
+    if (phoneNumber.length <= 10) {
+      // Telefone fixo: (xx) xxxx-xxxx
+      return phoneNumber
+        .replace(/(\d{2})(\d)/, "($1) $2")
+        .replace(/(\d{4})(\d)/, "$1-$2");
+    } else {
+      // Celular: (xx) xxxxx-xxxx
+      return phoneNumber
+        .replace(/(\d{2})(\d)/, "($1) $2")
+        .replace(/(\d{5})(\d)/, "$1-$2");
+    }
+  };
+
+  // Função para lidar com a mudança no campo de telefone
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedValue = formatPhoneNumber(event.target.value);
+    setPhoneValue(formattedValue);
+  };
 
   // Função para lidar com o upload de múltiplos arquivos
   const handleFileChange = async (
@@ -103,6 +129,7 @@ const Contact = () => {
         (event.target as HTMLFormElement).reset();
         setUploadStatus("");
         setUploadedFiles([]); // Limpa a lista de arquivos
+        setPhoneValue(""); // Limpa o valor do telefone
       } else {
         const result = await response.json();
         throw new Error(result.error || "Falha ao enviar o formulário.");
@@ -170,6 +197,9 @@ const Contact = () => {
               type="tel"
               name="Telefone"
               placeholder="Seu telefone (WhatsApp)"
+              value={phoneValue}
+              onChange={handlePhoneChange}
+              maxLength={15}
               disabled={isSubmitting}
             />
             <S.Textarea
