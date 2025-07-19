@@ -24,6 +24,9 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: "Primor Móveis - Marcenaria de Excelência",
   description: "Móveis planejados com design e qualidade.",
+  icons: {
+    icon: "/favicon.ico", // ou '/meu-icone.png'
+  },
 };
 
 export default function RootLayout({
