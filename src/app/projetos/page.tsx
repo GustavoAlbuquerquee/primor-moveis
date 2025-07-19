@@ -112,25 +112,25 @@ const allProjectsBase = [
   {
     id: "s6",
     category: "Sala",
-    name: "Buffet para Sala de Jantar",
+    name: "Cristaleira para Sala de Jantar",
     description:
-      "Aparador planejado em laca colorida com nicho iluminado e armários superiores com portas em espelho, que ampliam e sofisticam o ambiente.",
+      "Aparador planejado em MDF Azul com nicho iluminado e armários superiores com portas em espelho, que ampliam e sofisticam o ambiente.",
     imageSrc: "/projects/Sala_6.jpg",
   },
   {
     id: "s7",
     category: "Sala",
-    name: "Rack Baixo com Painel Decorativo",
+    name: "Rack com Painel Decorativo com pé direito duplo",
     description:
-      "Rack baixo e suspenso de design minimalista, com detalhe ripado para ventilação. O painel lateral em tom escuro delimita o espaço da TV.",
+      "Rack baixo e suspenso de design minimalista, com detalhe ripado para ventilação. O painel lateral em tom escuro delimita o espaço da TV.",
     imageSrc: "/projects/Sala_7.jpg",
   },
   // Cozinha - 6 projetos
   {
     id: "c1",
     category: "Cozinha",
-    name: "Cozinha com Ilha Central",
-    description: "Ilha multifuncional com cooktop e área de preparo ampliada",
+    name: "Cozinha com portas caneladas ",
+    description: "Detalhes que trazem beleza e valorizam o ambiente",
     imageSrc: "/projects/Cozinha_1.jpg",
   },
   {
@@ -167,7 +167,7 @@ const allProjectsBase = [
   {
     id: "corp2",
     category: "Corporativos",
-    name: "Cabines Acústicas para Escritório",
+    name: "Cabines para descanso e jogos",
     description:
       "Cabines com estofado sob medida, criando espaços privativos para reuniões rápidas ou momentos de descompressão e foco.",
     imageSrc: "/projects/Corporativo_2.jpg",
@@ -201,7 +201,7 @@ const allProjectsBase = [
   {
     id: "b1",
     category: "Banheiros",
-    name: "Banheiro com Gabinete Ripado",
+    name: "Banheiro com frentes ripadas",
     description:
       "Aconchego e textura da madeira ripada em um design moderno, com bancada e cuba esculpidas.",
     imageSrc: "/projects/Banheiro_1.jpg",
@@ -225,7 +225,7 @@ const allProjectsBase = [
   {
     id: "b4",
     category: "Banheiros",
-    name: "Armário Clean em Mármore",
+    name: "Armário laqueado brilhante",
     description:
       "Design clean com gabinete em laca branca e espelheira ampla, perfeitamente integrados ao mármore.",
     imageSrc: "/projects/Banheiro_4.jpg",
@@ -277,9 +277,9 @@ const allProjectsBase = [
   {
     id: "pe1",
     category: "Projetos Especiais",
-    name: "Móvel em Laca com ",
+    name: "Móvel em Laca para quarto",
     description:
-      "Acabamento primoroso em laca de alto brilho. O design geométrico com bordas chanfradas cria uma peça moderna e escultural.",
+      "Acabamento primoroso em laca de alto brilho. O design geométrico com bordas chanfradas cria uma peça moderna e escultural.",
     imageSrc: "/projects/Especiais_1.jpg",
   },
   {
@@ -293,9 +293,9 @@ const allProjectsBase = [
   {
     id: "pe3",
     category: "Projetos Especiais",
-    name: "Closet com Portas de Vidro Reflecta",
+    name: "Armário com portas em vidro refletente",
     description:
-      "Closet sofisticado com portas de correr em vidro reflecta bronze. A iluminação interna em LED valoriza a organização das peças.",
+      "Armário sofisticado com portas de correr em vidro refletente bronze. Sofisticação e bom gosto num só projeto..",
     imageSrc: "/projects/Especiais_7.jpg", // Note que usei a imagem Especiais_7.jpg aqui
   },
   {
@@ -349,10 +349,10 @@ export default function ProjetosPage() {
     if (isMounted && shuffledProjects.length > 0) {
       const imagesToPreload = shuffledProjects.slice(0, 6);
       imagesToPreload.forEach((project) => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
+        const link = document.createElement("link");
+        link.rel = "preload";
         link.href = project.imageSrc;
-        link.as = 'image';
+        link.as = "image";
         document.head.appendChild(link);
       });
     }
@@ -361,7 +361,7 @@ export default function ProjetosPage() {
   const handleCategoryChange = (category: string) => {
     setIsTransitioning(true);
     setActiveCategory(category);
-    
+
     // Pequeno delay para efeito visual
     setTimeout(() => {
       setIsTransitioning(false);
