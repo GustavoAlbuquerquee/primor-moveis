@@ -126,6 +126,8 @@ export const ContactForm = styled.form`
   background-color: ${({ theme }) => theme.colors.lightBackground};
   padding: ${({ theme }) => theme.spacings.medium};
   border-radius: ${({ theme }) => theme.borderRadius};
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacings.large};
@@ -289,6 +291,8 @@ export const UploadedFileItem = styled.div`
   padding: ${({ theme }) => theme.spacings.small};
   background-color: #f9f9f9;
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
   margin-bottom: ${({ theme }) => theme.spacings.small};
 
   &:last-child {
