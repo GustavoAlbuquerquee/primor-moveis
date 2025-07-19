@@ -11,6 +11,7 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
 import * as S from "./styles";
+import { object } from "framer-motion/client";
 
 const slidesData = [
   {
@@ -40,7 +41,7 @@ const slidesData = [
   },
   {
     id: 5,
-    imageSrc: "/106906366_2699743146931892_839206458578922905_n.jpg",
+    imageSrc: "/inicial_5.jpg",
     keyword: "Excelência",
     // 1. Legenda transformada em um array para a quebra de linha
     caption: [
@@ -77,7 +78,13 @@ const HeroSlider = () => {
                 alt={slide.keyword}
                 layout="fill"
                 objectFit="cover"
-                objectPosition={slide.id === 1 ? "center 70%" : "center"}
+                objectPosition={
+                  slide.id === 1
+                    ? "center 70%"
+                    : slide.id === 5
+                      ? " top"
+                      : "center"
+                }
                 priority={slide.id === 1}
               />
               <S.SlideOverlay />
