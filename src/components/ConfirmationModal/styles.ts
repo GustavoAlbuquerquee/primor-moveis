@@ -23,6 +23,10 @@ export const ModalBackdrop = styled.div`
   z-index: 3000;
   padding: 1rem;
   animation: ${fadeIn} 0.3s ease-out;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `;
 
 export const ModalContent = styled.div`
@@ -34,6 +38,17 @@ export const ModalContent = styled.div`
   max-width: 500px;
   width: 100%;
   animation: ${zoomIn} 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  @media (max-width: 768px) {
+    padding: ${({ theme }) => theme.spacings.large};
+    max-width: 95%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    padding: ${({ theme }) => theme.spacings.medium};
+    max-width: 98%;
+  }
 `;
 
 export const IconWrapper = styled.div<{ $isError?: boolean }>`
@@ -41,12 +56,29 @@ export const IconWrapper = styled.div<{ $isError?: boolean }>`
   color: ${({ theme, $isError }) =>
     $isError ? "#dc3545" : "#198754"}; // Vermelho para erro, verde para sucesso
   margin-bottom: ${({ theme }) => theme.spacings.medium};
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+    margin-bottom: ${({ theme }) => theme.spacings.small};
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export const Title = styled.h2`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.secondary};
   margin-bottom: ${({ theme }) => theme.spacings.small};
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
 `;
 
 export const Message = styled.p`
@@ -54,6 +86,16 @@ export const Message = styled.p`
   color: ${({ theme }) => theme.colors.darkGray};
   line-height: 1.6;
   margin-bottom: ${({ theme }) => theme.spacings.large};
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: ${({ theme }) => theme.spacings.medium};
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -66,9 +108,22 @@ export const CloseButton = styled.button`
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 100px;
 
   &:hover {
     filter: brightness(1.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: ${({ theme }) => theme.spacings.small} ${({ theme }) => theme.spacings.large};
+    width: 100%;
+    max-width: 200px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    padding: ${({ theme }) => theme.spacings.small};
   }
 `;

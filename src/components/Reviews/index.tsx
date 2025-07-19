@@ -55,7 +55,7 @@ const Reviews = () => {
     threshold: 0.1,
   });
   return (
-    <S.ReviewsWrapper
+    <S.ViewsWrapper
       id="depoimentos"
       ref={ref}
       className={inView ? "in-view" : ""}
@@ -96,7 +96,7 @@ const Reviews = () => {
       >
         Clique aqui para ver mais avaliações de nossos clientes
       </S.ViewMoreButton>
-    </S.ReviewsWrapper>
+    </S.ViewsWrapper>
   );
 };
 
