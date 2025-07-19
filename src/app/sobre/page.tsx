@@ -33,7 +33,7 @@ export default function SobrePage() {
               <div className="image-content">
                 {/* Use o componente ImageReveal aqui */}
                 <ImageReveal
-                  src="/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg"
+                  src="/velho_fofo.jpg"
                   alt="Detalhe de móvel Primor Móveis"
                   width={500} // Ajuste as dimensões conforme necessário
                   height={400}
@@ -49,7 +49,7 @@ export default function SobrePage() {
               <div className="image-content">
                 {/* Use o componente ImageReveal aqui */}
                 <ImageReveal
-                  src="/360_F_250493771_IXqI9j7XfRFIDXpKw0lAo427B7sj5BjE.jpg"
+                  src="/Atendimento.jpg"
                   alt="Ambiente residencial com móveis planejados"
                   width={500}
                   height={400}
