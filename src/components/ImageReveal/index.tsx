@@ -34,7 +34,6 @@ const ImageReveal: React.FC<ImageRevealProps> = ({
         style={{
           objectFit: "cover",
           width: "100%",
-          height: "450px",
           borderRadius: "16px",
         }}
         className="reveal-image"

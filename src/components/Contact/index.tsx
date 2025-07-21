@@ -32,7 +32,7 @@ const Contact = () => {
   const formatPhoneNumber = (value: string) => {
     // Remove tudo que não é número
     const phoneNumber = value.replace(/\D/g, "");
-    
+
     // Aplica a máscara baseada no tamanho
     if (phoneNumber.length <= 10) {
       // Telefone fixo: (xx) xxxx-xxxx
@@ -160,6 +160,7 @@ const Contact = () => {
             <p>Tem alguma dúvida ou quer solicitar um orçamento?</p>
             <p>
               <strong>Telefone/WhatsApp:</strong>
+              &nbsp;
               <a
                 href="https://wa.me/5531999884688"
                 target="_blank"

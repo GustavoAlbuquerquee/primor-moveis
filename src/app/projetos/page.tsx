@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Modal from "@/components/Modal";
 import * as S from "./styles";
 import { FaInstagram, FaPlus } from "react-icons/fa"; // Importando o ícone de 'Mais'
 import { motion } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type ProjectType = {
   id: string;
@@ -329,14 +330,31 @@ const categories = [
   ...Array.from(new Set(allProjectsBase.map((p) => p.category))),
 ];
 
-export default function ProjetosPage() {
-  const [activeCategory, setActiveCategory] = useState("Todos");
+function ProjetosContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  // Obter categoria dos parâmetros da URL ou usar "Todos" como padrão
+  const [activeCategory, setActiveCategory] = useState(() => {
+    return searchParams?.get('categoria') || "Todos";
+  });
+  
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
     null
   );
   const [shuffledProjects, setShuffledProjects] = useState<ProjectType[]>([]);
   const [isMounted, setIsMounted] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Sincronizar estado com parâmetros da URL
+  useEffect(() => {
+    const categoria = searchParams?.get('categoria');
+    if (categoria && categoria !== activeCategory) {
+      setActiveCategory(categoria);
+    } else if (!categoria && activeCategory !== "Todos") {
+      setActiveCategory("Todos");
+    }
+  }, [searchParams, activeCategory]);
 
   // Embaralhar projetos apenas no cliente para evitar erro de hidratação
   useEffect(() => {
@@ -361,6 +379,18 @@ export default function ProjetosPage() {
   const handleCategoryChange = (category: string) => {
     setIsTransitioning(true);
     setActiveCategory(category);
+
+    // Atualizar URL com parâmetros
+    const params = new URLSearchParams();
+    if (category !== "Todos") {
+      params.set('categoria', category);
+    }
+    
+    const newUrl = params.toString() 
+      ? `/projetos?${params.toString()}` 
+      : '/projetos';
+    
+    router.push(newUrl, { scroll: false });
 
     // Pequeno delay para efeito visual
     setTimeout(() => {
@@ -485,5 +515,30 @@ export default function ProjetosPage() {
         />
       )}
     </>
+  );
+}
+
+export default function ProjetosPage() {
+  return (
+    <Suspense fallback={
+      <main>
+        <S.GalleryWrapper>
+          <S.PageTitle>Nossos Projetos</S.PageTitle>
+          <S.FilterContainer>
+            {categories.map((category) => (
+              <S.FilterButton key={category} $isActive={false}>
+                {category}
+              </S.FilterButton>
+            ))}
+          </S.FilterContainer>
+          <S.ProjectsGrid>
+            {/* Loading skeleton ou spinner */}
+            <div>Carregando projetos...</div>
+          </S.ProjectsGrid>
+        </S.GalleryWrapper>
+      </main>
+    }>
+      <ProjetosContent />
+    </Suspense>
   );
 }
