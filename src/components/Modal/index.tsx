@@ -1,20 +1,23 @@
-"use client";
+"use-client";
 
 import React, { useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import * as S from "./styles";
 
+// Propriedades atualizadas para aceitar imagem, texto OU qualquer outro conteúdo
 interface ModalProps {
-  imageUrl: string;
-  title?: string; // Título agora é uma prop opcional
-  description?: string; // Descrição agora é uma prop opcional
   onClose: () => void;
+  imageUrl?: string;
+  title?: string;
+  description?: string;
+  children?: React.ReactNode; // Propriedade para conteúdo genérico
 }
 
 const Modal: React.FC<ModalProps> = ({
   imageUrl,
   title,
   description,
+  children,
   onClose,
 }) => {
   useEffect(() => {
@@ -36,22 +39,30 @@ const Modal: React.FC<ModalProps> = ({
           <FaTimes />
         </S.CloseButton>
 
-        <S.ImageContainer>
-          <S.ModalImage
-            src={imageUrl}
-            alt={title || "Visualização ampliada do projeto"}
-          />
-        </S.ImageContainer>
+        {/* Lógica condicional: */}
+        {/* Se tiver uma imageUrl, renderiza o layout de imagem */}
+        {imageUrl && (
+          <>
+            <S.ImageContainer>
+              <S.ModalImage
+                src={imageUrl}
+                alt={title || "Visualização ampliada do projeto"}
+              />
+            </S.ImageContainer>
 
-        {/* Renderiza a área de texto apenas se houver um título ou descrição */}
-        {(title || description) && (
-          <S.TextContainer>
-            {title && <S.ModalTitle>{title}</S.ModalTitle>}
-            {description && (
-              <S.ModalDescription>{description}</S.ModalDescription>
+            {(title || description) && (
+              <S.TextContainer>
+                {title && <S.ModalTitle>{title}</S.ModalTitle>}
+                {description && (
+                  <S.ModalDescription>{description}</S.ModalDescription>
+                )}
+              </S.TextContainer>
             )}
-          </S.TextContainer>
+          </>
         )}
+
+        {/* Se tiver children, renderiza o conteúdo genérico */}
+        {children && <div className="generic-content">{children}</div>}
       </S.ModalContent>
     </S.ModalBackdrop>
   );

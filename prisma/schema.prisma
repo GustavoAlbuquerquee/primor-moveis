@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// --- BLOCO DATASOURCE SIMPLIFICADO ---
+datasource db {
+  provider = "postgresql"
+  // Usaremos apenas a variável DATABASE_URL, que é o padrão universal
+  url      = env("DATABASE_URL")
+}
+
+// O gerador do Prisma Client, que nos dará as funções para interagir com o banco de dados.
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --- NOSSA TABELA DE PROJETOS (continua igual) ---
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @db.Text
+  imageSrc    String
+  category    String
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
