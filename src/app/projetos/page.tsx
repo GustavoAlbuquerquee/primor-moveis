@@ -1,19 +1,35 @@
-import prisma from "@/lib/prisma";
 import ProjectGallery from "./ProjectGallery";
+import prisma from "@/lib/prisma";
+
+type ProjectType = {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  imageSrc: string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+};
 
 export default async function ProjetosPage() {
-  const projects = await prisma.project.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  let projects: ProjectType[] = [];
 
-  // Serializar os dados para evitar problemas de hidratação
-  const serializedProjects = projects.map((project) => ({
-    ...project,
-    createdAt: project.createdAt.toISOString(),
-    updatedAt: project.updatedAt.toISOString(),
-  }));
+  try {
+    const dbProjects = await prisma().project.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-  return <ProjectGallery projects={serializedProjects} />;
+    projects = dbProjects.map((project: any) => ({
+      ...project,
+      createdAt: project.createdAt.toISOString(),
+      updatedAt: project.updatedAt.toISOString(),
+    }));
+  } catch (error) {
+    console.log("Erro ao buscar projetos:", error);
+    projects = [];
+  }
+
+  return <ProjectGallery projects={projects} />;
 }

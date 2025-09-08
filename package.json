@@ -9,13 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.20.0",
     "@vercel/blob": "^1.1.1",
     "babel-plugin-styled-components": "^2.1.4",
     "framer-motion": "^12.23.5",
+    "iron-session": "^8.0.4",
     "next": "15.3.2",
+    "prisma": "^5.20.0",
     "react": "^19.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.16.0",
     "resend": "^4.6.0",

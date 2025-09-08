@@ -22,7 +22,7 @@ export async function GET() {
   }
 
   try {
-    const projects = await prisma.project.findMany({
+    const projects = await prisma().project.findMany({
       orderBy: {
         createdAt: "desc", // Mostra os projetos mais recentes primeiro
       },
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const newProject = await prisma.project.create({
+    const newProject = await prisma().project.create({
       data: {
         name,
         description,

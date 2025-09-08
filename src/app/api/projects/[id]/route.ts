@@ -38,7 +38,7 @@ export async function PUT(
     }
 
     // Usa o Prisma para ATUALIZAR o projeto no banco de dados
-    const updatedProject = await prisma.project.update({
+    const updatedProject = await prisma().project.update({
       where: { id },
       data: {
         name,
@@ -76,7 +76,7 @@ export async function DELETE(
 
   try {
     const { id } = await params;
-    await prisma.project.delete({
+    await prisma().project.delete({
       where: { id },
     });
     return NextResponse.json({ message: "Projeto deletado com sucesso." });
