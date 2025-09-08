@@ -12,8 +12,8 @@ type ProjectType = {
   description: string;
   category: string;
   imageSrc: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 };
 
 export default function ProjectGallery({
@@ -75,9 +75,11 @@ export default function ProjectGallery({
               >
                 <div className="image-container">
                   <Image
+                    key={project.id}
                     src={project.imageSrc}
                     alt={project.name}
                     fill
+                    priority={false}
                     style={{ objectFit: "cover" }}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />

@@ -10,7 +10,7 @@ interface SessionData {
 // --- NOVA FUNÇÃO PARA EDITAR/ATUALIZAR UM PROJETO (PUT) ---
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   // Segurança: Apenas admins podem editar
   const session = await getIronSession<SessionData>(await cookies(), {
@@ -25,7 +25,7 @@ export async function PUT(
   }
 
   try {
-    const id = params.id;
+    const { id } = await params;
     const body = await request.json();
     const { name, description, category, imageSrc } = body;
 
@@ -61,7 +61,7 @@ export async function PUT(
 // --- FUNÇÃO DE DELETAR (continua a mesma) ---
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getIronSession<SessionData>(await cookies(), {
     password: process.env.SESSION_SECRET as string,
@@ -75,7 +75,7 @@ export async function DELETE(
   }
 
   try {
-    const id = params.id;
+    const { id } = await params;
     await prisma.project.delete({
       where: { id },
     });

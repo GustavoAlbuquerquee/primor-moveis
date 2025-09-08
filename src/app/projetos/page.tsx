@@ -8,5 +8,12 @@ export default async function ProjetosPage() {
     },
   });
 
-  return <ProjectGallery projects={projects} />;
+  // Serializar os dados para evitar problemas de hidratação
+  const serializedProjects = projects.map((project) => ({
+    ...project,
+    createdAt: project.createdAt.toISOString(),
+    updatedAt: project.updatedAt.toISOString(),
+  }));
+
+  return <ProjectGallery projects={serializedProjects} />;
 }
