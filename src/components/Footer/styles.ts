@@ -2,10 +2,8 @@ import styled from "styled-components";
 import Link from "next/link";
 
 export const FooterWrapper = styled.footer`
-  background-color: ${({ theme }) =>
-    theme.colors.secondary}; // Fundo Marrom Escuro
-  color: ${({ theme }) =>
-    `${theme.colors.textOnDark}BF`}; // Branco com ~75% de opacidade
+  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => `${theme.colors.textOnDark}BF`};
 `;
 
 export const MainFooter = styled.div`
@@ -164,11 +162,11 @@ export const FooterNav = styled.ul`
 
   @media (max-width: 768px) {
     text-align: center;
-    
+
     li {
       margin-bottom: 0.6rem;
     }
-    
+
     a {
       font-size: 0.9rem;
     }
@@ -178,7 +176,7 @@ export const FooterNav = styled.ul`
     li {
       margin-bottom: 0.5rem;
     }
-    
+
     a {
       font-size: 0.85rem;
     }
@@ -207,7 +205,7 @@ export const ContactInfo = styled.div`
   @media (max-width: 768px) {
     text-align: center;
     font-size: 0.85rem;
-    
+
     p {
       justify-content: center;
       flex-wrap: wrap;
@@ -218,7 +216,7 @@ export const ContactInfo = styled.div`
   @media (max-width: 480px) {
     font-size: 0.8rem;
     line-height: 1.6;
-    
+
     p {
       margin-bottom: 0.5rem;
     }
@@ -247,7 +245,7 @@ export const SocialLinks = styled.div`
     justify-content: center;
     gap: 1.5rem;
     margin-top: 1.2rem;
-    
+
     a {
       font-size: 1.6rem;
     }
@@ -256,7 +254,7 @@ export const SocialLinks = styled.div`
   @media (max-width: 480px) {
     gap: 1.2rem;
     margin-top: 1rem;
-    
+
     a {
       font-size: 1.4rem;
     }
@@ -327,7 +325,7 @@ export const SubFooter = styled.div`
 
 export const CopyrightText = styled.p`
   margin: 0;
-  
+
   @media (max-width: 768px) {
     text-align: center;
     line-height: 1.4;

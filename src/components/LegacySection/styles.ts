@@ -47,7 +47,7 @@ export const StatsContainer = styled.div`
     grid-template-rows: auto auto;
     gap: 1.5rem;
     max-width: 400px;
-    
+
     /* O terceiro item (Excelência) vai ocupar as duas colunas da segunda linha */
     > :nth-child(3) {
       grid-column: 1 / -1;
@@ -59,7 +59,7 @@ export const StatsContainer = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     max-width: 320px;
-    
+
     /* Mantém o layout do terceiro item */
     > :nth-child(3) {
       grid-column: 1 / -1;
@@ -96,7 +96,7 @@ export const StatNumber = styled.p`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.textOnDark};
   line-height: 1;
-  height: 48px; // Altura fixa para evitar "pulos" de layout enquanto os números contam
+  height: 48px;
 
   @media (max-width: 768px) {
     font-size: 1.8rem;

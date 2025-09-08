@@ -1,9 +1,8 @@
-// src/components/Header/styles.ts
 import styled from "styled-components";
 import Link from "next/link";
 
 export const HeaderWrapper = styled.header`
-  background-color: ${({ theme }) => theme.colors.background}; // Branco
+  background-color: ${({ theme }) => theme.colors.background};
   padding: ${({ theme }) => theme.spacings.medium} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.mediumGray};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -32,15 +31,13 @@ export const NavContainer = styled.div`
 
 export const LogoContainer = styled(Link)`
   display: flex;
-  align-items: center; // Alinha verticalmente a imagem e o texto
+  align-items: center;
   text-decoration: none;
-  gap: ${({ theme }) =>
-    theme.spacings
-      .small}; /* Espaçamento entre a imagem e o texto. Ajuste 'small' (8px) ou 'medium' (16px) conforme o gosto */
+  gap: ${({ theme }) => theme.spacings.small};
 `;
 
 export const Logo = styled.img`
-  height: 30px; /* Altura menor para mobile */
+  height: 30px;
   width: auto;
   display: block;
   transition: opacity 0.3s ease;
@@ -60,10 +57,9 @@ export const Logo = styled.img`
 
 export const LogoText = styled.span`
   font-family: ${({ theme }) => theme.fonts.headings};
-  font-size: 1.2rem; /* Tamanho menor para mobile */
+  font-size: 1.2rem;
   font-weight: bold;
-  color: ${({ theme }) =>
-    theme.colors.secondary}; // Marrom Escuro (para texto "primor")
+  color: ${({ theme }) => theme.colors.secondary};
   line-height: 1;
   transition: color 0.3s ease;
 
@@ -76,8 +72,7 @@ export const LogoText = styled.span`
   }
 
   ${LogoContainer}:hover & {
-    color: ${({ theme }) =>
-      theme.colors.primary}; // Laranja Amarelado no hover do link
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -101,9 +96,8 @@ export const NavLink = styled(Link)`
   font-size: 1rem;
   font-weight: 500;
   padding: ${({ theme }) => theme.spacings.small} 0;
-  position: relative; // Essencial para o pseudo-elemento ::after
+  position: relative;
 
-  /* O sublinhado animado */
   &::after {
     content: "";
     position: absolute;
@@ -111,25 +105,21 @@ export const NavLink = styled(Link)`
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: ${({ theme }) =>
-      theme.colors.primary}; // Laranja Amarelado
+    background-color: ${({ theme }) => theme.colors.primary};
 
-    /* --- MUDANÇA PRINCIPAL AQUI --- */
-    transform: scaleX(0); // Começa "espremido" no centro
-    transform-origin: center; // Garante que a animação aconteça a partir do meio
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1); // Transição suave
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  /* No hover, a linha cresce para o tamanho total */
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
     &::after {
-      transform: scaleX(1); // Volta à escala normal
+      transform: scaleX(1);
     }
   }
 
-  /* Mantém o estilo para o link ativo */
   &.active {
     color: ${({ theme }) => theme.colors.primary};
     &::after {

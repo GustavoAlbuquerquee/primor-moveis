@@ -1,7 +1,7 @@
 "use client";
 
 import * as S from "./styles";
-import ImageReveal from "@/components/ImageReveal"; // Importe o componente ImageReveal
+import ImageReveal from "@/components/ImageReveal";
 
 export default function SobrePage() {
   return (
@@ -31,11 +31,10 @@ export default function SobrePage() {
                 </p>
               </div>
               <div className="image-content">
-                {/* Use o componente ImageReveal aqui */}
                 <ImageReveal
                   src="/velho_fofo.jpg"
                   alt="Detalhe de móvel Primor Móveis"
-                  width={500} // Ajuste as dimensões conforme necessário
+                  width={500}
                   height={400}
                 />
               </div>
@@ -47,7 +46,6 @@ export default function SobrePage() {
           <div className="container">
             <div className="content-grid">
               <div className="image-content">
-                {/* Use o componente ImageReveal aqui */}
                 <ImageReveal
                   src="/Atendimento.jpg"
                   alt="Ambiente residencial com móveis planejados"

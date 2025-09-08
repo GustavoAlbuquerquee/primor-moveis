@@ -1,4 +1,3 @@
-// src/components/Hero/styles.ts
 import styled from 'styled-components';
 import Link from 'next/link';
 

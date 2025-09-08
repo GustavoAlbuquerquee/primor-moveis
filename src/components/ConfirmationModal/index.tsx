@@ -10,7 +10,7 @@ interface ConfirmationModalProps {
   message: string;
   title?: string;
   isError?: boolean;
-  children?: React.ReactNode; // 1. Adicionamos a propriedade 'children'
+  children?: React.ReactNode;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -19,7 +19,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   message,
   title = "Sucesso!",
   isError = false,
-  children, // 2. Recebemos a propriedade 'children'
+  children,
 }) => {
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {

@@ -26,7 +26,6 @@ export const ModalBackdrop = styled.div`
   padding: 1rem;
 `;
 
-// --- MUDANÇA PRINCIPAL AQUI ---
 export const ModalContent = styled.div`
   position: relative;
   max-width: 800px;
@@ -37,11 +36,10 @@ export const ModalContent = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: default;
   animation: ${zoomIn} 0.3s ease-out;
-  display: flex; // Mantém flex, mas a direção será definida pelo conteúdo
+  display: flex;
   flex-direction: column;
   overflow: hidden;
 
-  /* Estilos para quando o conteúdo é um formulário ou texto genérico */
   .generic-content {
     padding: ${({ theme }) => theme.spacings.large};
     overflow-y: auto;

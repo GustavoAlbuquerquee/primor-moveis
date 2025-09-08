@@ -5,7 +5,6 @@ import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import * as S from "./styles";
 
-// 1. CRIAMOS UM NOVO COMPONENTE SÓ PARA O NÚMERO ANIMADO
 const AnimatedNumber = ({
   end,
   separator,
@@ -15,7 +14,6 @@ const AnimatedNumber = ({
   separator?: string;
   prefix?: string;
 }) => {
-  // A lógica de visibilidade agora fica encapsulada aqui dentro
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
@@ -23,7 +21,6 @@ const AnimatedNumber = ({
 
   return (
     <span ref={ref}>
-      {/* O CountUp só renderiza quando o 'span' está visível */}
       {inView && (
         <CountUp
           start={0}
@@ -43,7 +40,6 @@ const LegacySection = () => {
       <S.Title>Nossa Trajetória de Confiança</S.Title>
 
       <S.StatsContainer>
-        {/* O 'StatItem' e 'StatNumber' agora são mais simples */}
         <S.StatItem>
           <S.StatIcon>
             <FaCalendarAlt />

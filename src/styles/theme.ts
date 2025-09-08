@@ -1,7 +1,5 @@
-// src/styles/theme.ts
 export const theme = {
   colors: {
-    // ... suas cores continuam aqui ...
     primary: "#F0A02D",
     secondary: "#603829",
     textOnLight: "#603829",
@@ -12,12 +10,10 @@ export const theme = {
     darkGray: "#5a5a5a",
   },
   fonts: {
-    // 4. ATUALIZE AQUI para usar as variáveis CSS
-    main: "var(--font-lato)", // Fonte para textos
-    headings: "var(--font-montserrat)", // Fonte para títulos
+    main: "var(--font-lato)",
+    headings: "var(--font-montserrat)",
   },
   spacings: {
-    // ... seus espaçamentos ...
     small: "8px",
     medium: "16px",
     large: "24px",

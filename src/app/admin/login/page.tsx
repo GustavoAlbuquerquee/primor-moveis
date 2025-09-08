@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
-// --- Estilos para a Página de Login ---
 const LoginPageWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -66,7 +65,6 @@ const ErrorMessage = styled.p`
   margin-top: 1rem;
 `;
 
-// --- Componente da Página ---
 export default function LoginPage() {
   const router = useRouter();
   const [password, setPassword] = useState("");
@@ -86,8 +84,7 @@ export default function LoginPage() {
       });
 
       if (response.ok) {
-        // Se o login for bem-sucedido, redireciona para o painel principal do admin
-        router.push("/admin/dashboard"); // Vamos criar essa página a seguir
+        router.push("/admin/dashboard");
       } else {
         const data = await response.json();
         setError(data.error || "Ocorreu um erro.");

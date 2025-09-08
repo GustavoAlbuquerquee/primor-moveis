@@ -1,6 +1,5 @@
-// src/components/Contact/styles.ts
 import { fadeInAnimation } from "@/styles/global";
-import styled, { css } from "styled-components"; // Adicione css se não estiver lá
+import styled, { css } from "styled-components"; 
 
 export const ContactWrapper = styled.section`
   padding: ${({ theme }) => theme.spacings.large} ${({ theme }) => theme.spacings.small};
@@ -302,7 +301,6 @@ export const UploadedFileItem = styled.div`
   span {
     font-size: 0.9rem;
     color: #333;
-    // Impede que nomes de arquivo muito grandes quebrem o layout
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -321,6 +319,6 @@ export const RemoveFileButton = styled.button`
   align-items: center;
 
   &:hover {
-    color: #dc3545; // Cor vermelha para indicar remoção
+    color: #dc3545; 
   }
 `;

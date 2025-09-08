@@ -6,19 +6,16 @@ import Modal from "@/components/Modal";
 import * as S from "./styles";
 import { FaInstagram, FaPlus } from "react-icons/fa";
 
-// Definindo o tipo para os Projetos
 type ProjectType = {
   id: string;
   name: string;
   description: string;
   category: string;
   imageSrc: string;
-  createdAt: Date; // Prisma retorna um objeto Date
+  createdAt: Date;
   updatedAt: Date;
 };
 
-// --- CORREÇÃO PRINCIPAL AQUI ---
-// Adicionamos '{ projects }' como parâmetro da função
 export default function ProjectGallery({
   projects,
 }: {
@@ -29,7 +26,6 @@ export default function ProjectGallery({
     null
   );
 
-  // Deriva as categorias a partir dos projetos recebidos
   const categories = [
     "Todos",
     ...Array.from(new Set(projects.map((p) => p.category))),

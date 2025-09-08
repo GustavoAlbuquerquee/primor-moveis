@@ -4,13 +4,12 @@ import React, { useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 import * as S from "./styles";
 
-// Propriedades atualizadas para aceitar imagem, texto OU qualquer outro conteúdo
 interface ModalProps {
   onClose: () => void;
   imageUrl?: string;
   title?: string;
   description?: string;
-  children?: React.ReactNode; // Propriedade para conteúdo genérico
+  children?: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -39,8 +38,6 @@ const Modal: React.FC<ModalProps> = ({
           <FaTimes />
         </S.CloseButton>
 
-        {/* Lógica condicional: */}
-        {/* Se tiver uma imageUrl, renderiza o layout de imagem */}
         {imageUrl && (
           <>
             <S.ImageContainer>
@@ -61,7 +58,6 @@ const Modal: React.FC<ModalProps> = ({
           </>
         )}
 
-        {/* Se tiver children, renderiza o conteúdo genérico */}
         {children && <div className="generic-content">{children}</div>}
       </S.ModalContent>
     </S.ModalBackdrop>

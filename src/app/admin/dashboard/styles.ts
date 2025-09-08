@@ -1,14 +1,11 @@
 "use client";
 import styled, { css } from "styled-components";
 
-// 1. AJUSTE PARA O FOOTER FIXO
 export const DashboardWrapper = styled.div`
   padding: 2rem;
   max-width: 1200px;
   margin: 2rem auto;
-  min-height: calc(
-    100vh - 250px
-  ); // Garante que o conteúdo ocupe a altura da tela
+  min-height: calc(100vh - 250px);
 `;
 
 export const Header = styled.div`
@@ -16,7 +13,7 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  flex-wrap: wrap; // Para telas menores
+  flex-wrap: wrap;
   gap: 1rem;
 `;
 
@@ -74,7 +71,6 @@ export const ProjectTable = styled.table`
   }
 `;
 
-// 2. BOTÕES DE AÇÃO REFINADOS
 export const ActionsCell = styled.td`
   display: flex;
   gap: 1rem;
@@ -106,7 +102,6 @@ export const ActionsCell = styled.td`
   }
 `;
 
-// 3. ESTILOS REFINADOS PARA O FORMULÁRIO DO MODAL
 export const ModalForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -181,7 +176,6 @@ export const ConfirmationActions = styled.div`
   margin-top: 1.5rem;
 `;
 
-// Botão genérico para Cancelar, OK, etc.
 export const ModalButton = styled.button`
   font-weight: bold;
   padding: 0.6rem 1.5rem;
@@ -198,7 +192,6 @@ export const ModalButton = styled.button`
   }
 `;
 
-// Botão de perigo, para Excluir
 export const DangerButton = styled(ModalButton)`
   border-color: #dc3545;
   background-color: #dc3545;

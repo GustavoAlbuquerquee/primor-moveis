@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-// Você pode adicionar estilos específicos para esta página se necessário
 const SobrePageWrapper = styled.div`
-  // Sem padding aqui, as seções internas controlarão seu próprio padding
 `;
 
 const SobreHeroSection = styled.section`
@@ -186,7 +184,7 @@ const MainContentSection = styled.section`
 
 const ValuesSection = styled.section`
   padding: ${({ theme }) => theme.spacings.xxlarge} 0;
-  background-color: ${({ theme }) => theme.colors.lightBackground}; // Fundo alternativo
+  background-color: ${({ theme }) => theme.colors.lightBackground}; 
   text-align: center;
 
   .container {
@@ -198,7 +196,7 @@ const ValuesSection = styled.section`
     }
   }
 
-  h2 { // Título da seção de valores
+  h2 { 
     font-size: 2.2rem;
     color: ${({ theme }) => theme.colors.primary};
     margin-bottom: ${({ theme }) => theme.spacings.medium};
@@ -276,7 +274,7 @@ export const ContentSection = styled.section`
 
 export const CategorySection = styled(ContentSection)`
   background-color: ${({ theme }) => theme.colors.lightBackground};
-  .content-grid { @media (min-width: 992px) { grid-template-columns: 1fr 1.2fr; } } // Inverte a ordem
+  .content-grid { @media (min-width: 992px) { grid-template-columns: 1fr 1.2fr; } } 
 `;
 
 export { SobrePageWrapper, SobreHeroSection, MainContentSection, ValuesSection, ValueCard };
@@ -286,7 +284,6 @@ export const RevealWrapper = styled.div`
   overflow: hidden;
   line-height: 0;
 
-  /* A "cortina" colorida que revela a imagem */
   &::after {
     content: '';
     position: absolute;
@@ -296,30 +293,23 @@ export const RevealWrapper = styled.div`
     height: 100%;
     background-color: ${({ theme }) => theme.colors.primary};
     
-    /* MUDANÇA 1: A cortina agora começa cobrindo a imagem */
     transform: translateX(0);
     
-    /* A transição agora é um pouco mais lenta e suave */
     transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
-    z-index: 1; // Para ficar sobre a imagem
+    z-index: 1; 
   }
 
-  /* A imagem em si */
   .reveal-image {
-    /* MUDANÇA 2: A imagem agora começa visível (opacity: 1), mas atrás da cortina */
     opacity: 1;
-    transform: scale(1.1); // Começa com um leve zoom para dar mais dinamismo
+    transform: scale(1.1); 
     transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
-  /* Quando o componente está visível na tela */
   &.in-view {
     &::after {
-      /* MUDANÇA 3: A "cortina" desliza para a direita, saindo de vista e revelando a imagem */
       transform: translateX(101%);
     }
     .reveal-image {
-      /* A imagem volta ao tamanho normal, criando um efeito de zoom reverso */
       transform: scale(1);
     }
   }

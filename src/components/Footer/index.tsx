@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-// O Image não será mais usado aqui, mas pode deixar o import
 import Image from "next/image";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import * as S from "./styles";
@@ -15,18 +14,14 @@ const Footer = () => {
       <S.MainFooter>
         <div className="container">
           <S.FooterGrid>
-            {/* --- COLUNA 1 ATUALIZADA --- */}
             <S.FooterColumn>
-              {/* Adicionamos um título, assim como nas outras colunas */}
               <S.FooterTitle>Primor Móveis</S.FooterTitle>
-              {/* O logo em imagem foi removido daqui */}
               <S.Description>
                 Móveis planejados em Belo Horizonte com mais de 25 anos de
                 experiência, unindo design, qualidade e responsabilidade.
               </S.Description>
             </S.FooterColumn>
 
-            {/* Coluna 2: Navegação */}
             <S.FooterColumn>
               <S.FooterTitle>Navegação</S.FooterTitle>
               <S.FooterNav>
@@ -45,7 +40,6 @@ const Footer = () => {
               </S.FooterNav>
             </S.FooterColumn>
 
-            {/* Coluna 3: Contato */}
             <S.FooterColumn>
               <S.FooterTitle>Contato</S.FooterTitle>
               <S.ContactInfo>

@@ -41,7 +41,6 @@ export default function DashboardPage() {
   const [uploadStatus, setUploadStatus] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // --- FUNÇÃO PREENCHIDA ---
   const fetchProjects = async () => {
     setIsLoading(true);
     try {
@@ -72,7 +71,6 @@ export default function DashboardPage() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  // --- FUNÇÃO PREENCHIDA ---
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -122,7 +120,6 @@ export default function DashboardPage() {
     setIsFormModalOpen(true);
   };
 
-  // --- FUNÇÃO PREENCHIDA ---
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!formState.imageSrc) {
