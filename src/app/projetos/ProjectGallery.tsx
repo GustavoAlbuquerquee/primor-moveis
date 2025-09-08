@@ -26,9 +26,22 @@ export default function ProjectGallery({
     null
   );
 
+  const desiredOrder = [
+    "Todos",
+    "Quartos",
+    "Sala",
+    "Cozinha",
+    "Corporativos",
+    "Banheiros",
+    "Home Office",
+    "Projetos Especiais",
+  ];
+
   const categories = [
     "Todos",
-    ...Array.from(new Set(projects.map((p) => p.category))),
+    ...desiredOrder
+      .slice(1)
+      .filter((cat) => projects.some((p) => p.category === cat)),
   ];
 
   const filteredProjects = useMemo(() => {
