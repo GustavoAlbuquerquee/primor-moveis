@@ -54,7 +54,7 @@ export const ModalContent = styled.div`
 export const IconWrapper = styled.div<{ $isError?: boolean }>`
   font-size: 3.5rem;
   color: ${({ theme, $isError }) =>
-    $isError ? "#dc3545" : "#198754"}; // Vermelho para erro, verde para sucesso
+    $isError ? "#dc3545" : "#198754"}; 
   margin-bottom: ${({ theme }) => theme.spacings.medium};
 
   @media (max-width: 768px) {

@@ -10,6 +10,7 @@ interface ConfirmationModalProps {
   message: string;
   title?: string;
   isError?: boolean;
+  children?: React.ReactNode;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -18,6 +19,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   message,
   title = "Sucesso!",
   isError = false,
+  children,
 }) => {
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -46,7 +48,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         </S.IconWrapper>
         <S.Title>{isError ? "Ops!" : title}</S.Title>
         <S.Message>{message}</S.Message>
-        <S.CloseButton onClick={onClose}>Ok</S.CloseButton>
+
+        {/* 3. Lógica condicional: Se passarmos 'children', ele os renderiza. Senão, mostra o botão padrão. */}
+        {children ? (
+          children
+        ) : (
+          <S.CloseButton onClick={onClose}>Ok</S.CloseButton>
+        )}
       </S.ModalContent>
     </S.ModalBackdrop>
   );

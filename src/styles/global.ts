@@ -1,4 +1,3 @@
-// src/styles/global.ts
 import { createGlobalStyle } from "styled-components";
 import { css } from "styled-components";
 
@@ -17,8 +16,8 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: ${({ theme }) => theme.fonts.main};
-    color: ${({ theme }) => theme.colors.textOnLight}; /* Marrom Escuro */
-    background-color: ${({ theme }) => theme.colors.background}; /* Branco */
+    color: ${({ theme }) => theme.colors.textOnLight};
+    background-color: ${({ theme }) => theme.colors.background};
     line-height: 1.6;
   }
 
@@ -26,16 +25,16 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${({ theme }) => theme.fonts.headings};
     font-weight: 700;
     margin-bottom: ${({ theme }) => theme.spacings.medium};
-    color: ${({ theme }) => theme.colors.secondary}; /* Marrom Escuro para títulos */
+    color: ${({ theme }) => theme.colors.secondary};
   }
 
   a {
-    color: ${({ theme }) => theme.colors.primary}; /* Laranja Amarelado */
+    color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.secondary}; /* Marrom Escuro no hover */
+      color: ${({ theme }) => theme.colors.secondary};
       text-decoration: none;
     }
   }

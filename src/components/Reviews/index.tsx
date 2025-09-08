@@ -4,11 +4,9 @@ import Image from "next/image";
 import { FaGoogle } from "react-icons/fa";
 import * as S from "./styles";
 
-// 1. Importe o Swiper e os módulos necessários
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-// 2. Importe os estilos do Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -37,7 +35,6 @@ const sampleReviews = [
   },
 ];
 
-// Função para gerar estrelas (continua a mesma)
 const renderStars = (count: number) => {
   let stars = "";
   for (let i = 0; i < 5; i++) {
@@ -47,9 +44,8 @@ const renderStars = (count: number) => {
 };
 
 const Reviews = () => {
-  // Link para a sua página de avaliações no Google
   const googleReviewsUrl =
-    "https://www.google.com/search?q=primor+moveis+bh+reviews&rlz=1C1GCEA_enBR1147BR1147&oq=primor+moveis&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzINCAEQLhivARjHARiABDIJCAIQRRg5GIAEMgYIAxBFGEAyBwgEEAAYgAQyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQg0NzcyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0xa69701b98f6acd:0x977586db7596b7a0,1,,,,"; // **SUBSTITUA PELA URL REAL**
+    "https://www.google.com/search?q=primor+moveis+bh+reviews&rlz=1C1GCEA_enBR1147BR1147&oq=primor+moveis&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzINCAEQLhivARjHARiABDIJCAIQRRg5GIAEMgYIAxBFGEAyBwgEEAAYgAQyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQg0NzcyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0xa69701b98f6acd:0x977586db7596b7a0,1,,,,";
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -63,7 +59,6 @@ const Reviews = () => {
       <S.SectionTitle>O que Nossos Clientes Dizem</S.SectionTitle>
       <S.ReviewsContainer>
         {sampleReviews.map((review) => (
-          // O card inteiro agora é um link
           <S.ReviewCardLink
             href={googleReviewsUrl}
             target="_blank"

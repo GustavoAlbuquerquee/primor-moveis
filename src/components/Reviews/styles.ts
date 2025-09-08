@@ -6,7 +6,7 @@ export const ViewsWrapper = styled.section`
   padding: 4rem 2rem;
   background-color: ${({ theme }) => theme.colors.lightBackground};
   text-align: center;
-  ${fadeInAnimation} // 2. Aplique a animação aqui
+  ${fadeInAnimation}
 
   @media (max-width: 768px) {
     padding: 2rem 1rem;
@@ -52,20 +52,17 @@ export const ReviewsContainer = styled.div`
     grid-template-rows: auto auto auto;
     gap: 1.5rem;
     max-width: 100%;
-    
-    /* Primeiro item: primeira coluna, primeira linha */
+
     > :nth-child(1) {
       grid-column: 1;
       grid-row: 1;
     }
-    
-    /* Segundo item: segunda coluna, primeira linha */
+
     > :nth-child(2) {
       grid-column: 2;
       grid-row: 1;
     }
-    
-    /* Terceiro item: ocupa as duas colunas na segunda linha, centralizado */
+
     > :nth-child(3) {
       grid-column: 1 / -1;
       grid-row: 2;
@@ -76,8 +73,7 @@ export const ReviewsContainer = styled.div`
 
   @media (max-width: 768px) {
     gap: 1rem;
-    
-    /* Mantém o mesmo layout mas com gaps menores */
+
     > :nth-child(3) {
       max-width: 350px;
     }
@@ -87,8 +83,7 @@ export const ReviewsContainer = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 1rem;
-    
-    /* Remove o posicionamento específico em mobile muito pequeno */
+
     > :nth-child(1),
     > :nth-child(2),
     > :nth-child(3) {
@@ -100,7 +95,6 @@ export const ReviewsContainer = styled.div`
   }
 `;
 
-// O card agora é um Link estilizado
 export const ReviewCardLink = styled(Link)`
   background-color: #fff;
   border: 1px solid ${({ theme }) => theme.colors.mediumGray};
@@ -114,12 +108,12 @@ export const ReviewCardLink = styled(Link)`
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-  text-decoration: none; // Remove o sublinhado do link
+  text-decoration: none;
 
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-    color: inherit; // Garante que a cor do texto não mude no hover do link
+    color: inherit;
   }
 
   @media (max-width: 768px) {
@@ -143,12 +137,11 @@ export const CardHeader = styled.div`
   }
 `;
 
-// Estilo para a imagem do avatar
 export const AvatarImage = styled(Image)`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  object-fit: cover; // Garante que a imagem preencha o círculo
+  object-fit: cover;
   margin-right: 1rem;
 
   @media (max-width: 768px) {
@@ -159,7 +152,7 @@ export const AvatarImage = styled(Image)`
 `;
 
 export const AuthorInfo = styled.div`
-  flex-grow: 1; // Ocupa o espaço disponível, empurrando o ícone do Google para a direita
+  flex-grow: 1;
 `;
 
 export const ReviewAuthorName = styled.p`
@@ -183,10 +176,9 @@ export const ReviewStars = styled.div`
   }
 `;
 
-// Estilo para o ícone do Google
 export const GoogleIcon = styled.div`
   font-size: 1.5rem;
-  color: #dddddd; // Um cinza sutil para o ícone
+  color: #dddddd;
 
   @media (max-width: 768px) {
     font-size: 1.2rem;
@@ -195,10 +187,10 @@ export const GoogleIcon = styled.div`
 
 export const ViewMoreButton = styled(Link)`
   display: inline-block;
-  margin-top: 2.5rem; // Espaço entre o carrossel e o botão
+  margin-top: 2.5rem;
   background-color: transparent;
-  color: ${({ theme }) => theme.colors.primary}; // Cor do texto (Laranja)
-  border: 2px solid ${({ theme }) => theme.colors.primary}; // Borda Laranja
+  color: ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   padding: ${({ theme }) => `${theme.spacings.small} ${theme.spacings.large}`};
   font-size: 1rem;
   font-weight: bold;
@@ -207,14 +199,13 @@ export const ViewMoreButton = styled(Link)`
 
 export const ReviewText = styled.p`
   font-size: 1rem;
-  font-style: italic; // Mantive o itálico para depoimentos
+  font-style: italic;
   color: ${({ theme }) => theme.colors.textOnLight};
   line-height: 1.7;
   margin-bottom: 0;
   flex-grow: 1;
 
   &::before {
-    // Usando aspas de citação estilizadas
     content: "“";
     font-size: 3rem;
     color: ${({ theme }) => theme.colors.primary};

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import * as S from "./styles";
 
-// Projetos destacados para a home page
 const featuredProjects = [
   {
     id: "featured-1",

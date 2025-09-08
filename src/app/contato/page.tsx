@@ -1,6 +1,6 @@
 "use client";
-import Contact from '@/components/Contact'; // Reutilizando o componente Contact
-import styled from 'styled-components';
+import Contact from "@/components/Contact";
+import styled from "styled-components";
 
 const ContatoPageWrapper = styled.div`
   padding-top: 1rem;
@@ -20,7 +20,7 @@ const ContatoPageWrapper = styled.div`
 
 const PageTitle = styled.h1`
   font-size: 1.8rem;
-  color: ${(props) => props.theme.colors?.primary || '#DAA520'};
+  color: ${(props) => props.theme.colors?.primary || "#DAA520"};
   text-align: center;
   margin-bottom: 1rem;
   margin-top: 1rem;
@@ -40,11 +40,11 @@ const PageTitle = styled.h1`
   }
 
   &::after {
-    content: '';
+    content: "";
     display: block;
     width: 60px;
     height: 3px;
-    background-color: ${(props) => props.theme.colors?.secondary || '#B8860B'};
+    background-color: ${(props) => props.theme.colors?.secondary || "#B8860B"};
     margin: 0.5rem auto 0;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -56,7 +56,6 @@ const PageTitle = styled.h1`
     }
   }
 `;
-
 
 export default function ContatoPage() {
   return (

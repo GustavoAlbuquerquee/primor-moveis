@@ -1,12 +1,11 @@
 import styled, { keyframes } from "styled-components";
 
-// 1. DEFINIÇÃO DA ANIMAÇÃO DE ZOOM LENTO
 const kenburns = keyframes`
   0% {
     transform: scale(1.0) translateY(0);
   }
   100% {
-    transform: scale(1.1) translateY(-10px); // Aumenta o zoom e move um pouco para cima
+    transform: scale(1.1) translateY(-10px); 
   }
 `;
 
@@ -83,7 +82,6 @@ export const SlideContent = styled.div`
   justify-content: center;
   overflow: hidden;
 
-  /* Garante que a imagem do Next.js seja renderizada corretamente */
   > img {
     animation: ${kenburns} 30s ease-out infinite alternate;
     position: absolute !important;
@@ -95,7 +93,6 @@ export const SlideContent = styled.div`
     z-index: 0;
   }
 
-  /* Suporte para o componente Image do Next.js */
   & > span {
     position: absolute !important;
     top: 0;

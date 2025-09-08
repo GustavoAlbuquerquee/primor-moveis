@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import Image from "next/image";
 
-// Importe os estilos do Swiper
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
@@ -43,7 +42,6 @@ const slidesData = [
     id: 5,
     imageSrc: "/Inicial_5.jpg",
     keyword: "Excelência",
-    // 1. Legenda transformada em um array para a quebra de linha
     caption: [
       "Buscamos o mais alto nível em cada projeto.",
       "Da concepção à instalação, a excelência é o nosso padrão.",
@@ -92,7 +90,6 @@ const HeroSlider = () => {
               <S.SlideTextContainer>
                 <S.Keyword>{slide.keyword}</S.Keyword>
                 <S.Caption>
-                  {/* 2. Lógica para renderizar a legenda com quebra de linha se for um array */}
                   {Array.isArray(slide.caption)
                     ? slide.caption.map((line, index) => (
                         <React.Fragment key={index}>
@@ -104,7 +101,6 @@ const HeroSlider = () => {
                 </S.Caption>
               </S.SlideTextContainer>
 
-              {/* 3. Adição da marca d'água */}
               <S.Watermark>Foto: Primor Móveis © {currentYear}</S.Watermark>
             </S.SlideContent>
           </SwiperSlide>

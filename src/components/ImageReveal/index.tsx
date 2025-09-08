@@ -5,7 +5,6 @@ import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 import * as S from "./styles";
 
-// Definindo as propriedades que nosso componente vai aceitar
 interface ImageRevealProps {
   src: string;
   alt: string;
@@ -21,7 +20,7 @@ const ImageReveal: React.FC<ImageRevealProps> = ({
 }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.2, // A animação começa quando 20% do elemento está visível
+    threshold: 0.2,
   });
 
   return (

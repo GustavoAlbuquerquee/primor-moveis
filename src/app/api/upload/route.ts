@@ -20,20 +20,15 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  // --- ADIÇÃO DO TRY...CATCH AQUI ---
   try {
-    // Faz o upload do arquivo para o Vercel Blob
     const blob = await put(filename, request.body, {
       access: "public",
-      addRandomSuffix: true, // Garante que cada arquivo tenha um nome único
+      addRandomSuffix: true,
     });
 
-    // Se o upload for bem-sucedido, retorna os dados do blob
     return NextResponse.json(blob);
   } catch (error: any) {
-    // Se ocorrer qualquer erro durante o 'put', nós o capturamos aqui
     console.error("Erro no upload para o Vercel Blob:", error);
-    // E retornamos uma resposta JSON de erro clara
     return NextResponse.json(
       { error: `Erro ao fazer upload: ${error.message}` },
       { status: 500 }
