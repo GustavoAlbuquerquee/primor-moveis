@@ -15,7 +15,7 @@ export default async function ProjetosPage() {
   let projects: ProjectType[] = [];
 
   try {
-    const dbProjects = await prisma().project.findMany({
+    const dbProjects = await prisma.project.findMany({
       orderBy: {
         createdAt: "desc",
       },
