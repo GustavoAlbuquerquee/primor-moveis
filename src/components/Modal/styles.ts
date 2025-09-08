@@ -24,6 +24,14 @@ export const ModalBackdrop = styled.div`
   cursor: pointer;
   animation: ${fadeIn} 0.3s ease-out;
   padding: 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.25rem;
+  }
 `;
 
 export const ModalContent = styled.div`
@@ -40,9 +48,29 @@ export const ModalContent = styled.div`
   flex-direction: column;
   overflow: hidden;
 
+  @media (max-width: 768px) {
+    max-width: 95vw;
+    max-height: 95vh;
+    border-radius: 6px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 98vw;
+    max-height: 98vh;
+    border-radius: 4px;
+  }
+
   .generic-content {
     padding: ${({ theme }) => theme.spacings.large};
     overflow-y: auto;
+
+    @media (max-width: 768px) {
+      padding: ${({ theme }) => theme.spacings.medium};
+    }
+
+    @media (max-width: 480px) {
+      padding: ${({ theme }) => theme.spacings.small};
+    }
   }
 `;
 
@@ -67,6 +95,14 @@ export const TextContainer = styled.div`
   padding: ${({ theme }) => theme.spacings.large};
   background-color: ${({ theme }) => theme.colors.background};
   overflow-y: auto;
+
+  @media (max-width: 768px) {
+    padding: ${({ theme }) => theme.spacings.medium};
+  }
+
+  @media (max-width: 480px) {
+    padding: ${({ theme }) => theme.spacings.small};
+  }
 `;
 
 export const ModalTitle = styled.h3`
@@ -74,12 +110,28 @@ export const ModalTitle = styled.h3`
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: ${({ theme }) => theme.spacings.small};
   line-height: 1.3;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
 `;
 
 export const ModalDescription = styled.p`
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.textOnLight};
   line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -100,8 +152,28 @@ export const CloseButton = styled.button`
   z-index: 10;
   transition: all 0.2s ease;
 
+  @media (max-width: 768px) {
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.6);
     transform: scale(1.1);
+
+    @media (max-width: 480px) {
+      transform: scale(1.05);
+    }
   }
 `;

@@ -200,43 +200,45 @@ export default function DashboardPage() {
           </S.AddButton>
         </S.Header>
 
-        <S.ProjectTable>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Categoria</th>
-              <th>Criado em</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {projects.map((project) => (
-              <tr key={project.id}>
-                <td>{project.name}</td>
-                <td>{project.category}</td>
-                <td>
-                  {new Date(project.createdAt).toLocaleDateString("pt-BR")}
-                </td>
-                <S.ActionsCell>
-                  <button
-                    className="edit"
-                    aria-label="Editar"
-                    onClick={() => openEditModal(project)}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    className="delete"
-                    aria-label="Excluir"
-                    onClick={() => openDeleteModal(project)}
-                  >
-                    <FaTrash />
-                  </button>
-                </S.ActionsCell>
+        <S.TableContainer>
+          <S.ProjectTable>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Criado em</th>
+                <th>Ações</th>
               </tr>
-            ))}
-          </tbody>
-        </S.ProjectTable>
+            </thead>
+            <tbody>
+              {projects.map((project) => (
+                <tr key={project.id}>
+                  <td>{project.name}</td>
+                  <td>{project.category}</td>
+                  <td>
+                    {new Date(project.createdAt).toLocaleDateString("pt-BR")}
+                  </td>
+                  <S.ActionsCell>
+                    <button
+                      className="edit"
+                      aria-label="Editar"
+                      onClick={() => openEditModal(project)}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="delete"
+                      aria-label="Excluir"
+                      onClick={() => openDeleteModal(project)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </S.ActionsCell>
+                </tr>
+              ))}
+            </tbody>
+          </S.ProjectTable>
+        </S.TableContainer>
       </S.DashboardWrapper>
 
       {/* MODAL PARA ADICIONAR/EDITAR PROJETO */}

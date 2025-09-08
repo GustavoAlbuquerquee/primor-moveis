@@ -10,6 +10,17 @@ const LoginPageWrapper = styled.div`
   align-items: center;
   min-height: 80vh;
   background-color: ${({ theme }) => theme.colors.lightBackground};
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    min-height: 70vh;
+    padding: 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+    min-height: 60vh;
+  }
 `;
 
 const LoginForm = styled.form`
@@ -21,12 +32,33 @@ const LoginForm = styled.form`
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
   border-top: 5px solid ${({ theme }) => theme.colors.primary};
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+    max-width: 350px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+    max-width: 300px;
+    border-radius: 6px;
+  }
 `;
 
 const Title = styled.h1`
   font-family: ${({ theme }) => theme.fonts.headings};
   color: ${({ theme }) => theme.colors.secondary};
   margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const Input = styled.input`
@@ -36,6 +68,24 @@ const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.mediumGray};
   border-radius: 4px;
   font-size: 1rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 3px ${({ theme }) => `${theme.colors.primary}4D`};
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.7rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.6rem 0.7rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -48,6 +98,7 @@ const SubmitButton = styled.button`
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: 1rem;
 
   &:hover {
     filter: brightness(1.1);
@@ -57,12 +108,31 @@ const SubmitButton = styled.button`
     background-color: ${({ theme }) => theme.colors.mediumGray};
     cursor: not-allowed;
   }
+
+  @media (max-width: 768px) {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
 `;
 
 const ErrorMessage = styled.p`
   color: #dc3545;
   font-size: 0.9rem;
   margin-top: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+  }
 `;
 
 export default function LoginPage() {
