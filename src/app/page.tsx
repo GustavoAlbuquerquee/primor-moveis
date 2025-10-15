@@ -8,7 +8,6 @@ import Contact from "@/components/Contact";
 const HeroSlider = dynamic(() => import("@/components/HeroSlider"), {
   ssr: false,
 });
-// Forçando um novo deploy para carregar as variáveis de ambiente
 export default function HomePage() {
   return (
     <main>
