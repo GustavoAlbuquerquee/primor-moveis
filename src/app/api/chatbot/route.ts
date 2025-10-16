@@ -100,9 +100,9 @@ export async function POST(request: Request) {
       Resposta:
     `;
 
-    // 🔹 Chamada direta ao endpoint v1 do Gemini 1.5 Flash
+    // 🔹 Chamada direta ao endpoint v1 do Gemini Pro
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
