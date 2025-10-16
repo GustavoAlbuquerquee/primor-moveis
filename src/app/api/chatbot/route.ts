@@ -1,9 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-
-// Inicializa a IA com a sua chave de API
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const BASE_CONHECIMENTO = `
   PRIMOR MÓVEIS - PERGUNTAS E RESPOSTAS
@@ -54,7 +49,6 @@ const BASE_CONHECIMENTO = `
     Resposta: Oferecemos formas de pagamento flexíveis para se adequar ao seu planejamento. Geralmente trabalhamos com um sinal na assinatura do contrato e o saldo restante parcelado. Todos os detalhes são conversados e definidos na proposta comercial.
 `;
 
-// A função que será chamada pela Umbler
 export async function POST(request: Request) {
   try {
     /*
@@ -77,7 +71,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Detecta se o cliente quer falar com um humano
+    // Verifica se o cliente quer falar com um humano
     const querAtendente = /atendente|humano|pessoa|falar com algu[ée]m/i.test(
       message
     );
@@ -89,7 +83,7 @@ export async function POST(request: Request) {
       });
     }
 
-    // Constrói o prompt para a IA
+    // Prompt enviado para o Gemini
     const prompt = `
       Você é a assistente virtual da Primor Móveis, uma marcenaria de alto padrão. Seja simpática, profissional e objetiva. Use um tom informal brasileiro.
 
@@ -108,19 +102,32 @@ export async function POST(request: Request) {
       Resposta:
     `;
 
-    // Envia o prompt para o Gemini
-    const result = await model.generateContent(prompt);
-    const resposta = result.response.text();
+    // 🔹 Chamada direta ao endpoint v1 do Gemini 1.5 Flash
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+        }),
+      }
+    );
 
-    // Verifica se a própria IA sugeriu falar com um atendente
+    const data = await response.json();
+
+    const resposta =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Não consegui processar sua mensagem no momento.";
+
+    // Detecta se deve transbordar para humano
     const naoSabe =
       /não tenho essa informação|falar com um atendente|especialista/i.test(
         resposta
       );
 
-    // Retorna a resposta da IA para a Umbler
     return NextResponse.json({
-      resposta: resposta,
+      resposta,
       transbordoHumano: naoSabe,
     });
   } catch (error) {
