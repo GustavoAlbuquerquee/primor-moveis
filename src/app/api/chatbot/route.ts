@@ -1,11 +1,10 @@
+// app/api/chatbot/route.ts
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Inicializa a IA com a sua chave de API
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
-// --- CORREÇÃO FINAL AQUI ---
-// Usando o nome do modelo que a sua API Key realmente suporta
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 const BASE_CONHECIMENTO = `
   PRIMOR MÓVEIS - PERGUNTAS E RESPOSTAS
@@ -56,27 +55,133 @@ const BASE_CONHECIMENTO = `
     Resposta: Oferecemos formas de pagamento flexíveis para se adequar ao seu planejamento. Geralmente trabalhamos com um sinal na assinatura do contrato e o saldo restante parcelado. Todos os detalhes são conversados e definidos na proposta comercial.
 `;
 
-export async function POST(request: Request) {
-  try {
-    const { message } = await request.json();
+// Suporta GET, POST e OPTIONS
+export async function GET(request: Request) {
+  return handleRequest(request, "GET");
+}
 
-    if (!message) {
+export async function POST(request: Request) {
+  return handleRequest(request, "POST");
+}
+
+export async function OPTIONS(request: Request) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
+async function handleRequest(request: Request, method: string) {
+  const requestId = `CHAT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+  console.log("\n🤖========================================");
+  console.log(`[${requestId}] INÍCIO - ${new Date().toISOString()}`);
+  console.log(`[${requestId}] Método: ${method}`);
+  console.log(`[${requestId}] URL: ${request.url}`);
+  console.log("========================================");
+
+  try {
+    // Log de headers recebidos
+    const headers: Record<string, string> = {};
+    request.headers.forEach((value, key) => {
+      headers[key] = value;
+    });
+    console.log(`[${requestId}] Headers:`, JSON.stringify(headers, null, 2));
+
+    // Captura a mensagem do usuário
+    let message = "";
+    let bodyCompleto: any = null;
+
+    if (method === "POST") {
+      try {
+        const bodyText = await request.text();
+        console.log(`[${requestId}] Body raw:`, bodyText);
+
+        bodyCompleto = JSON.parse(bodyText);
+        console.log(
+          `[${requestId}] Body parsed:`,
+          JSON.stringify(bodyCompleto, null, 2)
+        );
+
+        // Tenta diferentes formatos possíveis que a Umbler pode enviar
+        message =
+          bodyCompleto.message ||
+          bodyCompleto.text ||
+          bodyCompleto.pergunta ||
+          bodyCompleto.question ||
+          bodyCompleto.mensagem ||
+          bodyCompleto.msg ||
+          "";
+      } catch (e) {
+        console.error(`[${requestId}] Erro ao parsear JSON:`, e);
+        return NextResponse.json(
+          {
+            error: "Formato de requisição inválido",
+            detalhes: e instanceof Error ? e.message : "Erro desconhecido",
+            request_id: requestId,
+          },
+          { status: 400 }
+        );
+      }
+    } else {
+      // GET - pega da query string
+      const url = new URL(request.url);
+      message =
+        url.searchParams.get("message") ||
+        url.searchParams.get("pergunta") ||
+        url.searchParams.get("question") ||
+        "";
+      console.log(
+        `[${requestId}] Query params:`,
+        Object.fromEntries(url.searchParams)
+      );
+    }
+
+    console.log(`[${requestId}] Mensagem extraída: "${message}"`);
+
+    // Valida se tem mensagem
+    if (!message || message.trim() === "") {
+      console.log(`[${requestId}] ⚠️ Mensagem vazia`);
       return NextResponse.json(
-        { error: "Mensagem não encontrada." },
+        {
+          error: "Mensagem não encontrada.",
+          exemplo_body: { message: "Quanto custa uma cozinha?" },
+          body_recebido: bodyCompleto,
+          request_id: requestId,
+        },
         { status: 400 }
       );
     }
 
+    // Verifica se quer falar com atendente
+    console.log(`[${requestId}] Verificando se quer atendente...`);
     const querAtendente = /atendente|humano|pessoa|falar com algu[ée]m/i.test(
       message
     );
+
     if (querAtendente) {
+      console.log(`[${requestId}] ✅ Cliente quer falar com atendente`);
+      console.log(`[${requestId}] FIM - Transbordo para humano`);
+      console.log("========================================\n");
+
       return NextResponse.json({
         resposta:
           "Entendi! Sem problemas. Vou transferir você para um de nossos especialistas. Um momento, por favor! 😊",
         transbordoHumano: true,
+        metadata: {
+          request_id: requestId,
+          timestamp: new Date().toISOString(),
+        },
       });
     }
+
+    // Chama o Gemini
+    console.log(`[${requestId}] 🧠 Chamando Gemini...`);
+    const startTime = Date.now();
 
     const prompt = `
       Você é a assistente virtual da Primor Móveis, uma marcenaria de alto padrão. Seja simpática, profissional e objetiva. Use um tom informal brasileiro.
@@ -96,26 +201,56 @@ export async function POST(request: Request) {
       Resposta:
     `;
 
-    // A chamada para a API agora vai funcionar com o modelo correto
     const result = await model.generateContent(prompt);
     const resposta = result.response.text();
 
+    const responseTime = Date.now() - startTime;
+    console.log(`[${requestId}] ⚡ Resposta gerada em ${responseTime}ms`);
+    console.log(
+      `[${requestId}] 💬 Resposta: "${resposta.substring(0, 150)}..."`
+    );
+
+    // Verifica se a IA não sabe a resposta
     const naoSabe =
       /não tenho essa informação|falar com um atendente|especialista/i.test(
         resposta
       );
 
+    if (naoSabe) {
+      console.log(
+        `[${requestId}] ⚠️ IA não soube responder - sugerindo transbordo`
+      );
+    }
+
+    console.log("========================================");
+    console.log(`[${requestId}] FIM - Sucesso ✅`);
+    console.log("========================================\n");
+
     return NextResponse.json({
       resposta,
       transbordoHumano: naoSabe,
+      metadata: {
+        request_id: requestId,
+        response_time_ms: responseTime,
+        timestamp: new Date().toISOString(),
+      },
     });
   } catch (error) {
-    console.error("Erro na API do Chatbot:", error);
+    console.error(`[${requestId}] ❌ ERRO:`, error);
+    console.log("========================================");
+    console.log(`[${requestId}] FIM - Erro`);
+    console.log("========================================\n");
+
     return NextResponse.json(
       {
         resposta:
           "Ops, tive um problema técnico aqui. 🔧 Mas não se preocupe, já estou chamando um de nossos especialistas para te ajudar!",
         transbordoHumano: true,
+        metadata: {
+          request_id: requestId,
+          timestamp: new Date().toISOString(),
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        },
       },
       { status: 500 }
     );
