@@ -71,6 +71,7 @@ export async function POST(request: Request) {
       );
     }
 
+    // Verifica se o cliente quer falar com um humano
     const querAtendente = /atendente|humano|pessoa|falar com algu[ée]m/i.test(
       message
     );
@@ -82,6 +83,7 @@ export async function POST(request: Request) {
       });
     }
 
+    // Prompt enviado para o Gemini
     const prompt = `
       Você é a assistente virtual da Primor Móveis, uma marcenaria de alto padrão. Seja simpática, profissional e objetiva. Use um tom informal brasileiro.
 
@@ -100,60 +102,28 @@ export async function POST(request: Request) {
       Resposta:
     `;
 
+    // 🔹 Chamada direta ao endpoint v1 do Gemini 1.5 Flash
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          // --- CORREÇÃO APLICADA AQUI ---
-          // Desativamos os filtros de segurança para evitar bloqueios desnecessários.
-          safetySettings: [
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            {
-              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-              threshold: "BLOCK_NONE",
-            },
-            {
-              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-              threshold: "BLOCK_NONE",
-            },
-          ],
+          prompt: { text: prompt },
+          temperature: 0,
+          candidate_count: 1,
+          max_output_tokens: 300,
         }),
       }
     );
 
-    // Adicionado para melhor depuração
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erro da API do Google:", errorData);
-      throw new Error(`Erro da API do Google: ${JSON.stringify(errorData)}`);
-    }
-
     const data = await response.json();
 
-    // Verificação se a resposta foi bloqueada por segurança, mesmo com as configurações
-    if (
-      (data.candidates && data.candidates.length === 0) ||
-      data.candidates[0].finishReason === "SAFETY"
-    ) {
-      console.warn(
-        "Resposta do Gemini bloqueada por segurança:",
-        data.promptFeedback
-      );
-      return NextResponse.json({
-        resposta:
-          "Não consegui processar sua mensagem devido aos filtros de segurança. Vou chamar um atendente.",
-        transbordoHumano: true,
-      });
-    }
-
     const resposta =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      data.candidates?.[0]?.content?.[0]?.text ||
       "Não consegui processar sua mensagem no momento.";
 
+    // Detecta se deve transbordar para humano
     const naoSabe =
       /não tenho essa informação|falar com um atendente|especialista/i.test(
         resposta
