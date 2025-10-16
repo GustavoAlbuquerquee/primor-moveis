@@ -109,7 +109,10 @@ export async function POST(request: Request) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
+          prompt: { text: prompt },
+          temperature: 0,
+          candidate_count: 1,
+          max_output_tokens: 300,
         }),
       }
     );
@@ -117,7 +120,7 @@ export async function POST(request: Request) {
     const data = await response.json();
 
     const resposta =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      data.candidates?.[0]?.content?.[0]?.text ||
       "Não consegui processar sua mensagem no momento.";
 
     // Detecta se deve transbordar para humano
