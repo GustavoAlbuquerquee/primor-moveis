@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
+// Inicializa a IA com a sua chave de API
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+
+// --- CORREÇÃO FINAL AQUI ---
+// Usando o nome do modelo que a sua API Key realmente suporta
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 const BASE_CONHECIMENTO = `
   PRIMOR MÓVEIS - PERGUNTAS E RESPOSTAS
 
@@ -79,7 +86,7 @@ export async function POST(request: Request) {
       2. Se a resposta exata não estiver na base, responda exatamente: "Não tenho essa informação no momento, mas posso te transferir para um de nossos especialistas. Deseja falar com um atendente?"
       3. Mantenha as respostas curtas e claras (máximo 3 frases).
       4. Use emojis moderadamente para um toque amigável 🪵✨.
-
+      
       === BASE DE CONHECIMENTO ===
       ${BASE_CONHECIMENTO}
       ===========================
@@ -89,41 +96,9 @@ export async function POST(request: Request) {
       Resposta:
     `;
 
-    // 🔹 Chamada antiga que estava dando 200
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          safetySettings: [
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            {
-              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-              threshold: "BLOCK_NONE",
-            },
-            {
-              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-              threshold: "BLOCK_NONE",
-            },
-          ],
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erro da API do Google:", errorData);
-      throw new Error(`Erro da API do Google: ${JSON.stringify(errorData)}`);
-    }
-
-    const data = await response.json();
-
-    const resposta =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Não consegui processar sua mensagem no momento.";
+    // A chamada para a API agora vai funcionar com o modelo correto
+    const result = await model.generateContent(prompt);
+    const resposta = result.response.text();
 
     const naoSabe =
       /não tenho essa informação|falar com um atendente|especialista/i.test(
