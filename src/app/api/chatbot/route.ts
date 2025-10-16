@@ -124,7 +124,10 @@ async function handleRequest(request: Request, method: string) {
             detalhes: e instanceof Error ? e.message : "Erro desconhecido",
             request_id: requestId,
           },
-          { status: 400 }
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #1
+          }
         );
       }
     } else {
@@ -153,7 +156,10 @@ async function handleRequest(request: Request, method: string) {
           body_recebido: bodyCompleto,
           request_id: requestId,
         },
-        { status: 400 }
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #2
+        }
       );
     }
 
@@ -168,15 +174,21 @@ async function handleRequest(request: Request, method: string) {
       console.log(`[${requestId}] FIM - Transbordo para humano`);
       console.log("========================================\n");
 
-      return NextResponse.json({
-        resposta:
-          "Entendi! Sem problemas. Vou transferir você para um de nossos especialistas. Um momento, por favor! 😊",
-        transbordoHumano: true,
-        metadata: {
-          request_id: requestId,
-          timestamp: new Date().toISOString(),
+      return NextResponse.json(
+        {
+          resposta:
+            "Entendi! Sem problemas. Vou transferir você para um de nossos especialistas. Um momento, por favor! 😊",
+          transbordoHumano: true,
+          metadata: {
+            request_id: requestId,
+            timestamp: new Date().toISOString(),
+          },
         },
-      });
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #3
+        }
+      );
     }
 
     // Chama o Gemini
@@ -226,15 +238,21 @@ async function handleRequest(request: Request, method: string) {
     console.log(`[${requestId}] FIM - Sucesso ✅`);
     console.log("========================================\n");
 
-    return NextResponse.json({
-      resposta,
-      transbordoHumano: naoSabe,
-      metadata: {
-        request_id: requestId,
-        response_time_ms: responseTime,
-        timestamp: new Date().toISOString(),
+    return NextResponse.json(
+      {
+        resposta,
+        transbordoHumano: naoSabe,
+        metadata: {
+          request_id: requestId,
+          response_time_ms: responseTime,
+          timestamp: new Date().toISOString(),
+        },
       },
-    });
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #4
+      }
+    );
   } catch (error) {
     console.error(`[${requestId}] ❌ ERRO:`, error);
     console.log("========================================");
@@ -252,7 +270,10 @@ async function handleRequest(request: Request, method: string) {
           error: error instanceof Error ? error.message : "Erro desconhecido",
         },
       },
-      { status: 500 }
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #5
+      }
     );
   }
 }
