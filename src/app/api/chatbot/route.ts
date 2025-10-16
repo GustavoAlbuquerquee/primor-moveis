@@ -51,17 +51,6 @@ const BASE_CONHECIMENTO = `
 
 export async function POST(request: Request) {
   try {
-    /*
-    // Bloco de segurança opcional, mas recomendado para o futuro.
-    // Garante que apenas a Umbler possa chamar esta API.
-    const authHeader = request.headers.get('authorization');
-    const expectedToken = `Bearer ${process.env.UMBLER_WEBHOOK_SECRET}`;
-    if (authHeader !== expectedToken) {
-      console.error("Tentativa de acesso não autorizada ao webhook do chatbot.");
-      return NextResponse.json({ error: 'Não autorizado.' }, { status: 401 });
-    }
-    */
-
     const { message } = await request.json();
 
     if (!message) {
@@ -90,7 +79,7 @@ export async function POST(request: Request) {
       2. Se a resposta exata não estiver na base, responda exatamente: "Não tenho essa informação no momento, mas posso te transferir para um de nossos especialistas. Deseja falar com um atendente?"
       3. Mantenha as respostas curtas e claras (máximo 3 frases).
       4. Use emojis moderadamente para um toque amigável 🪵✨.
-      
+
       === BASE DE CONHECIMENTO ===
       ${BASE_CONHECIMENTO}
       ===========================
@@ -100,23 +89,14 @@ export async function POST(request: Request) {
       Resposta:
     `;
 
-    // 🔹 Chamada direta ao endpoint v1beta do Gemini 1.5 Flash
+    // 🔹 Chamada antiga que estava dando 200
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [{ text: prompt }],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.3,
-            maxOutputTokens: 256,
-          },
+          contents: [{ parts: [{ text: prompt }] }],
           safetySettings: [
             { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
             { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
@@ -141,26 +121,8 @@ export async function POST(request: Request) {
 
     const data = await response.json();
 
-    if (
-      (data.candidates && data.candidates.length === 0) ||
-      data.candidates[0].finishReason === "SAFETY"
-    ) {
-      console.warn(
-        "Resposta do Gemini bloqueada por segurança:",
-        data.promptFeedback
-      );
-      return NextResponse.json({
-        resposta:
-          "Não consegui processar sua mensagem devido aos filtros de segurança. Vou chamar um atendente.",
-        transbordoHumano: true,
-      });
-    }
-    console.log("Resposta bruta do Gemini:", JSON.stringify(data, null, 2));
-
     const resposta =
       data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      data.candidates?.[0]?.output || // às vezes vem assim
-      data.candidates?.[0]?.content?.[0]?.text || // ou assim
       "Não consegui processar sua mensagem no momento.";
 
     const naoSabe =
