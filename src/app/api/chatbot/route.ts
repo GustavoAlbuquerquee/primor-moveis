@@ -102,7 +102,7 @@ export async function POST(request: Request) {
 
     // 🔹 Chamada direta ao endpoint v1 do Gemini 1.5 Flash
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -146,9 +146,12 @@ export async function POST(request: Request) {
         transbordoHumano: true,
       });
     }
+    console.log("Resposta bruta do Gemini:", JSON.stringify(data, null, 2));
 
     const resposta =
       data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      data.candidates?.[0]?.output || // às vezes vem assim
+      data.candidates?.[0]?.content?.[0]?.text || // ou assim
       "Não consegui processar sua mensagem no momento.";
 
     const naoSabe =
