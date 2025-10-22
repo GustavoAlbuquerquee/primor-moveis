@@ -1,8 +1,6 @@
-// app/api/chatbot/route.ts
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Inicializa a IA com a sua chave de API
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
@@ -25,34 +23,158 @@ const BASE_CONHECIMENTO = `
   - Pergunta: Vocês fazem projetos residenciais e corporativos?
     Resposta: Sim, temos vasta experiência nos dois segmentos! Desenvolvemos soluções completas tanto para o conforto do seu lar (residencial), como por exemplo: cozinhas, quartos, salas, quanto para a funcionalidade do seu ambiente de trabalho (corporativo), incluindo escritórios, recepções e lojas.
 
+  - Pergunta: Vocês atendem apenas em BH ou atendem outras cidades?
+    Resposta: Atendemos Belo Horizonte e região metropolitana. Trabalhos fora de BH são avaliados conforme o projeto.
+
+  - Pergunta: Vocês têm Showroom?
+    Resposta: Somos marcenaria própria com o nosso espaço de produção, porém não temos showroom. Caso queira fazer uma visita aqui na fábrica, basta agendar um horário no nosso atendimento aqui no WhatsApp.
+
+  - Pergunta: Qual o horário de atendimento ou que posso marcar uma visita para orçamento?
+    Resposta: Segunda a sexta, das 8h às 18h. Sábados até meio-dia, conforme agendamento. Podemos verificar possibilidade de atendimento em outros horários.
+
+  - Pergunta: A Primor tem CNPJ e endereço fixo?
+    Resposta: Sim, somos uma empresa registrada (CNPJ 12.654.132/0001-16) e nossa marcenaria fica no bairro Sagrada Família, em Belo Horizonte.
+
+  - Pergunta: Quem é responsável pelos projetos da Primor?
+    Resposta: Nossa equipe técnica é liderada pelo Igor Magalhães, sócio-proprietário da empresa.
+
+  - Pergunta: Vocês têm avaliações no Google?
+    Resposta: Temos sim! É só procurar “Primor Móveis Planejados BH” e conferir as avaliações dos nossos clientes.
+
+  - Pergunta: Posso visitar a marcenaria?
+    Resposta: Pode sim! Basta agendar uma visita pra te mostrarmos nosso processo de produção.
+
+  - Pergunta: Vocês fazem atendimento noturno?
+    Resposta: Podemos agendar reuniões virtuais em horários alternativos, ou visita se for necessário.
+
+  - Pergunta: A Primor Móveis está contratando no momento?
+    Resposta: Estamos sempre de olho em bons profissionais! Informe sua área de interesse pra verificarmos se há vagas abertas.
+
+  - Pergunta: Vocês contratam CLT ou prestadores de serviço?
+    Resposta: Depende da função. Temos vagas com carteira assinada e também parcerias com autônomos e PJ.
+
   # Sobre os Produtos e Materiais
   - Pergunta: Quais materiais vocês usam?
-    Resposta: Trabalhamos com uma vasta gama de materiais de alta qualidade. Nossa base principal é o MDF de fornecedores renomados, mas nossa expertise se estende a diversos acabamentos como laca, laminados, folha de madeira natural, e a integração com outros materiais como metalon, vidro, espelhos e tecidos para estofados.
+    Resposta: Trabalhamos com MDFs de alta densidade, ferragens premium e acabamentos de marcas como Duratex, Guararapes e Arauco.
+
+  - Pergunta: Vocês fazem acabamento em laca?
+    Resposta: Sim, também produzimos móveis com acabamento em laca fosca ou brilhante e pinturas.
+
+  - Pergunta: Usam dobradiças e corrediças de boa qualidade?
+    Resposta: Sim, utilizamos ferragens com amortecimento e garantia das melhores marcas.
+
+  - Pergunta: Vocês instalam iluminação nos móveis?
+    Resposta: Sim, podemos incluir fita de LED e iluminação decorativa conforme o projeto.
 
   - Pergunta: Vocês fazem projetos com estruturas em metalon?
     Resposta: Sim, o metalon é uma de nossas especialidades! Criamos estantes, prateleiras e outras estruturas que combinam a leveza e a resistência do metalon com o aconchego da madeira, resultando em um design industrial e moderno.
 
-  - Pergunta: Como funciona o acabamento em laca? Posso escolher qualquer cor?
-    Resposta: A laca é um acabamento de pintura de alta resistência e durabilidade, que proporciona uma superfície perfeitamente lisa e uniforme, sem emendas. E sim, uma das grandes vantagens da laca é que você pode escolher praticamente qualquer cor de catálogos como Suvinil ou Coral, permitindo uma personalização total do seu móvel.
+  - Pergunta: Vocês removem móveis antigos?
+    Resposta: Podemos auxiliar na retirada mediante avaliação prévia.
 
-  - Pergunta: Qual a garantia dos móveis?
-    Resposta: Confiamos na qualidade do nosso trabalho e dos materiais que usamos. Oferecemos garantia completa contra defeitos de fabricação, cujos termos e prazos são detalhados em nosso contrato para total transparência e segurança do cliente.
+  - Pergunta: Vocês dão garantia nos móveis?
+    Resposta: Sim, todos os móveis têm garantia de 2 anos sobre o serviço executado.
+
+  - Pergunta: Vocês dão garantia nas ferragens e corrediças?
+    Resposta: Garantia de acordo com o fabricante, geralmente de 3 a 5 anos.
+
+  - Pergunta: Vocês fazem reparo em móveis?
+    Resposta: Sim, porém precisamos avaliar o móvel através de fotos e vídeos para passar um orçamento correto.
+
+  - Pergunta: Vocês emitem nota fiscal?
+    Resposta: Claro! Emitimos nota fiscal de todos os serviços e produtos.
+
+  - Pergunta: Como limpar o móvel sem danificar?
+    Resposta: Use apenas pano úmido e sabão neutro. Evite álcool, esponja ou produtos abrasivos.
+
+  - Pergunta: Por que o MDF inchou?
+    Resposta: Isso pode acontecer por contato com umidade. Avaliamos se o caso é de garantia ou manutenção.
 
   # Sobre o Processo de Trabalho
   - Pergunta: Como faço para pedir um orçamento?
-    Resposta: É muito simples! Você pode solicitar seu orçamento através do nosso site, na página de Contato, ou nos enviando uma mensagem diretamente em nosso WhatsApp. Para agilizar, nos envie as medidas, mesmo que sejam aproximadas, do ambiente, uma descrição do que você deseja e, se tiver, fotos ou imagens de referência.
+    Resposta: Você pode solicitar seu orçamento pelo site ou WhatsApp. Envie medidas, fotos e uma breve descrição do que deseja.
 
-  - Pergunta: Preciso ter um arquiteto para fazer um projeto com vocês?
-    Resposta: Não é obrigatório. Se você já tem um projeto de um arquiteto ou designer, teremos o maior prazer em executá-lo com precisão. Caso não tenha, nossa equipe pode te ajudar a desenvolver o projeto do zero, desde a concepção da ideia até a visualização em 3D.
+  - Pergunta: Vocês realizam orçamento pelo WhatsApp mesmo?
+    Resposta: Sim, você pode conversar conosco por aqui, enviar medidas, fotos e tirar dúvidas.
+
+  - Pergunta: Posso mandar uma planta ou projeto por aqui?
+    Resposta: Pode sim! Envie a planta, medidas ou fotos do ambiente, assim conseguimos te orientar melhor.
+
+  - Pergunta: Como agendo uma visita?
+    Resposta: Basta informar o bairro e a disponibilidade. Confirmaremos o dia e horário conforme nossa agenda.
+
+  - Pergunta: Vocês fazem o projeto 3D?
+    Resposta: Sim! Durante o processo de contratação e levantamento de medidas, elaboramos o projeto 3D para aprovação.
+
+  - Pergunta: A medição é gratuita?
+    Resposta: A primeira visita técnica para orçar é gratuita, de acordo com disponibilidade de equipe e horário.
+
+  - Pergunta: Vocês fazem medição sem projeto de arquiteto?
+    Resposta: Sim, podemos desenvolver o projeto internamente.
+
+  - Pergunta: Tenho um projeto pronto, vocês podem fazer um orçamento?
+    Resposta: Claro! Pode nos enviar o projeto para orçamento detalhado.
+
+  - Pergunta: Qual é o prazo médio para envio de orçamento?
+    Resposta: Em geral, de 2 a 3 dias, podendo ser antes conforme disponibilidade.
+
+  - Pergunta: Vocês fazem o projeto?
+    Resposta: Sim, fazemos o esboço inicial do móvel e, se desejar, temos arquitetas e decoradoras parceiras para o projeto completo.
 
   - Pergunta: Qual o prazo médio de entrega?
-    Resposta: O prazo de entrega varia conforme a complexidade e o tamanho de cada projeto. Em média, nossos prazos ficam entre 30 e 60 dias úteis após a aprovação final do projeto. O prazo exato para o seu projeto será sempre especificado em contrato.
+    Resposta: De 30 a 60 dias após aprovação do projeto e pagamento da entrada.
 
-  - Pergunta: Vocês fazem a instalação?
-    Resposta: Sim, com certeza. A instalação é uma etapa fundamental do nosso trabalho e é sempre realizada pela nossa equipe própria e especializada, garantindo que o acabamento e a montagem sigam o mesmo padrão de qualidade da fabricação.
+  - Pergunta: O orçamento inclui instalação?
+    Resposta: Sim, o valor já contempla fabricação, entrega e montagem.
 
-  - Pergunta: Quais as formas de pagamento?
-    Resposta: Oferecemos formas de pagamento flexíveis para se adequar ao seu planejamento. Geralmente trabalhamos com um sinal na assinatura do contrato e o saldo restante parcelado. Todos os detalhes são conversados e definidos na proposta comercial.
+  - Pergunta: Vocês instalam os eletrodomésticos também?
+    Resposta: Instalamos apenas em casos simples, mas indicamos parceiros para instalação completa.
+
+  - Pergunta: Quantos dias leva a montagem?
+    Resposta: Em média, 1 a 3 dias por ambiente.
+
+  - Pergunta: Vocês atendem construtoras ou arquitetos?
+    Resposta: Sim, fazemos parcerias com arquitetos, decoradores e construtoras.
+
+  - Pergunta: Como funciona a parceria com arquitetos?
+    Resposta: Trabalhamos com comissão por indicação ou acompanhamento técnico do projeto.
+
+  - Pergunta: Posso ver fotos de trabalhos de vocês?
+    Resposta: Claro! Temos portfólio no site www.primormoveis.com.br e no Instagram @primormoveisbh.
+
+  - Pergunta: Posso acompanhar o processo de produção?
+    Resposta: Pode sim! Podemos te mandar fotos e vídeos da fabricação.
+
+  - Pergunta: Meu móvel ainda não foi entregue, o que aconteceu?
+    Resposta: Verificamos com a produção e informamos o novo prazo atualizado.
+
+  - Pergunta: O móvel chegou com risco ou dano?
+    Resposta: Envie uma foto e o número do pedido. Resolveremos o quanto antes.
+
+  - Pergunta: A equipe de montagem atrasou, e agora?
+    Resposta: Pedimos desculpas! Nossa equipe de logística te atualiza sobre o novo horário.
+
+  - Pergunta: Posso retirar os móveis na marcenaria?
+    Resposta: Sim, desde que combinemos a data e o transporte.
+
+  # Pagamentos
+  - Pergunta: Quais são as formas de pagamento?
+    Resposta: Normalmente 50% de entrada e 50% na entrega, ou parcelado no cartão em até 6x sem juros. Outras opções podem ser combinadas.
+
+  - Pergunta: Posso pagar parte no cartão e parte em transferência?
+    Resposta: Pode sim! Adaptamos conforme sua preferência.
+
+  - Pergunta: Vocês parcelam em mais vezes?
+    Resposta: Sim, de 7 a 10x no cartão, com juros da operadora.
+
+  - Pergunta: À vista tem algum desconto?
+    Resposta: Sim, pagamentos à vista têm condições especiais, com desconto de até 7%.
+
+  - Pergunta: Vocês aceitam pagamento via Pix?
+    Resposta: Sim, aceitamos Pix, transferência, boleto e cartão.
+
+  - Pergunta: O orçamento pode ser enviado por e-mail?
+    Resposta: Pode sim, basta informar o e-mail e enviamos em formato de planilha e PDF.
 `;
 
 // Suporta GET, POST e OPTIONS
