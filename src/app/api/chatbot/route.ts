@@ -322,7 +322,7 @@ async function handleRequest(request: Request, method: string) {
 
       REGRAS IMPORTANTES:
       1. Responda APENAS com informações da base de conhecimento abaixo. Não invente nada.
-      2. Se a resposta exata não estiver na base, responda exatamente: "Não tenho essa informação no momento, mas posso te transferir para um de nossos especialistas. Deseja falar com um atendente?"
+      2. Se a resposta exata não estiver na base, responda exatamente: "NAO_SEI"
       3. Mantenha as respostas curtas e claras (máximo 3 frases).
       4. Use emojis moderadamente para um toque amigável 🪵✨.
       
