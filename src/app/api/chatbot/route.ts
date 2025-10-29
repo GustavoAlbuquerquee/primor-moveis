@@ -1,9 +1,10 @@
+// app/api/chatbot/route.ts
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 const BASE_CONHECIMENTO = `
   PRIMOR MÓVEIS - PERGUNTAS E RESPOSTAS
 
@@ -248,7 +249,7 @@ async function handleRequest(request: Request, method: string) {
           },
           {
             status: 400,
-            headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #1
+            headers: { "Content-Type": "application/json" },
           }
         );
       }
@@ -280,7 +281,7 @@ async function handleRequest(request: Request, method: string) {
         },
         {
           status: 400,
-          headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #2
+          headers: { "Content-Type": "application/json" },
         }
       );
     }
@@ -300,7 +301,7 @@ async function handleRequest(request: Request, method: string) {
         {
           resposta:
             "Entendi! Sem problemas. Vou transferir você para um de nossos especialistas. Um momento, por favor! 😊",
-          transbordoHumano: true,
+          transbordoHumano: "true", // <-- MUDANÇA #1 (de true para "true")
           metadata: {
             request_id: requestId,
             timestamp: new Date().toISOString(),
@@ -308,7 +309,7 @@ async function handleRequest(request: Request, method: string) {
         },
         {
           status: 200,
-          headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #3
+          headers: { "Content-Type": "application/json" },
         }
       );
     }
@@ -345,10 +346,10 @@ async function handleRequest(request: Request, method: string) {
     );
 
     // Verifica se a IA não sabe a resposta
-    const naoSabe =
-      /não tenho essa informação|falar com um atendente|especialista/i.test(
-        resposta
-      );
+    // const naoSabe = /não tenho essa informação|falar com um atendente|especialista/i.test(resposta); // <-- LÓGICA ANTIGA
+
+    // MUDANÇA #2: Lógica correta para verificar a resposta "NAO_SEI"
+    const naoSabe = resposta.trim() === "NAO_SEI";
 
     if (naoSabe) {
       console.log(
@@ -363,7 +364,8 @@ async function handleRequest(request: Request, method: string) {
     return NextResponse.json(
       {
         resposta,
-        transbordoHumano: naoSabe,
+        // MUDANÇA #3: Converte o booleano 'naoSabe' para string
+        transbordoHumano: naoSabe ? "true" : "false",
         metadata: {
           request_id: requestId,
           response_time_ms: responseTime,
@@ -372,7 +374,7 @@ async function handleRequest(request: Request, method: string) {
       },
       {
         status: 200,
-        headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #4
+        headers: { "Content-Type": "application/json" },
       }
     );
   } catch (error) {
@@ -385,7 +387,7 @@ async function handleRequest(request: Request, method: string) {
       {
         resposta:
           "Ops, tive um problema técnico aqui. 🔧 Mas não se preocupe, já estou chamando um de nossos especialistas para te ajudar!",
-        transbordoHumano: true,
+        transbordoHumano: "true", // <-- MUDANÇA #4 (de true para "true")
         metadata: {
           request_id: requestId,
           timestamp: new Date().toISOString(),
@@ -394,7 +396,7 @@ async function handleRequest(request: Request, method: string) {
       },
       {
         status: 500,
-        headers: { "Content-Type": "application/json" }, // <-- MODIFICAÇÃO #5
+        headers: { "Content-Type": "application/json" },
       }
     );
   }
