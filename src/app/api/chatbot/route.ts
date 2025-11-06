@@ -13,7 +13,7 @@ const BASE_CONHECIMENTO = `
     Resposta: Sim, somos uma marcenaria de Belo Horizonte! Estamos localizados no bairro Sagrada Família.
 
   - Pergunta: Qual o horário de funcionamento? Posso visitar?
-    Resposta: Nosso horário de funcionamento é de segunda a sexta, das 9h às 18h. Nós não possuímos um showroom, temos somente o local de produção (a fábrica), caso queira nos visitar, entre em contato para agendarmos o melhor momento para você!
+    Resposta: Nosso horário de funcionamento é de segunda a sexta, das 9h às 18h. Para agendar uma visita, seja em sua casa para um orçamento ou em nossa fábrica, um especialista precisa confirmar a disponibilidade. ✨
 
   - Pergunta: Há quanto tempo a Primor Móveis está no mercado?
     Resposta: Temos mais de 25 anos de experiência profissional, com uma história de compromisso e mais de 1.900 projetos realizados com sucesso. Nossa trajetória é marcada pela busca constante por design, qualidade e responsabilidade.
@@ -28,10 +28,10 @@ const BASE_CONHECIMENTO = `
     Resposta: Atendemos Belo Horizonte e região metropolitana. Trabalhos fora de BH são avaliados conforme o projeto.
 
   - Pergunta: Vocês têm Showroom?
-    Resposta: Somos marcenaria própria com o nosso espaço de produção, porém não temos showroom. Caso queira fazer uma visita aqui na fábrica, basta agendar um horário no nosso atendimento aqui no WhatsApp.
+    Resposta: Não possuímos um showroom, temos nossa fábrica no bairro Sagrada Família. Para agendar uma visita, um especialista vai te chamar aqui no WhatsApp para combinar o melhor horário.
 
   - Pergunta: Qual o horário de atendimento ou que posso marcar uma visita para orçamento?
-    Resposta: Segunda a sexta, das 8h às 18h. Sábados até meio-dia, conforme agendamento. Podemos verificar possibilidade de atendimento em outros horários.
+    Resposta: Nosso horário de atendimento é de segunda a sexta, das 8h às 18h. Para marcar uma visita para orçamento, um especialista vai entrar em contato para confirmar a agenda.
 
   - Pergunta: A Primor tem CNPJ e endereço fixo?
     Resposta: Sim, somos uma empresa registrada (CNPJ 12.654.132/0001-16) e nossa marcenaria fica no bairro Sagrada Família, em Belo Horizonte.
@@ -43,10 +43,10 @@ const BASE_CONHECIMENTO = `
     Resposta: Temos sim! É só procurar “Primor Móveis Planejados BH” e conferir as avaliações dos nossos clientes.
 
   - Pergunta: Posso visitar a marcenaria?
-    Resposta: Pode sim! Basta agendar uma visita pra te mostrarmos nosso processo de produção.
+    Resposta: Pode sim! Para agendar uma visita à nossa fábrica, um especialista vai te chamar aqui no WhatsApp para combinar o melhor horário.
 
   - Pergunta: Vocês fazem atendimento noturno?
-    Resposta: Podemos agendar reuniões virtuais em horários alternativos, ou visita se for necessário.
+    Resposta: Sim, podemos agendar visitas ou reuniões virtuais em horários alternativos. Um especialista vai conversar com você para verificar a disponibilidade.
 
   - Pergunta: A Primor Móveis está contratando no momento?
     Resposta: Estamos sempre de olho em bons profissionais! Informe sua área de interesse pra verificarmos se há vagas abertas.
@@ -102,13 +102,13 @@ const BASE_CONHECIMENTO = `
     Resposta: Pode sim! Envie a planta, medidas ou fotos do ambiente, assim conseguimos te orientar melhor.
 
   - Pergunta: Como agendo uma visita?
-    Resposta: Basta informar o bairro e a disponibilidade. Confirmaremos o dia e horário conforme nossa agenda.
+    Resposta: Para agendar uma visita, um de nossos especialistas vai te chamar aqui no WhatsApp para confirmar o melhor dia, horário e local para você.
 
   - Pergunta: Vocês fazem o projeto 3D?
     Resposta: Sim! Durante o processo de contratação e levantamento de medidas, elaboramos o projeto 3D para aprovação.
 
   - Pergunta: A medição é gratuita?
-    Resposta: A primeira visita técnica para orçar é gratuita, de acordo com disponibilidade de equipe e horário.
+    Resposta: Sim, a primeira visita técnica para orçamento é gratuita. Um especialista vai te chamar para agendar o melhor dia.
 
   - Pergunta: Vocês fazem medição sem projeto de arquiteto?
     Resposta: Sim, podemos desenvolver o projeto internamente.
@@ -301,7 +301,7 @@ async function handleRequest(request: Request, method: string) {
         {
           resposta:
             "Entendi! Sem problemas. Vou transferir você para um de nossos especialistas. Um momento, por favor! 😊",
-          transbordoHumano: "true", // <-- MUDANÇA #1 (de true para "true")
+          transbordoHumano: "true", // <-- Garantindo que está como STRING
           metadata: {
             request_id: requestId,
             timestamp: new Date().toISOString(),
@@ -346,9 +346,7 @@ async function handleRequest(request: Request, method: string) {
     );
 
     // Verifica se a IA não sabe a resposta
-    // const naoSabe = /não tenho essa informação|falar com um atendente|especialista/i.test(resposta); // <-- LÓGICA ANTIGA
-
-    // MUDANÇA #2: Lógica correta para verificar a resposta "NAO_SEI"
+    // Lógica correta para verificar a resposta "NAO_SEI"
     const naoSabe = resposta.trim() === "NAO_SEI";
 
     if (naoSabe) {
@@ -364,7 +362,7 @@ async function handleRequest(request: Request, method: string) {
     return NextResponse.json(
       {
         resposta,
-        // MUDANÇA #3: Converte o booleano 'naoSabe' para string
+        // Converte o booleano 'naoSabe' para string
         transbordoHumano: naoSabe ? "true" : "false",
         metadata: {
           request_id: requestId,
@@ -387,7 +385,7 @@ async function handleRequest(request: Request, method: string) {
       {
         resposta:
           "Ops, tive um problema técnico aqui. 🔧 Mas não se preocupe, já estou chamando um de nossos especialistas para te ajudar!",
-        transbordoHumano: "true", // <-- MUDANÇA #4 (de true para "true")
+        transbordoHumano: "true", // <-- Garantindo que está como STRING
         metadata: {
           request_id: requestId,
           timestamp: new Date().toISOString(),
