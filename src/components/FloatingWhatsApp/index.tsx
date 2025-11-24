@@ -1,15 +1,20 @@
-'use client';
+"use client";
 
-import { FaWhatsapp } from 'react-icons/fa';
-import * as S from './styles';
+import { FaWhatsapp } from "react-icons/fa";
+import * as S from "./styles";
 
 const FloatingWhatsApp = () => {
-  const phoneNumber = '5531999884688';
-  const message = 'Olá! Gostaria de solicitar um orçamento.';
+  const phoneNumber = "5531997115473";
+  const message = "Olá! Gostaria de solicitar um orçamento.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <S.WhatsAppButton href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+    <S.WhatsAppButton
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Fale conosco no WhatsApp"
+    >
       <FaWhatsapp />
     </S.WhatsAppButton>
   );
