@@ -5,11 +5,18 @@ export const HeaderWrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.background};
   padding: ${({ theme }) => theme.spacings.medium} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.mediumGray};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0;
   z-index: 1000;
   width: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
 `;
 
 export const NavContainer = styled.div`
@@ -94,9 +101,10 @@ export const NavLink = styled(Link)`
   color: ${({ theme }) => theme.colors.textOnLight};
   text-decoration: none;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: ${({ theme }) => theme.spacings.small} 0;
   position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::after {
     content: "";
@@ -104,17 +112,24 @@ export const NavLink = styled(Link)`
     bottom: -2px;
     left: 0;
     width: 100%;
-    height: 2px;
-    background-color: ${({ theme }) => theme.colors.primary};
-
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
+    );
+    border-radius: 2px;
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px ${({ theme }) => theme.colors.primary}60;
   }
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
+    transform: translateY(-2px);
+
     &::after {
       transform: scaleX(1);
     }

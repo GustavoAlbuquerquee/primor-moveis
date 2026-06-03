@@ -3,7 +3,11 @@ const SobrePageWrapper = styled.div`
 `;
 
 const SobreHeroSection = styled.section`
-  background-color: ${({ theme }) => theme.colors.lightBackground};
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.lightBackground} 0%,
+    ${({ theme }) => theme.colors.background} 100%
+  );
   color: ${({ theme }) => theme.colors.textOnLight};
   padding: ${({ theme }) => theme.spacings.large} ${({ theme }) => theme.spacings.small};
   text-align: center;
@@ -12,6 +16,26 @@ const SobreHeroSection = styled.section`
   justify-content: center;
   min-height: 30vh;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 80px,
+        rgba(240, 160, 45, 0.02) 80px,
+        rgba(240, 160, 45, 0.02) 160px
+      );
+    pointer-events: none;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacings.xlarge} ${({ theme }) => theme.spacings.medium};
@@ -29,35 +53,75 @@ const SobreHeroSection = styled.section`
 
   h1 {
     font-size: 2rem;
+    font-weight: 900;
     color: ${({ theme }) => theme.colors.primary};
-    margin-bottom: ${({ theme }) => theme.spacings.small};
+    margin-bottom: ${({ theme }) => theme.spacings.medium};
     font-family: ${({ theme }) => theme.fonts.headings};
+    position: relative;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        ${({ theme }) => theme.colors.primary},
+        ${({ theme }) => theme.colors.secondary},
+        ${({ theme }) => theme.colors.primary},
+        transparent
+      );
+      border-radius: 3px;
+    }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
       font-size: 2.4rem;
+
+      &::after {
+        width: 120px;
+      }
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       font-size: 2.8rem;
+
+      &::after {
+        width: 140px;
+      }
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
       font-size: 3.5rem;
+
+      &::after {
+        width: 160px;
+      }
     }
   }
 
   p {
     font-size: 1rem;
-    max-width: 700px;
+    max-width: 750px;
     margin: 0 auto;
-    opacity: 0.9;
+    opacity: 0.85;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    padding-top: 1.5rem;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
       font-size: 1.1rem;
+      line-height: 1.75;
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       font-size: 1.2rem;
+      line-height: 1.8;
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
@@ -110,6 +174,7 @@ const MainContentSection = styled.section`
   .text-content {
     h2 {
       font-size: 1.6rem;
+      font-weight: 900;
       color: ${({ theme }) => theme.colors.primary};
       margin-bottom: ${({ theme }) => theme.spacings.medium};
 
@@ -128,13 +193,19 @@ const MainContentSection = styled.section`
       &::after {
         content: '';
         display: block;
-        width: 50px;
-        height: 3px;
-        background-color: ${({ theme }) => theme.colors.secondary};
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          ${({ theme }) => theme.colors.primary},
+          ${({ theme }) => theme.colors.secondary}
+        );
         margin-top: ${({ theme }) => theme.spacings.small};
+        border-radius: 2px;
 
         @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
-          width: 60px;
+          width: 70px;
+          height: 5px;
         }
       }
     }
@@ -161,10 +232,43 @@ const MainContentSection = styled.section`
   }
 
   .image-content {
-    border-radius: ${({ theme }) => theme.borderRadius};
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.08),
+      0 16px 48px rgba(0, 0, 0, 0.06);
     max-height: 350px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(
+        90deg,
+        ${({ theme }) => theme.colors.primary},
+        ${({ theme }) => theme.colors.secondary}
+      );
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+    }
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow:
+        0 12px 32px rgba(240, 160, 45, 0.12),
+        0 24px 64px rgba(0, 0, 0, 0.1);
+    }
+
+    &:hover::before {
+      transform: scaleX(1);
+    }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
       max-height: 400px;
@@ -178,6 +282,12 @@ const MainContentSection = styled.section`
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover img,
+    &:hover .next-image {
+      transform: scale(1.05);
     }
   }
 `;
