@@ -38,9 +38,9 @@ export default function Projects() {
     <S.ProjectsSection>
       <S.Container>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
         >
           <S.SectionTitle>Nossos Projetos</S.SectionTitle>
@@ -53,14 +53,14 @@ export default function Projects() {
           {featuredProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: "easeOut",
+                duration: 0.6,
+                delay: index * 0.15,
+                ease: [0.16, 1, 0.3, 1],
               }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
             >
               <S.ProjectCard>
                 <S.ProjectImageWrapper>
@@ -86,9 +86,13 @@ export default function Projects() {
         </S.ProjectsGrid>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.6,
+            delay: 0.5,
+            ease: [0.16, 1, 0.3, 1],
+          }}
           viewport={{ once: true }}
         >
           <S.ViewAllButton>

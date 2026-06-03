@@ -19,6 +19,7 @@ export const PageTitle = styled.h1`
   text-align: center;
   color: ${({ theme }) => theme.colors.primary};
   font-size: 1.8rem;
+  font-weight: 900;
   margin-bottom: ${({ theme }) => theme.spacings.medium};
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -36,19 +37,26 @@ export const PageTitle = styled.h1`
   &::after {
     content: "";
     display: block;
-    width: 50px;
-    height: 3px;
-    background-color: ${({ theme }) => theme.colors.secondary};
-    margin: 0.5rem auto;
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary},
+      ${({ theme }) => theme.colors.primary},
+      transparent
+    );
+    margin: 0.75rem auto;
+    border-radius: 3px;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      width: 60px;
-      height: 4px;
-      margin: 0.75rem auto;
+      width: 100px;
+      margin: 1rem auto;
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      width: 70px;
+      width: 120px;
     }
   }
 `;
@@ -68,20 +76,39 @@ export const FilterContainer = styled.div`
 `;
 
 export const FilterButton = styled.button<{ $isActive: boolean }>`
-  background-color: ${({ $isActive, theme }) =>
-    $isActive ? theme.colors.primary : "transparent"};
+  background: ${({ $isActive, theme }) =>
+    $isActive
+      ? `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.primary}dd)`
+      : "transparent"};
   color: ${({ $isActive, theme }) =>
-    $isActive ? theme.colors.secondary : theme.colors.textOnLight};
+    $isActive ? "white" : theme.colors.textOnLight};
   border: 2px solid ${({ theme }) => theme.colors.primary};
   padding: ${({ theme }) => theme.spacings.small} 1rem;
   border-radius: 50px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   will-change: transform, background-color, color;
   font-size: 0.8rem;
+  letter-spacing: 0.5px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
+    );
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacings.small} 1.2rem;
@@ -94,14 +121,19 @@ export const FilterButton = styled.button<{ $isActive: boolean }>`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.secondary};
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: white;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+      0 6px 20px ${({ theme }) => theme.colors.primary}40,
+      0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  &:hover::before {
+    left: ${({ $isActive }) => ($isActive ? "-100%" : "0")};
   }
 
   &:active {
-    transform: translateY(0);
+    transform: translateY(-1px) scale(0.98);
   }
 `;
 
@@ -134,45 +166,73 @@ export const ProjectsGrid = styled.div`
 
 export const ProjectCard = styled.div`
   background-color: #fff;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
   will-change: transform, box-shadow;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+  }
 
   .image-container {
     width: 100%;
     height: 250px;
     position: relative;
     overflow: hidden;
-    border-radius: ${({ theme }) => theme.borderRadius}
-      ${({ theme }) => theme.borderRadius} 0 0;
-    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    background: ${({ theme }) => theme.colors.secondary};
 
     img {
-      transition: transform 0.4s ease-in-out !important;
+      transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
       will-change: transform;
       transform: scale(1);
+      filter: brightness(0.95);
     }
   }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+      0 12px 40px rgba(240, 160, 45, 0.15),
+      0 20px 68px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(240, 160, 45, 0.1);
 
     .image-container img {
-      transform: scale(1.1);
+      transform: scale(1.1) rotate(1deg);
+      filter: brightness(1.05) contrast(1.05);
     }
 
-    /* Faz o overlay aparecer no hover */
     .overlay {
       opacity: 1;
     }
   }
 
+  &:hover::before {
+    transform: scaleX(1);
+  }
+
   .info-container {
     padding: ${({ theme }) => theme.spacings.small};
+    background: white;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
       padding: ${({ theme }) => theme.spacings.medium};
@@ -183,6 +243,8 @@ export const ProjectCard = styled.div`
     color: ${({ theme }) => theme.colors.secondary};
     margin-bottom: ${({ theme }) => theme.spacings.small};
     font-size: 1rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
       font-size: 1.1rem;
@@ -191,6 +253,10 @@ export const ProjectCard = styled.div`
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       font-size: 1.2rem;
     }
+  }
+
+  &:hover h3 {
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   p {
@@ -236,40 +302,84 @@ export const InstagramButton = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.secondary};
-  padding: ${({ theme }) => theme.spacings.small} 1rem;
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary} 0%,
+    ${({ theme }) => theme.colors.primary}dd 100%
+  );
+  color: white;
+  padding: ${({ theme }) => theme.spacings.medium} 1.5rem;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 4px 16px ${({ theme }) => theme.colors.primary}40,
+    0 8px 24px rgba(0, 0, 0, 0.1);
   will-change: transform, background-color, color, box-shadow;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     gap: 0.75rem;
-    padding: ${({ theme }) => theme.spacings.medium} 1.3rem;
+    padding: ${({ theme }) => theme.spacings.medium} 2rem;
     font-size: 1rem;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: ${({ theme }) => theme.spacings.medium} 1.5rem;
+    padding: ${({ theme }) => theme.spacings.medium} 2.5rem;
     font-size: 1.1rem;
   }
 
   svg {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.textOnDark};
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.secondary} 0%,
+      ${({ theme }) => theme.colors.secondary}dd 100%
+    );
+    color: white;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+      0 8px 24px ${({ theme }) => theme.colors.secondary}50,
+      0 16px 48px rgba(0, 0, 0, 0.15);
+  }
+
+  &:hover svg {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(0.98);
   }
 `;
