@@ -46,7 +46,7 @@ const Contact = () => {
   };
 
   const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     event.preventDefault();
     const files = event.target.files;
@@ -63,7 +63,7 @@ const Contact = () => {
           if (!response.ok) {
             const errorData = await response.json();
             throw new Error(
-              errorData.error || `Falha no upload de ${file.name}.`
+              errorData.error || `Falha no upload de ${file.name}.`,
             );
           }
           const newBlob = await response.json();
@@ -83,7 +83,7 @@ const Contact = () => {
 
   const handleRemoveFile = (fileUrlToRemove: string) => {
     setUploadedFiles((currentFiles) =>
-      currentFiles.filter((file) => file.url !== fileUrlToRemove)
+      currentFiles.filter((file) => file.url !== fileUrlToRemove),
     );
   };
 
@@ -147,11 +147,11 @@ const Contact = () => {
               <strong>Telefone/WhatsApp:</strong>
               &nbsp;
               <a
-                href="https://wa.me/5531997115473"
+                href="https://wa.me/5531999884688"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                (31) 99711-5473
+                (31) 99988-4688
               </a>
             </p>
             <p>

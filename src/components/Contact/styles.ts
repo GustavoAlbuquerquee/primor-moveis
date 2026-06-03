@@ -159,30 +159,40 @@ const InputStyles = css`
   width: 100%;
   padding: ${({ theme }) => theme.spacings.small};
   margin-bottom: ${({ theme }) => theme.spacings.medium};
-  border: 1px solid ${({ theme }) => theme.colors.mediumGray};
-  border-radius: ${({ theme }) => `calc(${theme.borderRadius} / 2)`};
+  border: 2px solid ${({ theme }) => theme.colors.mediumGray};
+  border-radius: ${({ theme }) => theme.borderRadius};
   font-size: 0.9rem;
   font-family: ${({ theme }) => theme.fonts.main};
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.textOnLight};
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacings.medium};
     font-size: 1rem;
   }
 
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary}80;
+  }
+
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 0 3px ${({ theme }) => `${theme.colors.primary}4D`};
+    box-shadow:
+      0 0 0 4px ${({ theme }) => `${theme.colors.primary}20`},
+      0 4px 12px ${({ theme }) => `${theme.colors.primary}30`};
+    transform: translateY(-2px);
   }
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.darkGray};
-    opacity: 0.7;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  &:focus::placeholder {
+    opacity: 0.4;
   }
 `;
 
@@ -197,15 +207,44 @@ export const Textarea = styled.textarea`
 `;
 
 export const SubmitButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.secondary};
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary} 0%,
+    ${({ theme }) => theme.colors.primary}dd 100%
+  );
+  color: white;
   padding: ${({ theme }) => theme.spacings.small} ${({ theme }) => theme.spacings.large};
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 4px 16px ${({ theme }) => theme.colors.primary}40,
+    0 8px 24px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacings.medium} ${({ theme }) => theme.spacings.xlarge};
@@ -213,10 +252,25 @@ export const SubmitButton = styled.button`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.textOnDark};
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.secondary} 0%,
+      ${({ theme }) => theme.colors.secondary}dd 100%
+    );
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+      0 8px 24px ${({ theme }) => theme.colors.secondary}50,
+      0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 `;
 

@@ -231,13 +231,46 @@ export const SocialLinks = styled.div`
   a {
     color: ${({ theme }) => theme.colors.textOnDark};
     font-size: 1.5rem;
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(
+        135deg,
+        ${({ theme }) => theme.colors.primary},
+        transparent
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
 
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
-      transform: translateY(-2px);
+      transform: translateY(-4px) scale(1.1);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 20px ${({ theme }) => theme.colors.primary}40;
     }
   }
 
@@ -248,6 +281,8 @@ export const SocialLinks = styled.div`
 
     a {
       font-size: 1.6rem;
+      width: 44px;
+      height: 44px;
     }
   }
 
@@ -257,6 +292,8 @@ export const SocialLinks = styled.div`
 
     a {
       font-size: 1.4rem;
+      width: 40px;
+      height: 40px;
     }
   }
 `;

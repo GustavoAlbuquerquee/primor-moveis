@@ -46,11 +46,11 @@ const Footer = () => {
                 <p>
                   <FaWhatsapp />
                   <a
-                    href="https://wa.me/5531997115473"
+                    href="https://wa.me/5531999884688"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    (31) 99711-5473
+                    (31) 99988-4688
                   </a>
                 </p>
                 <p>
