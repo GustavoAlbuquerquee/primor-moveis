@@ -437,7 +437,7 @@ async function handleRequest(request: Request, method: string) {
           error: error instanceof Error ? error.message : "Erro desconhecido",
         },
       },
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   }
 }
