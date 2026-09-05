@@ -10,37 +10,50 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
 import * as S from "./styles";
-import { object } from "framer-motion/client";
+
+const whatsappUrl = `https://wa.me/5531997115473?text=${encodeURIComponent(
+  "Olá! Gostaria de solicitar um orçamento."
+)}`;
 
 const slidesData = [
   {
     id: 1,
-    imageSrc: "/448879247_18110376001391916_7126232848381205299_n.jpg",
+    imageSrc: "/hero-sala-painel-tv-madeira.jpg",
+    alt: "Sala de estar com painel de TV em madeira e rack planejado sob medida",
+    objectPosition: "center 70%",
     keyword: "Sofisticação",
     caption:
       "Estética refinada, materiais nobres e um olhar apurado para o detalhe.",
   },
   {
     id: 2,
-    imageSrc: "/271276842_281033080729086_6437836219440912397_n.jpg",
+    imageSrc: "/hero-sala-estante-iluminada.jpg",
+    alt: "Sala de estar com estante iluminada e painel de TV em porcelanato marmorizado",
+    objectPosition: "center",
     keyword: "Design",
     caption: "Funcionalidade aliada à beleza.",
   },
   {
     id: 3,
-    imageSrc: "/247186102_1040634840003920_3498541855514689556_n (1).jpg",
+    imageSrc: "/hero-lounge-corporativo-madeira.jpg",
+    alt: "Lounge corporativo com paredes revestidas em madeira clara e iluminação linear embutida",
+    objectPosition: "center",
     keyword: "Acabamento",
     caption: "A diferença está nos detalhes.",
   },
   {
     id: 4,
-    imageSrc: "/481143838_18135045238391916_6356660076397256996_n.jpg",
+    imageSrc: "/hero-estante-metalon-nichos.jpg",
+    alt: "Estante vazada em metalon preto com nichos de madeira e plantas",
+    objectPosition: "center",
     keyword: "Compromisso",
     caption: "Pontualidade, transparência e respeito ao seu sonho.",
   },
   {
     id: 5,
-    imageSrc: "/Inicial_5.jpg",
+    imageSrc: "/hero-cozinha-ilha-granito.jpg",
+    alt: "Cozinha planejada com ilha em granito preto e armários amadeirados",
+    objectPosition: "top",
     keyword: "Excelência",
     caption: [
       "Buscamos o mais alto nível em cada projeto.",
@@ -73,16 +86,12 @@ const HeroSlider = () => {
             <S.SlideContent>
               <Image
                 src={slide.imageSrc}
-                alt={slide.keyword}
+                alt={slide.alt}
                 fill
-                style={{ objectFit: "cover" }}
-                objectPosition={
-                  slide.id === 1
-                    ? "center 70%"
-                    : slide.id === 5
-                      ? "top"
-                      : "center"
-                }
+                style={{
+                  objectFit: "cover",
+                  objectPosition: slide.objectPosition,
+                }}
                 priority={slide.id === 1}
                 sizes="100vw"
               />
@@ -106,6 +115,17 @@ const HeroSlider = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <S.HeroFrame>
+        <S.Tagline>Móveis planejados sob medida em Belo Horizonte</S.Tagline>
+        <S.CtaButton
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Peça seu orçamento
+        </S.CtaButton>
+      </S.HeroFrame>
     </S.SliderWrapper>
   );
 };

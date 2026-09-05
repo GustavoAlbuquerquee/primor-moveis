@@ -86,7 +86,7 @@ const Footer = () => {
         <div className="container">
           <S.CopyrightText>
             © {currentYear} Primor Móveis. Todos os direitos reservados |
-            12.654.132-0001/16
+            12.654.132/0001-16
           </S.CopyrightText>
           <S.FooterLinks>
             <Link href="/politica-de-privacidade">Política de Privacidade</Link>

@@ -92,7 +92,7 @@ export default function SobrePage() {
               <div className="image-content">
                 {/* Use o componente ImageReveal aqui */}
                 <ImageReveal
-                  src="/297159615_1232909324178406_8282355693598399566_n.jpg"
+                  src="/sobre-acabamento-metalon-laqueado.jpg"
                   alt="Detalhe de acabamento com metalon e laqueamento"
                   width={500}
                   height={400}

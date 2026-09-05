@@ -201,7 +201,7 @@ export const SlideTextContainer = styled.div`
   }
 `;
 
-export const Keyword = styled.h1`
+export const Keyword = styled.h2`
   font-size: 2rem;
   font-weight: 900;
   color: ${({ theme }) => theme.colors.textOnDark};
@@ -311,5 +311,70 @@ export const Watermark = styled.div`
     bottom: 20px;
     right: 20px;
     font-size: 0.8rem;
+  }
+`;
+
+export const HeroFrame = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1rem 4.5rem;
+  pointer-events: none;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 2.5rem 2rem 5.5rem;
+  }
+`;
+
+export const Tagline = styled.h1`
+  margin: 0;
+  font-family: ${({ theme }) => theme.fonts.main};
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+  }
+`;
+
+export const CtaButton = styled.a`
+  pointer-events: auto;
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-family: ${({ theme }) => theme.fonts.headings};
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    filter: brightness(1.08);
+  }
+
+  &:focus-visible {
+    outline: 3px solid ${({ theme }) => theme.colors.textOnDark};
+    outline-offset: 3px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 1rem 2.75rem;
+    font-size: 1.05rem;
   }
 `;

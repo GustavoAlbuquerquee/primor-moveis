@@ -29,7 +29,7 @@ Because styled-components requires SSR setup in the App Router, [`src/lib/regist
 
 ### Pages and routing
 
-- `/` → [`src/app/page.tsx`](src/app/page.tsx) — home, assembles `HeroSlider`, `LegacySection`, `Reviews`, `Contact`. `HeroSlider` is lazy-loaded (`dynamic`, SSR disabled) to avoid hydration issues.
+- `/` → [`src/app/page.tsx`](src/app/page.tsx) — home, assembles `HeroSlider`, `LegacySection`, `Reviews`, `Contact`. `HeroSlider` is server-rendered so the hero markup ships in the initial HTML.
 - `/sobre` → company history page
 - `/projetos` → public portfolio gallery (`ProjectGallery.tsx` fetches from `/api/projects` via a separate public endpoint)
 - `/contato` → contact form page
@@ -38,7 +38,7 @@ Because styled-components requires SSR setup in the App Router, [`src/lib/regist
 
 ### Auth / session
 
-Admin area is protected by [`src/middleware.ts`](src/middleware.ts) using **iron-session** (cookie name: `primor-admin-session`). The session requires `SESSION_SECRET` env var. Routes that need admin checks re-validate the session server-side as well.
+Admin area is protected by [`src/proxy.ts`](src/proxy.ts) using **iron-session** (cookie name: `primor-admin-session`). The session requires `SESSION_SECRET` env var. Routes that need admin checks re-validate the session server-side as well.
 
 ### API routes
 

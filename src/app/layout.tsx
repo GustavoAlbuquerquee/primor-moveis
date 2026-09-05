@@ -47,6 +47,35 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FurnitureStore",
+  name: "Primor Móveis",
+  description:
+    "Marcenaria de móveis planejados sob medida em Belo Horizonte, com mais de 25 anos de experiência em projetos residenciais e corporativos.",
+  url: "https://primormoveis.com.br",
+  telephone: "+5531997115473",
+  email: "faleconosco@primormoveis.com.br",
+  image: "https://primormoveis.com.br/og-image.jpg",
+  logo: "https://primormoveis.com.br/cropped-logo-primor.png",
+  taxID: "12.654.132/0001-16",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Rua Teodomira Diniz Lara, 48 - Sagrada Família",
+    addressLocality: "Belo Horizonte",
+    addressRegion: "MG",
+    addressCountry: "BR",
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Belo Horizonte",
+  },
+  sameAs: [
+    "https://instagram.com/primormoveisbh",
+    "https://facebook.com/primormoveis",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -55,6 +84,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${montserrat.variable} ${lato.variable}`}>
       <body suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <StyledComponentsRegistry>
           <Providers>
             <Header />

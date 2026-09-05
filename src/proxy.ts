@@ -7,7 +7,7 @@ interface SessionData {
   isAdmin: boolean;
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const session = await getIronSession<SessionData>(await cookies(), {
     password: process.env.SESSION_SECRET as string,
     cookieName: "primor-admin-session",
