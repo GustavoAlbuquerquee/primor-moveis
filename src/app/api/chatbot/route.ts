@@ -39,7 +39,7 @@ const BASE_CONHECIMENTO = `
     Resposta: Estamos na Rua Teodomira Diniz Lara, 48 - Sagrada Familia, Belo Horizonte - MG.
 
   - Pergunta: Qual o WhatsApp ou telefone de voces?
-    Resposta: Nosso WhatsApp e (31) 99988-4688. Voce tambem pode falar com a gente por aqui!
+    Resposta: Nosso WhatsApp e (31) 99711-5473. Voce tambem pode falar com a gente por aqui!
 
   - Pergunta: Qual o e-mail de voces?
     Resposta: Nosso e-mail e faleconosco@primormoveis.com.br.
@@ -51,7 +51,7 @@ const BASE_CONHECIMENTO = `
     Resposta: Nosso site e www.primormoveis.com.br - la voce encontra nosso portfolio completo!
 
   - Pergunta: Como entro em contato com a Primor?
-    Resposta: Voce pode falar pelo WhatsApp (31) 99988-4688, pelo e-mail faleconosco@primormoveis.com.br ou pelo formulario no site www.primormoveis.com.br.
+    Resposta: Voce pode falar pelo WhatsApp (31) 99711-5473, pelo e-mail faleconosco@primormoveis.com.br ou pelo formulario no site www.primormoveis.com.br.
 
   # Sobre a Empresa
   - Pergunta: Voces sao de BH? Onde fica a empresa?
@@ -176,10 +176,10 @@ const BASE_CONHECIMENTO = `
     Resposta: E simples! 1) Voce solicita o orcamento, 2) agendamos uma visita tecnica gratuita, 3) elaboramos o projeto 3D para aprovacao, 4) voce aprova e paga a entrada, 5) produzimos em 30 a 60 dias e 6) entregamos e instalamos no local.
 
   - Pergunta: Como faco para pedir um orcamento?
-    Resposta: Voce pode solicitar pelo WhatsApp (31) 99988-4688, pelo site www.primormoveis.com.br ou aqui mesmo! Envie medidas, fotos e o que deseja fazer.
+    Resposta: Voce pode solicitar pelo WhatsApp (31) 99711-5473, pelo site www.primormoveis.com.br ou aqui mesmo! Envie medidas, fotos e o que deseja fazer.
 
   - Pergunta: Voces realizam orcamento pelo WhatsApp?
-    Resposta: Sim! Pode nos mandar mensagem no (31) 99988-4688, enviar medidas, fotos e tirar todas as suas duvidas.
+    Resposta: Sim! Pode nos mandar mensagem no (31) 99711-5473, enviar medidas, fotos e tirar todas as suas duvidas.
 
   - Pergunta: Posso mandar uma planta ou projeto?
     Resposta: Pode sim! Envie a planta, medidas ou fotos do ambiente que te orientamos melhor.
